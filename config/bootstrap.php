@@ -201,3 +201,11 @@ DispatcherFactory::add('ControllerFactory');
  */
 Type::build('date')->useLocaleParser();
 Type::build('datetime')->useLocaleParser();
+
+
+
+/**
+  *NOTE Add Paper Plugin
+*/
+
+Plugin::load('Paper', ['routes' => true, 'bootstrap' => false]);

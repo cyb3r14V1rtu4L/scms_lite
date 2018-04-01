@@ -13,6 +13,9 @@ use App\Controller\AppController;
 class UsersController extends AppController
 {
 
+    public function isAuthorized ($user) {
+      return true;
+    }
   /**
    * Login method
    *
@@ -27,17 +30,29 @@ class UsersController extends AppController
        if ($user) {
          $this->Auth->setUser($user);
 
-          if ($this->Auth->user('role_id') == 'e687cb91-4cdf-4ab2-992f-e76584199c2e') {
-           return $this->redirect(['controller'=>'Pages','action'=>'home']);
-          }else {
-           return $this->redirect($this->Auth->redirectUrl());
-          }
-          
+         if ($this->Auth->user('is_superuser')) {
+            return $this->redirect(['controller'=>'Pages','action'=>'reports/monitor']);
+         } else {
+           if ($this->Auth->user('role_id') == 'e687cb91-4cdf-4ab2-992f-e76584199c2e') {
+
+             return $this->redirect(['controller'=>'Pages','action'=>'home']);
+
+           } else if ($this->Auth->User('role_id') == '80687266-6761-43a2-bd98-f42349a9bb63') {
+
+               $this->redirect(['controller' => 'Pages', 'action' => 'reports/CapturaReporte']);
+
+           } else {
+             return $this->redirect($this->Auth->redirectUrl());
+           }
+         }
+
        } else {
          $this->Flash->error('Wrong',['key'=>'auth']);
        }
 
      }
+     $this->viewBuilder()->setLayout('core/login_core');
+     // $this->viewBuilder()->setLayout('core/login');
 
    } // NOTE  end Login method
 
@@ -143,7 +158,5 @@ class UsersController extends AppController
     }
 
 
-    public function isAuthorized ($user) {
-      return true;
-    }
+
 }

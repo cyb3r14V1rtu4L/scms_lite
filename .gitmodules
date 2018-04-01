@@ -1,0 +1,4 @@
+[submodule "plugins/Paper"]
+	path = plugins/Paper
+	url = https://github.com/ambagasdowa/Paper.git
+	branch = master
