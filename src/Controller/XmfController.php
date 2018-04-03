@@ -40,12 +40,16 @@ class XmfController extends AppController
         $isPost = $this->request->is('post');
         if($isPost == true)
         {
-            $data=array();
-            $field = ($type == 'presencia') ? 'hora_presencia' : 'hora_inicio'; 
-            $this->XmfCasillas->updateAll(
-                ["$field" => date("Y-m-d H:i:s")], 
-                ['id' => $user_data[0]['id']]
-            );
+            if((empty($user_data[0]['hora_presencia']) ) || (empty($user_data[0]['hora_inicio'])))
+            {
+                $data=array();
+                $field = ($type == 'presencia') ? 'hora_presencia' : 'hora_inicio'; 
+                $this->XmfCasillas->updateAll(
+                    ["$field" => date("Y-m-d H:i:s")], 
+                    ['id' => $user_data[0]['id']]
+                );
+            }
+            return $this->redirect(['action' => 'index']);
         }
     }
     

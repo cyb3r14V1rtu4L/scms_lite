@@ -77,31 +77,35 @@
 
     <script>
     function showNotificationP(from, align){
-        $.notify({
-            icon: "ti-package",
-            message: "<?=$message_p;?>"
+        $(document).ready(function(){
+            $.notify({
+                icon: "ti-package",
+                message: "<?=$message_p;?>"
 
-        },{
-            type: 'warning',
-            timer: 4000,
-            placement: {
-                from: from,
-                align: align
-            }
+            },{
+                type: 'warning',
+                timer: 4000,
+                placement: {
+                    from: from,
+                    align: align
+                }
+            });
         });
     }
     function showNotificationI(from, align){
-        $.notify({
-            icon: "ti-package",
-            message: "<?=$message_i;?>"
+        $(document).ready(function(){
+            $.notify({
+                icon: "ti-package",
+                message: "<?=$message_i;?>"
 
-        },{
-            type: 'warning',
-            timer: 4000,
-            placement: {
-                from: from,
-                align: align
-            }
+            },{
+                type: 'warning',
+                timer: 4000,
+                placement: {
+                    from: from,
+                    align: align
+                }
+            });
         });
     }
     </script>
