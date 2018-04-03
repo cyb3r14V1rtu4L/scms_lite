@@ -37,9 +37,9 @@ class UsersController extends AppController
 
              return $this->redirect(['controller'=>'Pages','action'=>'home']);
 
-           } else if ($this->Auth->User('role_id') == '80687266-6761-43a2-bd98-f42349a9bb63') {
+           } else if ($this->Auth->User('role_id') == '80687266-6761-43a2-bd98-f42349a9bb63'){
 
-               // $this->redirect(['controller' => 'Pages', 'action' => 'reports/CapturaReporte']);
+               //$this->redirect(['controller' => 'Pages', 'action' => 'reports/CapturaReporte']);
                $this->redirect(['controller' => 'Xmf', 'action' => 'index']);
 
            } else {

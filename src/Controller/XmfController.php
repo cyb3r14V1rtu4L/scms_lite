@@ -20,36 +20,36 @@ class XmfController extends AppController
      *
      * @return \Cake\Http\Response|void
      */
-    public function index()
+    public function index($type=null)
     {
-
-      // In a controller or table method.
-// $query = $articles->find('all', [
-//     'conditions' => ['Articles.created >' => new DateTime('-10 days')],
-//     'contain' => ['Authors', 'Comments'],
-//     'limit' => 10
-// ]);
-
-        // $xmfCasillas = $this->paginate($this->XmfCasillas);
         $xmfCasillas = null;
         $this->LoadModel('XmfViewIncidencias');
+        $this->LoadModel('XmfCasillas');
+        $this->LoadModel('Users');
+        $user_data = $this->XmfCasillas->find('all',['conditions'=>['user_id' => $this->Auth->user('id')]]);
+        $user_data =$user_data->toArray();
+        #pr($user_data);
+        $this->set('userCasillas',$user_data);
+        
+        $message_p = (empty($user_data[0]['hora_presencia'])) ? 'Presencia Asignada' : 'Presencia Asignada Previamente';
+        $this->set('message_p',$message_p);
 
-        $xmfViewIncidencias = $this->XmfViewIncidencias->find('all',[
-          'conditions' => [
-                            'XmfViewIncidencias.id is not ' => null,
-                            'XmfViewIncidencias.casillas_index' => '1'
-                          ]
-        ]);
-
-        $data = $xmfViewIncidencias->toArray();
-
-        // $data = $xmfViewIncidencias->all();
-
-        debug(count($data));
-        debug($data);
-
-        $this->set(compact('xmfCasillas'));
+        $message_i = (empty($user_data[0]['hora_inicio'])) ? 'Hora de Inicio de Votación Asignada' : 'Hora de Inicio de Votación Asignada Previamente';
+        $this->set('message_i',$message_i);
+        
+        $isPost = $this->request->is('post');
+        if($isPost == true)
+        {
+            $data=array();
+            $field = ($type == 'presencia') ? 'hora_presencia' : 'hora_inicio'; 
+            $this->XmfCasillas->updateAll(
+                ["$field" => date("Y-m-d H:i:s")], 
+                ['id' => $user_data[0]['id']]
+            );
+        }
     }
+    
+
 
     /**
      * View method
@@ -58,6 +58,15 @@ class XmfController extends AppController
      * @return \Cake\Http\Response|void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
+
+     public function setPresencia(){
+        $this->viewBuilder()->setLayout('ajax');
+        // result can be anything coming from $this->data
+        $result =  'Hello Dolly!';
+        $this->set("result", $result);exit;
+
+     }
+
     public function view($id = null)
     {
         $xmfCasilla = $this->XmfCasillas->get($id, [
@@ -75,7 +84,7 @@ class XmfController extends AppController
     public function add()
     {
         $xmfCasilla = $this->XmfCasillas->newEntity();
-        if ($this->request->is('post')) {
+        if ($this->request->is('post')){
             $xmfCasilla = $this->XmfCasillas->patchEntity($xmfCasilla, $this->request->getData());
             if ($this->XmfCasillas->save($xmfCasilla)) {
                 $this->Flash->success(__('The xmf casilla has been saved.'));
