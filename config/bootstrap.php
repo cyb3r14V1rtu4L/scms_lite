@@ -209,3 +209,4 @@ Type::build('datetime')->useLocaleParser();
 */
 
 Plugin::load('Paper', ['routes' => true, 'bootstrap' => false]);
+Plugin::load('Ajax',  ['bootstrap' => true]);
