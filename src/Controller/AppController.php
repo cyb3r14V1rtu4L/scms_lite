@@ -86,4 +86,7 @@ class AppController extends Controller
             $this->set('_serialize', true);
         }
     }
+
+
+   
 }
