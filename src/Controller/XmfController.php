@@ -16,19 +16,19 @@ class XmfController extends AppController
     public function isAuthorized ($user) {
       return true;
     }
-    
+
     public function initialize()
     {
         parent::initialize();
     }
-    
-    
+
+
     /**
      * Index method
      *
      * @return \Cake\Http\Response|void
      */
-  
+
     public function index($type=null)
     {
         $xmfCasillas = null;
@@ -39,29 +39,29 @@ class XmfController extends AppController
         $user_data =$user_data->toArray();
         $_SESSION['Casilla'] = $user_data[0];
         $this->set('userCasillas',$user_data);
-        
+
         $message_p = (empty($user_data[0]['hora_presencia'])) ? 'Presencia Asignada' : 'Presencia Asignada Previamente';
         $this->set('message_p',$message_p);
 
         $message_i = (empty($user_data[0]['hora_inicio'])) ? 'Hora de Inicio de Votación Asignada' : 'Hora de Inicio de Votación Asignada Previamente';
         $this->set('message_i',$message_i);
-        
+
         $isPost = $this->request->is('post');
         if($isPost == true)
         {
             if((empty($user_data[0]['hora_presencia']) ) || (empty($user_data[0]['hora_inicio'])))
             {
                 $data=array();
-                $field = ($type == 'presencia') ? 'hora_presencia' : 'hora_inicio'; 
+                $field = ($type == 'presencia') ? 'hora_presencia' : 'hora_inicio';
                 $this->XmfCasillas->updateAll(
-                    ["$field" => date("H:i:s")], 
+                    ["$field" => date("H:i:s")],
                     ['id' => $user_data[0]['id']]
                 );
             }
             return $this->redirect(['action' => 'index']);
         }
     }
-    
+
 
 
     /**
@@ -162,16 +162,16 @@ class XmfController extends AppController
         if($this->request->is('ajax')) {
 
             $casilla_id = $_POST['casilla_id'];
-            
+
             #DATOS PRIMER REPORTE DE CASILLA
-            
+
             $this->XmfCasillas->updateAll(
                 [
                  "hora_instalacion" => $_POST['hora_instalacion'].':00',
                  "hora_inicio" => $_POST['hora_inicio'].':00',
                  "lugar_indicado" =>  ($_POST['lugar_indicado']==false)?0:1,
                  "gente_fila" => ($_POST['gente_fila']==false)?0:1,
-                ], 
+                ],
                 ['id' => $casilla_id]
             );
 
@@ -182,11 +182,11 @@ class XmfController extends AppController
                 $id_x = ($x<10) ? $x:$x+8;
                 $PresenceTable = TableRegistry::get('XmfPresencesReferences');
                 $Presence = $PresenceTable->newEntity();
-                
+
                 $Presence->xmf_casillas_id = $casilla_id;;
                 $Presence->xmf_partidos_id = $id_x;
                 $Presence->is_present = ($_POST['funcionario_'.$x]==="false")?0:1;
-                
+
                 if ($PresenceTable->save($Presence)) {
                     $id = $Presence->id;
                 }
@@ -198,12 +198,12 @@ class XmfController extends AppController
     {
         $ReportsSegundoTerceroTable = TableRegistry::get('XmfReportsSegundoTercero');
         $ReportsSegundoTercero = $ReportsSegundoTerceroTable->newEntity();
-        
+
         $ReportsSegundoTercero->casilla_id = $_POST['casilla_id'];
         $ReportsSegundoTercero->votantes_segundo = $_POST['votantes_segundo'];
         $ReportsSegundoTercero->promovidos_segundo = $_POST['promovidos_segundo'];
-        
-        if ($ReportsSegundoTerceroTable->save($ReportsSegundoTercero)) 
+
+        if ($ReportsSegundoTerceroTable->save($ReportsSegundoTercero))
         {
             $id = $ReportsSegundoTercero->id;
         }
@@ -213,12 +213,12 @@ class XmfController extends AppController
     {
         $ReportsSegundoTerceroTable = TableRegistry::get('XmfReportsSegundoTercero');
         $ReportsSegundoTercero = $ReportsSegundoTerceroTable->newEntity();
-        
+
         $ReportsSegundoTercero->xmf_casillas_id = $_POST['casilla_id'];
         $ReportsSegundoTercero->votantes_tercero = $_POST['votantes_tercero'];
         $ReportsSegundoTercero->promovidos_tercero = $_POST['promovidos_tercero'];
-        
-        if ($ReportsSegundoTerceroTable->save($ReportsSegundoTercero)) 
+
+        if ($ReportsSegundoTerceroTable->save($ReportsSegundoTercero))
         {
             $id = $ReportsSegundoTercero->id;
         }
@@ -230,13 +230,28 @@ class XmfController extends AppController
         $ReportsCierre = $ReportsCierreTable->newEntity();
         $ReportsCierre->xmf_casillas_id = $_POST['casilla_id'];
         $ReportsCierre->hr_cierre = $_POST['hr_cierre'];
-        $ReportsCierre->habia_gente_fila =  ($_POST['habia_gente_fila']==="false")?0:1;;
+        $ReportsCierre->habia_gente_fila =  ($_POST['habia_gente_fila']==="false")?0:1;
         $ReportsCierre->votantes = $_POST['votantes'];
         $ReportsCierre->promovidos = $_POST['promovidos'];
-        
-        if ($ReportsCierreTable->save($ReportsCierre)) 
+
+        if ($ReportsCierreTable->save($ReportsCierre))
         {
             $id = $ReportsCierre->id;
+        }
+    }
+
+    public function addIncidenceReport()
+    {
+        $PartidosIncidenciasTable = TableRegistry::get('XmfPartidosIncidencias');
+        $PartidosIncidencias = $PartidosIncidenciasTable->newEntity();
+        $PartidosIncidencias->xmf_casillas_id = $_POST['xmf_casillas_id'];
+        $PartidosIncidencias->xmf_partidos_id = $_POST['xmf_partidos_id'];
+        $PartidosIncidencias->xmf_incidencias_id =  $_POST['xmf_incidencias_id'];
+        $PartidosIncidencias->otra = $_POST['otra'];
+
+        if ($PartidosIncidenciasTable->save($PartidosIncidencias))
+        {
+            $id = $PartidosIncidencias->id;
         }
     }
 }

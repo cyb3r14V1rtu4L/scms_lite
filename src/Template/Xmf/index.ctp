@@ -34,7 +34,7 @@
                         ?>
                             <button id="btn_presencia" type="<?=$type_btn;?>" class="btn btn-info" onclick="showNotificationP('top','right')">PRESENCIA</button>
                             <br/>
-                            <h5><small>06:45 HRS.</small></h5>
+                            <h5><small>07:00 HRS.</small></h5>
                         </div>
                         <?= $this->Form->end(); ?>
                         <?= $this->Form->create(null, array('type' => 'post', 'url' => ['controller' => 'Xmf', 'action' => 'index/ini_votacion'], 'id' => 'submit-form')); ?>
@@ -44,7 +44,7 @@
                             ?>
                             <button type="<?=$type_btn;?>" class="btn btn-warning" onclick="showNotificationI('top','right')">INICIO VOTACIÓN</button>
                             <br/>
-                            <h5><small>07:45 HRS.</small></h5>
+                            <h5><small>08:00 HRS.</small></h5>
                         </div>
                         <?= $this->Form->end(); ?>
 
@@ -53,7 +53,7 @@
                 </div>
             </div>
             <hr>
-            
+
             <div class="text-center">
                 <div class="row">
                     <h5><?=$userCasillas[0]['name'];?></h5>
