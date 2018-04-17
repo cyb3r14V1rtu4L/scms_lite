@@ -27,27 +27,52 @@
                                 <iframe src="https://www.zeitverschiebung.net/clock-widget-iframe-v2?language=es&size=medium&timezone=America%2FCancun" width="100%" height="115" frameborder="0" seamless></iframe>
                             </div>
                         </div>
-                        <?= $this->Form->create(null, array('type' => 'post', 'url' => ['controller' => 'Xmf', 'action' => 'index/presencia'], 'id' => 'submit-form')); ?>
-                        <div class="col-md-6 ">
-                        <?php
-                        $type_btn = (!empty($userCasillas[0]['hora_presencia'])) ? 'button' : 'post' ;
-                        ?>
-                            <button id="btn_presencia" type="<?=$type_btn;?>" class="btn btn-info" onclick="showNotificationP('top','right')">PRESENCIA</button>
-                            <br/>
-                            <h5><small>07:00 HRS.</small></h5>
+                        <hr/>
+                        <div class="row">
+                          <?= $this->Form->create(null, array('type' => 'post', 'url' => ['controller' => 'Xmf', 'action' => 'index/presencia'], 'id' => 'submit-form')); ?>
+                          <div class="col-md-4 col-lg-4 col-sm-12">
+                          <?php
+                          $type_btn = (!empty($userCasillas[0]['hora_presencia'])) ? 'button' : 'post' ;
+                          ?>
+                              <button id="btn_presencia" type="<?=$type_btn;?>" class="btn btn-info" onclick="showNotificationP('top','right')">PRESENCIA</button>
+                              <br/>
+                              <h5><small>07:00 HRS.</small></h5>
+                          </div>
+                          <?= $this->Form->end(); ?>
+                          <?= $this->Form->create(null, array('type' => 'post', 'url' => ['controller' => 'Xmf', 'action' => 'index/presencia'], 'id' => 'submit-form')); ?>
+                          <div class="col-md-4 col-lg-4 col-sm-12">
+                          <?php
+                          $type_btn = (!empty($userCasillas[0]['hora_presencia'])) ? 'button' : 'post' ;
+                          ?>
+                              <button id="btn_presencia" type="<?=$type_btn;?>" class="btn btn-info" onclick="showNotificationP('top','right')">INSTALACIÓN</button>
+                              <br/>
+                          </div>
+                          <?= $this->Form->end(); ?>
+                          <?= $this->Form->create(null, array('type' => 'post', 'url' => ['controller' => 'Xmf', 'action' => 'index/ini_votacion'], 'id' => 'submit-form')); ?>
+                          <div class="col-md-4 col-lg-4 col-sm-12">
+                              <?php
+                              $type_btn = (!empty($userCasillas[0]['hora_inicio'])) ? 'button' : 'post' ;
+                              ?>
+                              <button type="<?=$type_btn;?>" class="btn btn-info" onclick="showNotificationI('top','right')">INICIO VOTACIÓN</button>
+                              <br/>
+                              <h5><small>08:00 HRS.</small></h5>
+                          </div>
+                          <?= $this->Form->end(); ?>
                         </div>
-                        <?= $this->Form->end(); ?>
-                        <?= $this->Form->create(null, array('type' => 'post', 'url' => ['controller' => 'Xmf', 'action' => 'index/ini_votacion'], 'id' => 'submit-form')); ?>
-                        <div class="col-md-6">
-                            <?php
-                            $type_btn = (!empty($userCasillas[0]['hora_inicio'])) ? 'button' : 'post' ;
-                            ?>
-                            <button type="<?=$type_btn;?>" class="btn btn-warning" onclick="showNotificationI('top','right')">INICIO VOTACIÓN</button>
-                            <br/>
-                            <h5><small>08:00 HRS.</small></h5>
-                        </div>
-                        <?= $this->Form->end(); ?>
+                        <hr/>
+                        <div class="row">
 
+
+                          <?= $this->Form->create(null, array('type' => 'post', 'url' => ['controller' => 'Xmf', 'action' => 'index/presencia'], 'id' => 'submit-form')); ?>
+                          <div class="col-md-12 col-lg-12 col-sm-12">
+                          <?php
+                          $type_btn = (!empty($userCasillas[0]['hora_presencia'])) ? 'button' : 'post' ;
+                          ?>
+                              <button id="btn_presencia" type="<?=$type_btn;?>" class="btn btn-warning" onclick="showNotificationP('top','right')">CAPTURA REPORTES</button>
+                              <br/>
+                          </div>
+                          <?= $this->Form->end(); ?>
+                        </div>
                     </div>
 
                 </div>

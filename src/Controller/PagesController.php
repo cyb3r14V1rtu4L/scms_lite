@@ -55,11 +55,6 @@ class PagesController extends AppController
         if (!empty($path[1])) {
             $subpage = $path[1];
         }
-
-        $this->LoadModel('XmfIncidencias');
-        $Incidencias = $this->XmfIncidencias->find('list', ['keyField' => 'id','valueField' => 'titulo']);
-        $this->set('Incidencias',$Incidencias);
-
         $this->set(compact('page', 'subpage'));
 
         try {
