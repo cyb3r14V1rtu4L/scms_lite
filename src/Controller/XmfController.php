@@ -194,35 +194,7 @@ class XmfController extends AppController
         }
     }
 
-    public function addLastReport()
-    {
-        $this->LoadModel('XmfVotos');
 
-        if($this->request->is('ajax')) {
-
-            $casilla_id = $_POST['casilla_id'];
-
-
-            #DATOS PRIMER REPORTE FINAL
-            #xmf_partidos_val_25
-            #xmf_partido_id_25
-
-            $id_x = 1;
-            for($x=1;$x<=25;$x++)
-            {
-                $VotosTable = TableRegistry::get('XmfVotos');
-                $Votos = $VotosTable->newEntity();
-
-                $Votos->xmf_casillas_id = $casilla_id;;
-                $Votos->xmf_partidos_id = $id_x;
-                $Votos->is_present = ($_POST['funcionario_'.$x]==="false")?0:1;
-
-                if ($PresenceTable->save($Presence)) {
-                    $id = $Presence->id;
-                }
-            }
-        }
-    }
 
     public function addSecondReport()
     {
@@ -267,6 +239,34 @@ class XmfController extends AppController
         if ($ReportsCierreTable->save($ReportsCierre))
         {
             $id = $ReportsCierre->id;
+        }
+    }
+
+    public function addLastReport()
+    {
+        $this->LoadModel('XmfVotes');
+
+        if($this->request->is('ajax')) {
+
+            $casilla_id = $_POST['casilla_id'];
+
+
+            #DATOS PRIMER REPORTE FINAL
+            $id_x = 1;
+            for($x=1;$x<=25;$x++)
+            {
+                $VotosTable = TableRegistry::get('XmfVotes');
+                $Votos = $VotosTable->newEntity();
+
+                $Votos->xmf_casillas_id = $casilla_id;
+                $Votos->xmf_tipo_votaciones_id = $_POST['xmf_tipo_votaciones_id'];
+                $Votos->xmf_partidos_id = $_POST['xmf_partido_id_'.$x];
+                $Votos->votes = $_POST['xmf_partido_'.$x];
+
+                if ($VotosTable->save($Votos)) {
+                    $id = $Votos->id;
+                }
+            }
         }
     }
 }
