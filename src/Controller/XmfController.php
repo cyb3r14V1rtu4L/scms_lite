@@ -46,13 +46,16 @@ class XmfController extends AppController
         $message_i = (empty($user_data[0]['hora_inicio'])) ? 'Hora de Inicio de Votación Asignada' : 'Hora de Inicio de Votación Asignada Previamente';
         $this->set('message_i',$message_i);
 
+        $message_c = (empty($user_data[0]['hora_instalacion'])) ? 'Hora de Instlación de Casillla Asignada' : 'Hora de Instalación de Casilla Asignada Previamente';
+        $this->set('message_c',$message_c);
+
         $isPost = $this->request->is('post');
         if($isPost == true)
         {
-            if((empty($user_data[0]['hora_presencia']) ) || (empty($user_data[0]['hora_inicio'])))
+            if( (empty($user_data[0]['hora_presencia'])) || (empty($user_data[0]['hora_inicio'])) || (empty($user_data[0]['hora_instalacion'])) )
             {
                 $data=array();
-                $field = ($type == 'presencia') ? 'hora_presencia' : 'hora_inicio';
+                $field = 'hora_'.$type;
                 $this->XmfCasillas->updateAll(
                     ["$field" => date("H:i:s")],
                     ['id' => $user_data[0]['id']]
@@ -164,11 +167,8 @@ class XmfController extends AppController
             $casilla_id = $_POST['casilla_id'];
 
             #DATOS PRIMER REPORTE DE CASILLA
-
             $this->XmfCasillas->updateAll(
                 [
-                 "hora_instalacion" => $_POST['hora_instalacion'].':00',
-                 "hora_inicio" => $_POST['hora_inicio'].':00',
                  "lugar_indicado" =>  ($_POST['lugar_indicado']==false)?0:1,
                  "gente_fila" => ($_POST['gente_fila']==false)?0:1,
                 ],
