@@ -204,16 +204,18 @@ class XmfController extends AppController
 
 
             #DATOS PRIMER REPORTE FINAL
-            $id_x = 1;
-            for($x=1;$x<=18;$x++)
-            {
-                $id_x = ($x<10) ? $x:$x+8;
-                $PresenceTable = TableRegistry::get('XmfPresencesReferences');
-                $Presence = $PresenceTable->newEntity();
+            #xmf_partidos_val_25
+            #xmf_partido_id_25
 
-                $Presence->xmf_casillas_id = $casilla_id;;
-                $Presence->xmf_partidos_id = $id_x;
-                $Presence->is_present = ($_POST['funcionario_'.$x]==="false")?0:1;
+            $id_x = 1;
+            for($x=1;$x<=25;$x++)
+            {
+                $VotosTable = TableRegistry::get('XmfVotos');
+                $Votos = $VotosTable->newEntity();
+
+                $Votos->xmf_casillas_id = $casilla_id;;
+                $Votos->xmf_partidos_id = $id_x;
+                $Votos->is_present = ($_POST['funcionario_'.$x]==="false")?0:1;
 
                 if ($PresenceTable->save($Presence)) {
                     $id = $Presence->id;
