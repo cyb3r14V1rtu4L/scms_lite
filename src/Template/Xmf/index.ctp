@@ -68,7 +68,7 @@
                           <?php
                           $type_btn = (!empty($userCasillas[0]['hora_presencia'])) ? 'button' : 'post' ;
                           ?>
-                              <button id="btn_presencia" type="<?=$type_btn;?>" class="btn btn-warning" onclick="showNotificationP('top','right')">CAPTURA REPORTES</button>
+                              <button id="btn_presencia" type="<?=$type_btn;?>" class="btn btn-warning" onclick="window.location='<?php echo $this->Url->build('/pages/reports/CapturaReporte'); ?>'">CAPTURA REPORTES</button>
                               <br/>
                           </div>
                           <?= $this->Form->end(); ?>
