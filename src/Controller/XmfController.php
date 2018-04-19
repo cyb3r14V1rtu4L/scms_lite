@@ -201,7 +201,7 @@ class XmfController extends AppController
         $ReportsSegundoTerceroTable = TableRegistry::get('XmfReportsSegundoTercero');
         $ReportsSegundoTercero = $ReportsSegundoTerceroTable->newEntity();
 
-        $ReportsSegundoTercero->casilla_id = $_POST['casilla_id'];
+        $ReportsSegundoTercero->xmf_casillas_id = $_POST['casilla_id'];
         $ReportsSegundoTercero->votantes_segundo = $_POST['votantes_segundo'];
         $ReportsSegundoTercero->promovidos_segundo = $_POST['promovidos_segundo'];
 
