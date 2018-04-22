@@ -23,7 +23,7 @@ class XmfCasillasController extends AppController
     public function index()
     {
         $xmfCasillas = $this->paginate($this->XmfCasillas);
-
+        $this->getCounterHead();
         $this->set(compact('xmfCasillas'));
     }
 
@@ -110,7 +110,7 @@ class XmfCasillasController extends AppController
 
     public function monitorCasillas()
     {
-
+      $this->getCounterHead();
 
         /*$this->LoadModel('XmfViewReporteSegundosTerceros');
 
@@ -136,7 +136,8 @@ class XmfCasillasController extends AppController
     }
 
     public function monitorCasillasAbiertas()
-   {
+    {
+     $this->getCounterHead();
      $this->LoadModel('XmfCasillas');
      $this->LoadModel('XmfViewReporteSegundosTerceros');
      $this->LoadModel('XmfReportsCierre');
@@ -241,5 +242,11 @@ class XmfCasillasController extends AppController
             break;
         }
         $this->set(compact('active_1','active_2','active_3','active_4','active_5'));
+  }
+
+
+  public function enviarIncidencia()
+  {
+
   }
 }

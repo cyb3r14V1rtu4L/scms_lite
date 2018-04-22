@@ -7,6 +7,7 @@
                     <hr/>
                 </div>
                 <div class="col-md-6 col-lg-6">
+                    <h1 class="title"><small>ULISES MEJIA</small></h1>
                     <h5 class="title"><small>REPRESENTANTE GENERAL</small></h5>
                     <p><a href="tel:9999999999">(999)-999 9999</a></p>
                 </div>

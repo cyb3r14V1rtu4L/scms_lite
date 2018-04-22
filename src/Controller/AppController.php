@@ -68,40 +68,44 @@ class AppController extends Controller
               ]
           ]);
 
-          #COUNTER HEAD
-          $this->LoadModel('XmfCasillas');
-          $casillas_presentes = $this->XmfCasillas->find('all', array('conditions' => array('XmfCasillas.hora_presencia  IS NOT NULL','XmfCasillas.status'=>'P')));
-          $casillas_presentes->hydrate(false);
-          $casillas_presentes =$casillas_presentes->toArray();
-          $count_presentes = count($casillas_presentes);
 
-          $casillas_ausentes = $this->XmfCasillas->find('all', array('conditions' => array('XmfCasillas.hora_presencia IS NULL','XmfCasillas.status IS NULL')));
-          $casillas_ausentes->hydrate(false);
-          $casillas_ausentes =$casillas_ausentes->toArray();
-          $count_ausentes = count($casillas_ausentes);
+    }
+
+    public function getCounterHead(){
+      #COUNTER HEAD
+      $this->LoadModel('XmfCasillas');
+      $casillas_presentes = $this->XmfCasillas->find('all', array('conditions' => array('XmfCasillas.hora_presencia  IS NOT NULL','XmfCasillas.status'=>'P')));
+      $casillas_presentes->hydrate(false);
+      $casillas_presentes =$casillas_presentes->toArray();
+      $count_presentes = count($casillas_presentes);
+
+      $casillas_ausentes = $this->XmfCasillas->find('all', array('conditions' => array('XmfCasillas.hora_presencia IS NULL','XmfCasillas.status IS NULL')));
+      $casillas_ausentes->hydrate(false);
+      $casillas_ausentes =$casillas_ausentes->toArray();
+      $count_ausentes = count($casillas_ausentes);
 
 
-          $casillas_instalando = $this->XmfCasillas->find('all', array('conditions' => array('XmfCasillas.hora_instalacion  IS NOT NULL','XmfCasillas.status'=>'I')));
-          $casillas_instalando->hydrate(false);
-          $casillas_instalando =$casillas_instalando->toArray();
-          $count_instalando = count($casillas_instalando);
+      $casillas_instalando = $this->XmfCasillas->find('all', array('conditions' => array('XmfCasillas.hora_instalacion  IS NOT NULL','XmfCasillas.status'=>'I')));
+      $casillas_instalando->hydrate(false);
+      $casillas_instalando =$casillas_instalando->toArray();
+      $count_instalando = count($casillas_instalando);
 
-          $casillas_abiertas = $this->XmfCasillas->find('all', array('conditions' => array('XmfCasillas.hora_inicio IS NOT NULL','XmfCasillas.status'=>'V')));
-          $casillas_abiertas->hydrate(false);
-          $casillas_abiertas =$casillas_abiertas->toArray();
-          $count_abiertas = count($casillas_abiertas);
+      $casillas_abiertas = $this->XmfCasillas->find('all', array('conditions' => array('XmfCasillas.hora_inicio IS NOT NULL','XmfCasillas.status'=>'V')));
+      $casillas_abiertas->hydrate(false);
+      $casillas_abiertas =$casillas_abiertas->toArray();
+      $count_abiertas = count($casillas_abiertas);
 
-          $casillas_cerradas = $this->XmfCasillas->find('all', array('conditions' => array('XmfCasillas.hora_cierre IS NOT NULL','XmfCasillas.status'=>'X')));
-          $casillas_cerradas->hydrate(false);
-          $casillas_cerradas =$casillas_cerradas->toArray();
-          $count_cerradas = count($casillas_cerradas);
+      $casillas_cerradas = $this->XmfCasillas->find('all', array('conditions' => array('XmfCasillas.hora_cierre IS NOT NULL','XmfCasillas.status'=>'X')));
+      $casillas_cerradas->hydrate(false);
+      $casillas_cerradas =$casillas_cerradas->toArray();
+      $count_cerradas = count($casillas_cerradas);
 
-          $this->LoadModel('XmfCasillasIncidencias');
-          $casillas_incidencias = $this->XmfCasillasIncidencias->find('all');
-          $casillas_incidencias->select(['count' => $casillas_incidencias->func()->count('*')]);
-          $casillas_incidencias = $casillas_incidencias->toArray();
-          $casillas_incidencias = $casillas_incidencias[0]->count;
-          $this->set(compact('casillas_presentes','casillas_ausentes','casillas_abiertas','casillas_cerradas','count_presentes','count_ausentes','count_instalando','count_abiertas','count_cerradas','casillas_incidencias'));
+      $this->LoadModel('XmfCasillasIncidencias');
+      $casillas_incidencias = $this->XmfCasillasIncidencias->find('all');
+      $casillas_incidencias->select(['count' => $casillas_incidencias->func()->count('*')]);
+      $casillas_incidencias = $casillas_incidencias->toArray();
+      $casillas_incidencias = $casillas_incidencias[0]->count;
+      $this->set(compact('casillas_presentes','casillas_ausentes','casillas_abiertas','casillas_cerradas','count_presentes','count_ausentes','count_instalando','count_abiertas','count_cerradas','casillas_incidencias'));
 
     }
 
