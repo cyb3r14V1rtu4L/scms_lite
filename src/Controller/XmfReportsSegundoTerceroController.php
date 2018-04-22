@@ -24,6 +24,7 @@ class XmfReportsSegundoTerceroController extends AppController
      */
     public function index()
     {
+        $this->getCounterHead();
         $xmfReportsSegundoTercero = $this->paginate($this->XmfReportsSegundoTercero);
 
         $this->set(compact('xmfReportsSegundoTercero'));
@@ -32,6 +33,7 @@ class XmfReportsSegundoTerceroController extends AppController
 
     public function SegundoReporte() {
       // debug('XmfReportsSegundoTercero::SegundoReporte');
+      $this->getCounterHead();
       $this->LoadModel('XmfViewReporteSegundosTerceros');
       $graf_data = $this->XmfViewReporteSegundosTerceros->find('all',['conditions'=>['XmfViewReporteSegundosTerceros.is_eighteen' => 1 ]]);
       $graf_data->select([
@@ -68,6 +70,7 @@ class XmfReportsSegundoTerceroController extends AppController
     }
 
     public function TercerReporte() {
+      $this->getCounterHead();
       $this->LoadModel('XmfViewReporteSegundosTerceros');
 
       $graf_data = $this->XmfViewReporteSegundosTerceros->find('all',['conditions'=>['XmfViewReporteSegundosTerceros.is_eighteen' => 1 ]]);
@@ -104,6 +107,7 @@ class XmfReportsSegundoTerceroController extends AppController
 
 
     public function CuartoReporte() {
+      $this->getCounterHead();
       $this->LoadModel('XmfViewReporteSegundosTerceros');
 
       $graf_data = $this->XmfViewReporteSegundosTerceros->find('all');
