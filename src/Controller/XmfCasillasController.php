@@ -106,4 +106,140 @@ class XmfCasillasController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+
+    public function monitorCasillas()
+    {
+
+
+        /*$this->LoadModel('XmfViewReporteSegundosTerceros');
+
+        foreach($casillas_presentes as $k=>$cp)
+        {
+          $casilla_votos = $this->XmfViewReporteSegundosTerceros->find('all',['conditions'=>['XmfViewReporteSegundosTerceros.xmf_casillas_id' => $cp['id'] ]]);
+          $casilla_votos->select([
+            'name'                => 'name',
+            'votantes_segundo'    => $casilla_votos->func()->sum('votantes_segundo'),
+            'promovidos_segundo'  => $casilla_votos->func()->sum('promovidos_segundo'),
+            'votantes_tercero'    => $casilla_votos->func()->sum('votantes_tercero'),
+            'promovidos_tercero'  => $casilla_votos->func()->sum('promovidos_tercero'),
+          ])
+          ->group(['xmf_casillas_id','name']);
+
+          $casilla_votos->hydrate(false);
+          $casilla_votos =$casilla_votos->toArray();
+          $casillas_presentes[$k]['votos'] = $casilla_votos[0];
+        }*/
+
+        //$this->set(compact('casillas_presentes','casillas_ausentes','casillas_abiertas','casillas_cerradas','count_presentes','count_ausentes','count_instalando','count_abiertas','count_cerradas','casillas_incidencias'));
+
+    }
+
+    public function monitorCasillasAbiertas()
+   {
+     $this->LoadModel('XmfCasillas');
+     $this->LoadModel('XmfViewReporteSegundosTerceros');
+     $this->LoadModel('XmfReportsCierre');
+     $casillas_segundo_reporte = $this->XmfCasillas->find('all', array('conditions' => array('XmfCasillas.hora_inicio  IS NOT NULL','XmfCasillas.status'=>'V')));
+     $casillas_segundo_reporte->hydrate(false);
+     $casillas_segundo_reporte =$casillas_segundo_reporte->toArray();
+
+     $casillas_tercer_reporte = $this->XmfCasillas->find('all', array('conditions' => array('XmfCasillas.hora_inicio  IS NOT NULL','XmfCasillas.status'=>'V')));
+     $casillas_tercer_reporte->hydrate(false);
+     $casillas_tercer_reporte =$casillas_tercer_reporte->toArray();
+
+     $casillas_cuarto_reporte = $this->XmfReportsCierre->find('all');
+     $casillas_cuarto_reporte->hydrate(false);
+     $casillas_cuarto_reporte =$casillas_cuarto_reporte->toArray();
+
+     foreach($casillas_segundo_reporte as $k=>$cp)
+     {
+       $casilla_votos = $this->XmfViewReporteSegundosTerceros->find('all',['conditions'=>['XmfViewReporteSegundosTerceros.xmf_casillas_id' => $cp['id'] ]]);
+       $casilla_votos->select([
+         'name'                => 'name',
+         'votantes_segundo'    => $casilla_votos->func()->sum('votantes_segundo'),
+         'promovidos_segundo'  => $casilla_votos->func()->sum('promovidos_segundo'),
+       ])
+       ->group(['xmf_casillas_id','name']);
+
+       $casilla_votos->hydrate(false);
+       $casilla_votos =$casilla_votos->toArray();
+       $casillas_segundo_reporte[$k]['votos'] = ($casilla_votos) ? $casilla_votos[0]: 0;
+     }
+
+
+     foreach($casillas_tercer_reporte as $k=>$cp)
+     {
+       $casilla_votos = $this->XmfViewReporteSegundosTerceros->find('all',['conditions'=>['XmfViewReporteSegundosTerceros.xmf_casillas_id' => $cp['id'] ]]);
+       $casilla_votos->select([
+         'name'                => 'name',
+         'votantes_tercero'    => $casilla_votos->func()->sum('votantes_tercero'),
+         'promovidos_tercero'  => $casilla_votos->func()->sum('promovidos_tercero'),
+       ])
+       ->group(['xmf_casillas_id','name']);
+
+       $casilla_votos->hydrate(false);
+       $casilla_votos =$casilla_votos->toArray();
+       $casillas_tercer_reporte[$k]['votos'] = ($casilla_votos) ? $casilla_votos[0]: 0;
+     }
+
+     foreach($casillas_cuarto_reporte as $k=>$cp)
+     {
+       $casilla_datos = $this->XmfCasillas->find('all',['conditions'=>['XmfCasillas.id' => $cp['xmf_casillas_id'] ]]);
+       $casilla_datos->hydrate(false);
+       $casilla_datos =$casilla_datos->toArray();
+       $casillas_cuarto_reporte[$k]['CasillaDatos'] = $casilla_datos[0];
+     }
+
+     $this->set(compact('casillas_segundo_reporte','casillas_tercer_reporte','casillas_cuarto_reporte'));
+   }
+
+  public function capturaResultados($id=null,$tab)
+  {
+        switch ($tab) {
+          case '1':
+            $active_1='active';
+            $active_2='';
+            $active_3='';
+            $active_4='';
+            break;
+          case '2':
+            $active_1='';
+            $active_2='active';
+            $active_3='';
+            $active_4='';
+            $active_5='';
+            break;
+          case '3':
+            $active_1='';
+            $active_2='';
+            $active_3='active';
+            $active_4='';
+            $active_5='';
+            break;
+          case '4':
+            $active_1='';
+            $active_2='';
+            $active_3='';
+            $active_4='active';
+            $active_5='';
+            break;
+          case '5':
+            $active_1='';
+            $active_2='';
+            $active_3='';
+            $active_4='';
+            $active_5='active';
+            break;
+
+          default:
+              $active_1='active';
+              $active_2='';
+              $active_3='';
+              $active_4='';
+              $active_5='';
+            break;
+        }
+        $this->set(compact('active_1','active_2','active_3','active_4','active_5'));
+  }
 }

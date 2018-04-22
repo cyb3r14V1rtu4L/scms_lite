@@ -6,7 +6,8 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
-class XmfReportsCierreTable extends Table
+
+class XmfCasillasIncidenciasTable extends Table
 {
 
     /**
@@ -18,15 +19,9 @@ class XmfReportsCierreTable extends Table
     public function initialize(array $config)
     {
         parent::initialize($config);
-
-        $this->setTable('xmf_reports_cierre');
-        $this->setDisplayField('name');
+        $this->setTable('xmf_casillas_incidencias');
+        $this->setDisplayField('id');
         $this->setPrimaryKey('id');
-        
-        $this->belongsTo('XmfCasillas', [
-            'foreignKey' => 'xmf_casillas_id',
-            'joinType' => 'INNER'
-        ]);
         $this->addBehavior('Timestamp');
     }
 
@@ -43,14 +38,22 @@ class XmfReportsCierreTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->scalar('name')
-            ->maxLength('name', 50)
-            ->allowEmpty('name');
-
-        $validator
-            ->scalar('description')
-            ->allowEmpty('description');
+            ->scalar('otra')
+            ->allowEmpty('otra');
 
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules)
+    {
+        $rules->add($rules->existsIn(['xmf_casillas_id'], 'XmfCasillas'));
+        return $rules;
     }
 }

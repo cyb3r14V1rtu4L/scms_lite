@@ -253,7 +253,7 @@ class XmfController extends AppController
 
             #DATOS PRIMER REPORTE FINAL
             $id_x = 1;
-            for($x=1;$x<=25;$x++)
+            for($x=1;$x<=26;$x++)
             {
                 $VotosTable = TableRegistry::get('XmfVotes');
                 $Votos = $VotosTable->newEntity();

@@ -31,7 +31,7 @@ class UsersController extends AppController
          $this->Auth->setUser($user);
 
          if ($this->Auth->user('is_superuser')) {
-            return $this->redirect(['controller'=>'Pages','action'=>'reports/monitor']);
+            return $this->redirect(['controller'=>'XmfCasillas','action'=>'MonitorCasillas']);
          } else {
            if ($this->Auth->user('role_id') == 'e687cb91-4cdf-4ab2-992f-e76584199c2e') {
 

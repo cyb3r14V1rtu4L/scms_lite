@@ -1,0 +1,126 @@
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<?= $this->Html->css('clockpicker.css') ?>
+<?= $this->Html->script('clockpicker'); ?>
+<!-- CSS stylea -->
+<?= $this->Html->css('paper-bootstrap-wizard.css') ?>
+
+
+<!-- JS Plugin for the Wizard  -->
+<?= $this->Html->script('jquery.bootstrap.wizard', ['block' => true]); ?>
+<?= $this->Html->script('paper-bootstrap-wizard', ['block' => true]); ?>
+<!-- More information about jquery.validate here: http://jqueryvalidation.org/ -->
+<?= $this->Html->script('jquery.validate.min', ['block' => true]); ?>
+<!-- UI Kit Plugins -->
+<?= $this->Html->script('ct-paper-radio', ['block' => true]); ?>
+<?= $this->Html->script('bootstrap-select', ['block' => true]); ?>
+
+<div class="container-fluid">
+    <button type="button" class="btn btn-danger pull-right" onclick="showNotificationInci('top','right')"><small>Enviar Incidencia <i class="ti-pulse"></i></small></button>
+    <div class="row">
+        <div class="col-sm-12">
+            <!--      Wizard container        -->
+            <div class="wizard-container">
+                <!-- You can switch " data-color="green" "  with one of the next bright colors: "blue", "azure", "orange", "red" -->
+                <div class="card wizard-card" data-color="orange" id="wizard">
+                    <div class="wizard-header">
+                        <h3 class="wizard-title">ENVÍO DE REPORTES</h3>
+                        <p class="category">Solo podrán enviarse a la hora establecida.</p>
+                    </div>
+                    <div class="wizard-navigation">
+                        <div class="progress-with-circle">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="4" style="width: 15%;"></div>
+                        </div>
+                        <ul>
+                            <li class="<?=$active_1?>">
+                                <a href="#primer_reporte" data-toggle="tab">
+                                    <div class="icon-circle">
+                                        <i class="ti-package"></i>
+                                    </div>
+                                    PRIMER REPORTE
+                                </a>
+                            </li>
+                            <li class="<?=$active_2?>">
+                                <a href="#segundo_reporte" data-toggle="tab">
+                                    <div class="icon-circle">
+                                        <i class="ti-user"></i>
+                                    </div>
+                                    SEGUNDO REPORTE
+                                </a>
+                            </li>
+                            <li class="<?=$active_3?>">
+                                <a href="#tercer_reporte" data-toggle="tab">
+                                    <div class="icon-circle">
+                                        <i class="ti-user"></i>
+                                    </div>
+                                    TERCER REPORTE
+                                </a>
+                            </li>
+                            <li class="<?=$active_4?>">
+                                <a href="#cuarto_reporte" data-toggle="tab">
+                                    <div class="icon-circle">
+                                        <i class="ti-hand-stop"></i>
+                                    </div>
+                                    CUARTO REPORTE
+                                </a>
+                            </li>
+                            <li class="<?=$active_5?>" >
+                                <a href="#resultados_finales" data-toggle="tab">
+                                    <div class="icon-circle">
+                                        <i class="ti-stats-up"></i>
+                                    </div>
+                                    RESULTADOS FINALES
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane <?=$active_1?>" id="primer_reporte">
+                        <?= $this->element('Paper.xmf/reportes-cap/primer_reporte'); ?>
+                    </div>
+                    <div class="tab-pane <?=$active_2?>" id="segundo_reporte">
+                        <?= $this->element('Paper.xmf/reportes-cap/segundo_reporte'); ?>
+                    </div>
+                    <div class="tab-pane <?=$active_3?>" id="tercer_reporte">
+                    <?= $this->element('Paper.xmf/reportes-cap/tercer_reporte'); ?>
+                    </div>
+                    <div class="tab-pane <?=$active_4?>" id="cuarto_reporte">
+                    <?= $this->element('Paper.xmf/reportes-cap/cuarto_reporte'); ?>
+                    </div>
+                    <div class="tab-pane <?=$active_5?>" id="resultados_finales">
+                    <?= $this->element('Paper.xmf/reportes-cap/resultados_finales'); ?>
+                    </div>
+                    <div class="wizard-footer">
+                        <hr/>
+                        <div class="pull-right">
+
+                            <input type='button' class='btn btn-next btn-fill btn-success btn-wd' name='next' value='Siguiente' />
+                            <input type='button' class='btn btn-finish btn-fill btn-success btn-wd' name='finish' value='Siguiente' />
+
+                        </div>
+
+                        <div class="pull-left">
+                            <input type='button' class='btn btn-previous btn-default btn-wd' name='previous' value='Anterior' />
+                        </div>
+                        <div class="clearfix"></div>
+                </div>
+            </div> <!-- wizard container -->
+        </div>
+    </div>
+</div> <!-- row -->
+<script>
+$(document).ready(function() {
+    $(".voto").keydown(function (e) {
+        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+            (e.keyCode == 65 && e.ctrlKey === true) ||
+            (e.keyCode >= 35 && e.keyCode <= 39)) {
+                 return;
+        }
+
+        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+            e.preventDefault();
+        }
+    });
+
+    $(".voto").attr('maxlength','4');
+});
+</script>

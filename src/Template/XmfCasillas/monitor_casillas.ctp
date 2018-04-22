@@ -1,0 +1,1 @@
+<?= $this->element('Paper.xmf/monitor');?>
