@@ -149,6 +149,15 @@ class AppController extends Controller
         }
     }
 
+    /**
+     * Before render callback.
+     *
+     * @param \Cake\Event\Event $event The beforeRender event.
+     * @return void
+     */
 
+    public function beforeFilter(Event $event) {
+      ini_set('memory_limit', '-1');
 
+    } // end beforeFilter
 }

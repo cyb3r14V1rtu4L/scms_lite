@@ -31,11 +31,77 @@ class XmfReportsSegundoTerceroController extends AppController
         // $this->viewBuilder()->layout('Paper.pages/reports/SegundoReporte');
     }
 
+
+    public function PrimerReporte() {
+      $this->getCounterHead();
+      $this->LoadModel('XmfCasillas');
+
+      $graf_data = $this->XmfCasillas->find('all'
+                                            ,[
+                                                'conditions'=>[
+                                                  'or' =>[
+                                                    'XmfCasillas.hora_instalacion is not null',
+                                                    'XmfCasillas.hora_cierre is not null'
+                                                  ]
+                                                ]
+                                             ]
+                                           );
+      $graf_data->select([
+        // 'name'                => 'name',
+        'instalacion'    => $graf_data->func()->count('hora_instalacion'),
+        'cierre'  => $graf_data->func()->count('hora_cierre')
+      ]);
+      // ->group(['xmf_casillas_id','name']);
+      $graf_data->hydrate(false);
+      $graf_data =$graf_data->toArray();
+      // $graf_data =$graf_data->toList();
+      foreach ($graf_data as $key => $value) {
+
+        $jinstalacion[] = $value['instalacion'];
+        $jcierre[] = $value['cierre'];
+      }
+
+      $instalacion = json_encode($jinstalacion);
+      $cierre = json_encode($jcierre);
+      $total = json_encode(array_sum($jinstalacion + $jcierre));
+
+      $tabular = $this->getData();
+      $tabular = $tabular->toArray();
+
+      $this->set(compact('instalacion','cierre','total','tabular'));
+      // Ancient sentence
+      // $this->render('Paper.Pages/reports/SegundoReporte');
+      // 3.x form
+      $this->viewBuilder()->template('Paper.Pages/reports/PrimerReporte');
+    }
+
+    public function getData () {
+      // $this->getCounterHead();
+      $this->LoadModel('XmfCasillas');
+      $tabular = $this->XmfCasillas->find('all'
+                                            ,[
+                                                'conditions'=>[
+                                                  'or' =>[
+                                                    'XmfCasillas.hora_instalacion is not null',
+                                                    'XmfCasillas.hora_cierre is not null'
+                                                  ]
+                                                ]
+                                             ]
+                                           );
+      $tabular->select([
+        'name'           => 'name',
+        'instalacion'    => 'hora_instalacion',
+        'inicio'         => 'hora_inicio'
+      ]);
+
+      return $tabular;
+    }
+
     public function SegundoReporte() {
       // debug('XmfReportsSegundoTercero::SegundoReporte');
       $this->getCounterHead();
       $this->LoadModel('XmfViewReporteSegundosTerceros');
-      $graf_data = $this->XmfViewReporteSegundosTerceros->find('all',['conditions'=>['XmfViewReporteSegundosTerceros.is_eighteen' => 1 ]]);
+      $graf_data = $this->XmfViewReporteSegundosTerceros->find('all',['conditions'=>['XmfViewReporteSegundosTerceros.is_twelve' => 1 ]]);
       $graf_data->select([
         'name'                => 'name',
         'votantes_segundo'    => $graf_data->func()->sum('votantes_segundo'),
@@ -46,8 +112,6 @@ class XmfReportsSegundoTerceroController extends AppController
       ->group(['xmf_casillas_id','name']);
       $graf_data->hydrate(false);
       $graf_data =$graf_data->toArray();
-      // $graf_data =$graf_data->toList();
-      // debug(json_encode($graf_data));
 
       foreach ($graf_data as $key => $value) {
         $jcategories[] = $value['name'];
@@ -73,7 +137,7 @@ class XmfReportsSegundoTerceroController extends AppController
       $this->getCounterHead();
       $this->LoadModel('XmfViewReporteSegundosTerceros');
 
-      $graf_data = $this->XmfViewReporteSegundosTerceros->find('all',['conditions'=>['XmfViewReporteSegundosTerceros.is_eighteen' => 1 ]]);
+      $graf_data = $this->XmfViewReporteSegundosTerceros->find('all',['conditions'=>['XmfViewReporteSegundosTerceros.is_thirdteen' => 1 ]]);
       $graf_data->select([
         'name'                => 'name',
         'votantes_segundo'    => $graf_data->func()->sum('votantes_segundo'),
