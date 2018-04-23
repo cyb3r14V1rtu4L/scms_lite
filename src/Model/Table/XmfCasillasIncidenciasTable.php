@@ -53,7 +53,7 @@ class XmfCasillasIncidenciasTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['xmf_casillas_id'], 'XmfCasillas'));
+        #$rules->add($rules->existsIn(['xmf_casillas_id'], 'XmfCasillas'));
         return $rules;
     }
 }

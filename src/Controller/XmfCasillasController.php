@@ -2,7 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-
+use Cake\ORM\TableRegistry;
 /**
  * XmfCasillas Controller
  *
@@ -247,6 +247,18 @@ class XmfCasillasController extends AppController
 
   public function enviarIncidencia()
   {
+    if($this->request->is('ajax'))
+    {
+      $CasillasIncidenciasTable = TableRegistry::get('XmfCasillasIncidencias');
+      $CasillasIncidencias = $CasillasIncidenciasTable->newEntity();
 
+      $CasillasIncidencias->xmf_casillas_id = $_POST['xmf_casillas_id'];
+      $CasillasIncidencias->xmf_total_incidencias =$_POST['xmf_total_incidencias'];
+
+      if ($CasillasIncidenciasTable->save($CasillasIncidencias))
+      {
+          $id = $CasillasIncidencias->id;
+      }
+    }
   }
 }

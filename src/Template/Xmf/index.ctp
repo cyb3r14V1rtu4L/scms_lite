@@ -23,6 +23,7 @@
                         <h5>FUNCIONES PRINCIPALES - CASILLA</h5>
                         <h3><?=strtoupper($_SESSION['Auth']['User']['first_name'].' '.$_SESSION['Auth']['User']['last_name']);?></h3>
                         <h5><small>FUNCIONARIO DE CASILLA<small></h5>
+                          <input type="hidden" id="xmf_casillas_id" value="<?=$_SESSION['Casilla']['id']?>">
                         <div class="row">
                             <div id="clocker" style="text-align:center;padding:1em 0;">
                                 <iframe src="https://www.zeitverschiebung.net/clock-widget-iframe-v2?language=es&size=medium&timezone=America%2FCancun" width="100%" height="115" frameborder="0" seamless></iframe>
@@ -73,7 +74,7 @@
                                 <h5><small>Generar Reportes</small></h5>
                           </div>
                         <div class="col-md-6 col-lg-6 col-sm-12">
-                          <button type="button" class="btn btn-danger" onclick="showNotificationInci('top','right')"><small>Enviar Incidencia <i class="ti-pulse"></i></small></button>
+                          <button type="button" class="btn btn-danger" onclick="enviarIncidencia()"><small>Enviar Incidencia <i class="ti-pulse"></i></small></button>
                           <br/>
                           <h5><small>Notificar Incidencia</small></h5>
                         </div>
@@ -157,6 +158,35 @@
             });
         });
     }
+
+    function enviarIncidencia()
+   {
+       $.ajax({
+           url: '/XmfCasillas/enviarIncidencia',
+           type: "POST",
+           dataType: "json",
+           data: {
+               xmf_casillas_id:$('#xmf_casillas_id').val(),
+               xmf_total_incidencias:1
+           }
+           ,
+           success: function (json) {
+
+               $.notify ({
+                    icon: 'ti-package',
+                    message: "<b>Incidencia</b> Enviada."
+
+                  },{
+                      type: 'danger',
+                      timer: 2000
+                  });
+                  $('#btn_reporte_2').attr('disabled','disabled');
+           },
+           error: function (xhr, textStatus, errorThrown) {
+               console.log(xhr);
+           }
+       });
+   }
 
     $('#clocker').click(function(){return false;});
     </script>
