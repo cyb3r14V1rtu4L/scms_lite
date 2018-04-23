@@ -56,8 +56,23 @@ class XmfController extends AppController
             {
                 $data=array();
                 $field = 'hora_'.$type;
+                switch ($type) {
+                  case 'presencia':
+                    $status='P';
+                    break;
+                  case 'instalacion':
+                    $status='I';
+                    break;
+                  case 'inicio':
+                    $status='V';
+                    break;
+
+                  default:
+                    # code...
+                    break;
+                }
                 $this->XmfCasillas->updateAll(
-                    ["$field" => date("H:i:s")],
+                    ["$field" => date("H:i:s"),"status"=>$status],
                     ['id' => $user_data[0]['id']]
                 );
             }

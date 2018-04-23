@@ -79,7 +79,7 @@ class AppController extends Controller
       $casillas_presentes =$casillas_presentes->toArray();
       $count_presentes = count($casillas_presentes);
 
-      $casillas_ausentes = $this->XmfCasillas->find('all', array('conditions' => array('XmfCasillas.hora_presencia IS NULL','XmfCasillas.status IS NULL')));
+      $casillas_ausentes = $this->XmfCasillas->find('all', array('conditions' => array('XmfCasillas.hora_presencia IS NULL')));
       $casillas_ausentes->hydrate(false);
       $casillas_ausentes =$casillas_ausentes->toArray();
       $count_ausentes = count($casillas_ausentes);
@@ -107,6 +107,28 @@ class AppController extends Controller
       $casillas_incidencias = $casillas_incidencias[0]->count;
       $this->set(compact('casillas_presentes','casillas_ausentes','casillas_abiertas','casillas_cerradas','count_presentes','count_ausentes','count_instalando','count_abiertas','count_cerradas','casillas_incidencias'));
 
+    }
+
+    public function getIncidencias(){
+      $this->LoadModel('XmfCasillasIncidencias');
+      $this->LoadModel('XmfCasillas');
+      $CasillasIncidencias = $this->XmfCasillasIncidencias->find('all');
+      $CasillasIncidencias->select([
+        'xmf_casillas_id' => 'xmf_casillas_id',
+        'xmf_total_incidencias' => $CasillasIncidencias->func()->sum('xmf_total_incidencias'),
+      ])
+      ->group(['xmf_casillas_id']);
+      $CasillasIncidencias->hydrate(false);
+      $CasillasIncidencias =$CasillasIncidencias->toArray();
+
+      foreach ($CasillasIncidencias as $k => $ci)
+      {
+        $casilla_datos = $this->XmfCasillas->find('all',['conditions'=>['XmfCasillas.id' => $ci['xmf_casillas_id'] ]]);
+        $casilla_datos->hydrate(false);
+        $casilla_datos =$casilla_datos->toArray();
+        $CasillasIncidencias[$k]['CasillaDatos'] = $casilla_datos[0];
+      }
+      $this->set(compact('CasillasIncidencias'));
     }
 
     /**

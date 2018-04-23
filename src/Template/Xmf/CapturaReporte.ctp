@@ -16,7 +16,8 @@
 <?= $this->Html->script('bootstrap-select', ['block' => true]); ?>
 
 <div class="container-fluid">
-    <button type="button" class="btn btn-danger pull-right" onclick="showNotificationInci('top','right')"><small>Enviar Incidencia <i class="ti-pulse"></i></small></button>
+    <button type="button" class="btn btn-danger pull-right" onclick="enviarIncidencia()"><small>Enviar Incidencia <i class="ti-pulse"></i></small></button>
+    <input type="text" id="xcasilla" value="<?=$_SESSION['Casilla']['id']?>"/>
     <div class="row">
         <div class="col-sm-12">
             <!--      Wizard container        -->
@@ -124,4 +125,7 @@ $(document).ready(function() {
 
     $(".voto").attr('maxlength','4');
 });
+
+
+
 </script>
