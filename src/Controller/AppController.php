@@ -75,6 +75,7 @@ class AppController extends Controller
       #COUNTER HEAD
       $this->LoadModel('XmfCasillas');
       $casillas_presentes = $this->XmfCasillas->find('all', array('conditions' => array('XmfCasillas.hora_presencia  IS NOT NULL','XmfCasillas.status'=>'P')));
+
       $casillas_presentes->hydrate(false);
       $casillas_presentes =$casillas_presentes->toArray();
       $count_presentes = count($casillas_presentes);

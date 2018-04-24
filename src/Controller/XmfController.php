@@ -254,6 +254,13 @@ class XmfController extends AppController
         if ($ReportsCierreTable->save($ReportsCierre))
         {
             $id = $ReportsCierre->id;
+            $this->XmfCasillas->updateAll(
+                [
+                 "hora_cierre" =>  $_POST['hr_cierre'],
+                 "status" => "X",
+                ],
+                ['id' => $_POST['casilla_id']]
+            );
         }
     }
 
