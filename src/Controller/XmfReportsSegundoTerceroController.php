@@ -125,7 +125,7 @@ class XmfReportsSegundoTerceroController extends AppController
       $this->LoadModel('XmfViewReporteSegundosTerceros');
       $graf_data = $this->XmfViewReporteSegundosTerceros->find('all',['conditions'=>['XmfViewReporteSegundosTerceros.is_twelve' => 1 ]]);
       $graf_data->select([
-        'name'                => 'name',
+        //'name'                => 'name',
         'votantes_segundo'    => $graf_data->func()->sum('votantes_segundo'),
         'promovidos_segundo'  => $graf_data->func()->sum('promovidos_segundo'),
         'votantes_tercero'    => $graf_data->func()->sum('votantes_tercero'),
@@ -135,20 +135,24 @@ class XmfReportsSegundoTerceroController extends AppController
       $graf_data->hydrate(false);
       $graf_data =$graf_data->toArray();
 
+      $votantes_s = 0;
+      $promovidos_s = 0;
+      $jcategories = array('FLUJO DE VOTACIONES');
       foreach ($graf_data as $key => $value) {
-        $jcategories[] = $value['name'];
-        $jvotantes[] = $value['votantes_segundo'];
-        $jpromovidos[] = $value['promovidos_segundo'];
-
-        $pie['name'][] = $value['name'];
-        $pie['y'][] = $value['votantes_segundo'];
+        $votantes_s +=$value['votantes_segundo'];
+        $promovidos_s +=$value['promovidos_segundo'];
 
       }
+      $jvotantes[] = $votantes_s;
+      $jpromovidos[] = $promovidos_s;
+
+      $pie['name'] = 'PROMOVIDOS';
+      $pie['y'][] = $value['votantes_segundo'];
       // debug(json_encode($pie));
       $categories = json_encode($jcategories);
       $votantes = json_encode($jvotantes);
       $promovidos = json_encode($jpromovidos);
-      $this->set(compact('votantes','promovidos','categories'));
+      $this->set(compact('votantes','promovidos','categories','votantes_s','promovidos_s'));
       // Ancient sentence
       // $this->render('Paper.Pages/reports/SegundoReporte');
       // 3.x form
