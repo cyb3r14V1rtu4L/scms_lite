@@ -28,6 +28,7 @@ class XmfController extends AppController
      *
      * @return \Cake\Http\Response|void
      */
+    public function capturaReporte(){}
 
     public function index($type=null)
     {

@@ -36,7 +36,7 @@ class XmfReportsSegundoTerceroController extends AppController
       $this->getCounterHead();
       $this->LoadModel('XmfCasillas');
 
-      $graf_data = $this->XmfCasillas->find('all'
+      /*$graf_data = $this->XmfCasillas->find('all'
                                             ,[
                                                 'conditions'=>[
                                                   'or' =>[
@@ -54,9 +54,31 @@ class XmfReportsSegundoTerceroController extends AppController
       // ->group(['xmf_casillas_id','name']);
       $graf_data->hydrate(false);
       $graf_data =$graf_data->toArray();
-      // $graf_data =$graf_data->toList();
-      foreach ($graf_data as $key => $value) {
+      // $graf_data =$graf_data->toList();*/
 
+
+      $instaladas = $this->XmfCasillas->find('all',['conditions'=>['XmfCasillas.status'=>'I']]);
+      $instaladas->select([
+        // 'name'                => 'name',
+        'instalacion'    => $instaladas->func()->count('id'),
+        #'cierre'  => $instaladas->func()->count('hora_cierre')
+      ]);
+      // ->group(['xmf_casillas_id','name']);
+      $instaladas->hydrate(false);
+      $instaladas =$instaladas->toArray();
+
+      $cerradas = $this->XmfCasillas->find('all',['conditions'=>['XmfCasillas.status IS NULL']]);
+      $cerradas->select([
+        // 'name'                => 'name',
+        'cierre'  => $cerradas->func()->count('id')
+      ]);
+      // ->group(['xmf_casillas_id','name']);
+      $cerradas->hydrate(false);
+      $cerradas =$cerradas->toArray();
+      $graf_data[0] = array_merge($instaladas[0],$cerradas[0]);
+
+      foreach ($graf_data as $key => $value)
+      {
         $jinstalacion[] = $value['instalacion'];
         $jcierre[] = $value['cierre'];
       }

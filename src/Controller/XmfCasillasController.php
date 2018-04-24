@@ -112,29 +112,6 @@ class XmfCasillasController extends AppController
     {
       $this->getCounterHead();
       $this->getIncidencias();
-      #pr($CasillasIncidencias);exit;
-
-        /*$this->LoadModel('XmfViewReporteSegundosTerceros');
-
-        foreach($casillas_presentes as $k=>$cp)
-        {
-          $casilla_votos = $this->XmfViewReporteSegundosTerceros->find('all',['conditions'=>['XmfViewReporteSegundosTerceros.xmf_casillas_id' => $cp['id'] ]]);
-          $casilla_votos->select([
-            'name'                => 'name',
-            'votantes_segundo'    => $casilla_votos->func()->sum('votantes_segundo'),
-            'promovidos_segundo'  => $casilla_votos->func()->sum('promovidos_segundo'),
-            'votantes_tercero'    => $casilla_votos->func()->sum('votantes_tercero'),
-            'promovidos_tercero'  => $casilla_votos->func()->sum('promovidos_tercero'),
-          ])
-          ->group(['xmf_casillas_id','name']);
-
-          $casilla_votos->hydrate(false);
-          $casilla_votos =$casilla_votos->toArray();
-          $casillas_presentes[$k]['votos'] = $casilla_votos[0];
-        }*/
-
-
-
     }
 
     public function monitorCasillasAbiertas()

@@ -32,13 +32,14 @@ class UsersController extends AppController
 
          if ($this->Auth->user('is_superuser')) {
             return $this->redirect(['controller'=>'XmfCasillas','action'=>'MonitorCasillas']);
-         } else {
-           if ($this->Auth->user('role_id') == 'e687cb91-4cdf-4ab2-992f-e76584199c2e') {
+         }else{
 
-             return $this->redirect(['controller'=>'Pages','action'=>'home']);
-
-           } else if ($this->Auth->User('role_id') == '80687266-6761-43a2-bd98-f42349a9bb63'){
-
+           if ($this->Auth->user('role_id') == 'e687cb91-4cdf-4ab2-992f-e76584199c2e')
+           {
+             #return $this->redirect(['controller'=>'Pages','action'=>'home']);
+           }
+           else if ($this->Auth->User('role_id') == '80687266-6761-43a2-bd98-f42349a9bb63')
+           {
                //$this->redirect(['controller' => 'Pages', 'action' => 'reports/CapturaReporte']);
                $this->redirect(['controller' => 'Xmf', 'action' => 'index']);
 
