@@ -158,6 +158,7 @@ class AppController extends Controller
 
     public function beforeFilter(Event $event) {
       ini_set('memory_limit', '-1');
+      ini_set('max_execution_time', '300');
 
     } // end beforeFilter
 }
