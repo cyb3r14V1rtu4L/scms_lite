@@ -16,8 +16,13 @@
 <?= $this->Html->script('bootstrap-select', ['block' => true]); ?>
 
 <div class="container-fluid">
-    <button type="button" class="btn btn-danger pull-right" onclick="enviarIncidencia()"><small>Enviar Incidencia <i class="ti-pulse"></i></small></button>
-    <input type="text" id="xcasilla" value="<?=$_SESSION['Casilla']['id']?>"/>
+  <div class="row">
+    <button type="button" class="btn btn-danger pull-right"  onclick="enviarIncidencia()"><small>Enviar Incidencia <i class="ti-pulse"></i></small></button>
+    <input type="hidden" id="xcasilla" value="<?=$_SESSION['Casilla']['id']?>"/>
+  </div>
+  <br/>
+
+
     <div class="row">
         <div class="col-sm-12">
             <!--      Wizard container        -->
@@ -126,6 +131,32 @@ $(document).ready(function() {
     $(".voto").attr('maxlength','4');
 });
 
+function enviarIncidencia()
+{
+     $.ajax({
+         url: '/XmfCasillas/enviarIncidencia',
+         type: "POST",
+         dataType: "json",
+         data: {
+             xmf_casillas_id:$('#xcasilla').val(),
+             xmf_total_incidencias:1
+         }
+         ,
+         success: function (json) {
 
+             $.notify ({
+                  icon: 'ti-pulse',
+                  message: "<b>Incidencia</b> Enviada."
 
+                },{
+                    type: 'danger',
+                    timer: 2000
+                });
+                $('#btn_reporte_2').attr('disabled','disabled');
+         },
+         error: function (xhr, textStatus, errorThrown) {
+             console.log(xhr);
+         }
+     });
+ }
 </script>
