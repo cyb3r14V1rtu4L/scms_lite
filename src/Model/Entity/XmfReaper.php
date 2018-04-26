@@ -6,7 +6,6 @@ use Cake\ORM\Entity;
 /**
  * XmfReaper Entity
  *
- * @property int $id
  * @property int $casillas_index
  * @property string $name
  * @property string $municipio
@@ -22,9 +21,11 @@ use Cake\ORM\Entity;
  * @property string $nombre
  * @property string $formula
  * @property bool $is_coalicion
+ * @property bool $is_funcionario
  * @property bool $has_parent
  * @property int $parent_id
  * @property string $tipo
+ * @property int $id
  * @property int $xmf_casillas_id
  * @property int $xmf_tipo_votaciones_id
  * @property int $xmf_partidos_id
@@ -49,7 +50,6 @@ class XmfReaper extends Entity
      * @var array
      */
     protected $_accessible = [
-        'id' => true,
         'casillas_index' => true,
         'name' => true,
         'municipio' => true,
@@ -65,9 +65,11 @@ class XmfReaper extends Entity
         'nombre' => true,
         'formula' => true,
         'is_coalicion' => true,
+        'is_funcionario' => true,
         'has_parent' => true,
         'parent_id' => true,
         'tipo' => true,
+        'id' => true,
         'xmf_casillas_id' => true,
         'xmf_tipo_votaciones_id' => true,
         'xmf_partidos_id' => true,

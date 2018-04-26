@@ -55,12 +55,12 @@
             <td><?= $xmfReaper->has('xmf_partido') ? $this->Html->link($xmfReaper->xmf_partido->id, ['controller' => 'XmfPartidos', 'action' => 'view', $xmfReaper->xmf_partido->id]) : '' ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Id') ?></th>
-            <td><?= $this->Number->format($xmfReaper->id) ?></td>
-        </tr>
-        <tr>
             <th scope="row"><?= __('Casillas Index') ?></th>
             <td><?= $this->Number->format($xmfReaper->casillas_index) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Id') ?></th>
+            <td><?= $this->Number->format($xmfReaper->id) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Votes') ?></th>
@@ -81,6 +81,10 @@
         <tr>
             <th scope="row"><?= __('Is Coalicion') ?></th>
             <td><?= $xmfReaper->is_coalicion ? __('Yes') : __('No'); ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Is Funcionario') ?></th>
+            <td><?= $xmfReaper->is_funcionario ? __('Yes') : __('No'); ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Has Parent') ?></th>
@@ -124,7 +128,6 @@
         <?php if (!empty($xmfReaper->child_xmf_reapers)): ?>
         <table cellpadding="0" cellspacing="0">
             <tr>
-                <th scope="col"><?= __('Id') ?></th>
                 <th scope="col"><?= __('Casillas Index') ?></th>
                 <th scope="col"><?= __('Name') ?></th>
                 <th scope="col"><?= __('Municipio') ?></th>
@@ -140,9 +143,11 @@
                 <th scope="col"><?= __('Nombre') ?></th>
                 <th scope="col"><?= __('Formula') ?></th>
                 <th scope="col"><?= __('Is Coalicion') ?></th>
+                <th scope="col"><?= __('Is Funcionario') ?></th>
                 <th scope="col"><?= __('Has Parent') ?></th>
                 <th scope="col"><?= __('Parent Id') ?></th>
                 <th scope="col"><?= __('Tipo') ?></th>
+                <th scope="col"><?= __('Id') ?></th>
                 <th scope="col"><?= __('Xmf Casillas Id') ?></th>
                 <th scope="col"><?= __('Xmf Tipo Votaciones Id') ?></th>
                 <th scope="col"><?= __('Xmf Partidos Id') ?></th>
@@ -151,7 +156,6 @@
             </tr>
             <?php foreach ($xmfReaper->child_xmf_reapers as $childXmfReapers): ?>
             <tr>
-                <td><?= h($childXmfReapers->id) ?></td>
                 <td><?= h($childXmfReapers->casillas_index) ?></td>
                 <td><?= h($childXmfReapers->name) ?></td>
                 <td><?= h($childXmfReapers->municipio) ?></td>
@@ -167,9 +171,11 @@
                 <td><?= h($childXmfReapers->nombre) ?></td>
                 <td><?= h($childXmfReapers->formula) ?></td>
                 <td><?= h($childXmfReapers->is_coalicion) ?></td>
+                <td><?= h($childXmfReapers->is_funcionario) ?></td>
                 <td><?= h($childXmfReapers->has_parent) ?></td>
                 <td><?= h($childXmfReapers->parent_id) ?></td>
                 <td><?= h($childXmfReapers->tipo) ?></td>
+                <td><?= h($childXmfReapers->id) ?></td>
                 <td><?= h($childXmfReapers->xmf_casillas_id) ?></td>
                 <td><?= h($childXmfReapers->xmf_tipo_votaciones_id) ?></td>
                 <td><?= h($childXmfReapers->xmf_partidos_id) ?></td>

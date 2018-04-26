@@ -13,6 +13,127 @@ use App\Controller\AppController;
 class XmfViewReporteSegundosTercerosController extends AppController
 {
 
+    public function isAuthorized ($user) {
+      return true;
+    }
+
+    public function loadQrys($tipo = null , $graphic = null) {
+
+      $this->LoadModel('XmfReapers');
+
+      if ($tipo != null and $graphic == 'one') {
+          $conditions = [
+            'XmfReapers.formula is not null',
+            'XmfReapers.formula <>' => '',
+            'XmfReapers.tipo' => $tipo
+          ];
+          $data = $this->XmfReapers->find('all',['conditions'=> $conditions ]);
+          $data->select([
+            'nombre'  => 'nombre',
+            'votes'   => $data->newExpr('COALESCE(sum(XmfReapers.votes),0)')
+          ])->group(['nombre']);
+      }
+
+      if ($tipo != null and $graphic == 'two') {
+          $conditions = [
+            'XmfReapers.formula is not null',
+            'XmfReapers.formula <>' => '',
+            'XmfReapers.tipo' => $tipo,
+            'XmfReapers.is_coalicion' => 1
+            // 'XmfReapers.has_parent' => 1
+          ];
+          $data = $this->XmfReapers->find('all',['conditions'=> $conditions]);
+          $data->select([
+            // 'nombre'  => 'nombre',
+            'name' => 'formula',
+            'data'   => $data->newExpr('COALESCE(sum(XmfReapers.votes),0)')
+          ])->group(['formula']);
+      }
+
+      if ($tipo != null and $graphic == 'three') {
+          $conditions = [
+            'XmfReapers.formula is not null',
+            'XmfReapers.formula <>' => '',
+            'XmfReapers.tipo' => $tipo,
+            'XmfReapers.is_coalicion' => 0,
+            'XmfReapers.has_parent' => 0,
+            'XmfReapers.is_funcionario' => 1
+          ];
+          $data = $this->XmfReapers->find('all',['conditions'=> $conditions]);
+          $data->select([
+            'name' => 'formula',
+            'data'   => $data->newExpr('COALESCE(sum(XmfReapers.votes),0)')
+          ])->group(['formula']);
+      }
+
+      // debug($data);
+      return $data;
+    }
+
+    public function lastReport($tipo=null) {
+
+      if ($tipo != null && $tipo != 'presidente' ) {
+        $add_cond = $tipo;
+      } else {
+        $add_cond = 'presidente';
+      }
+      $tipo = $add_cond;
+
+      // Graphic one
+      $graf_one = $this->loadQrys($tipo,'one');
+      $graf_one->hydrate(false);
+      $graf_one =$graf_one->toArray();
+      $tabular = $graf_one;
+      foreach ($graf_one as $key => $value) {
+        $jcategories[] = $value['nombre'];
+        $jvotos[] = $value['votes'];
+      }
+
+      $categories = json_encode($jcategories);
+      $votes = json_encode($jvotos);
+
+      // Graphics two
+
+      $graf_two = $this->loadQrys($tipo,'two');
+      $graf_two->hydrate(false);
+      $graf_two =$graf_two->toArray();
+
+      $tabular_two = $graf_two;
+
+      foreach ($graf_two as $key => $value) {
+        $j2categories[] = $value['name'];
+        $j2votos[] = (int)$value['data'];
+      }
+
+      $categories_two = json_encode($j2categories);
+      $votes_two = json_encode($j2votos);
+
+      // Graphics three
+
+      $graf_three = $this->loadQrys($tipo,'three');
+      $graf_three->hydrate(false);
+      $graf_three =$graf_three->toArray();
+
+      $tabular_three = $graf_three;
+
+      foreach ($graf_three as $keytr => $valuetr) {
+        $j3categories[] = $valuetr['name'];
+        $j3votos[] = (int)$valuetr['data'];
+      }
+
+      $categories_three = json_encode($j3categories);
+      $votes_three = json_encode($j3votos);
+
+      $this->set(compact(
+                        'votes','tipo','categories','tabular',
+                        'votes_two','categories_two','tabular_two',
+                        'votes_three','categories_three','tabular_three'
+                        ));
+      $this->viewBuilder()->template('Paper.Pages/reports/ResultadosFinales');
+
+    } // end last_report
+
+
     /**
      * Index method
      *

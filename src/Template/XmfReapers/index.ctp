@@ -21,7 +21,6 @@
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('casillas_index') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('name') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('clave_agrupamiento') ?></th>
@@ -29,9 +28,11 @@
                 <th scope="col"><?= $this->Paginator->sort('hora_inicio') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('hora_cierre') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('is_coalicion') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('is_funcionario') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('has_parent') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('parent_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('tipo') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('xmf_casillas_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('xmf_tipo_votaciones_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('xmf_partidos_id') ?></th>
@@ -42,7 +43,6 @@
         <tbody>
             <?php foreach ($xmfReapers as $xmfReaper): ?>
             <tr>
-                <td><?= $this->Number->format($xmfReaper->id) ?></td>
                 <td><?= $this->Number->format($xmfReaper->casillas_index) ?></td>
                 <td><?= h($xmfReaper->name) ?></td>
                 <td><?= h($xmfReaper->clave_agrupamiento) ?></td>
@@ -50,9 +50,11 @@
                 <td><?= h($xmfReaper->hora_inicio) ?></td>
                 <td><?= h($xmfReaper->hora_cierre) ?></td>
                 <td><?= h($xmfReaper->is_coalicion) ?></td>
+                <td><?= h($xmfReaper->is_funcionario) ?></td>
                 <td><?= h($xmfReaper->has_parent) ?></td>
                 <td><?= $xmfReaper->has('parent_xmf_reaper') ? $this->Html->link($xmfReaper->parent_xmf_reaper->name, ['controller' => 'XmfReapers', 'action' => 'view', $xmfReaper->parent_xmf_reaper->id]) : '' ?></td>
                 <td><?= h($xmfReaper->tipo) ?></td>
+                <td><?= $this->Number->format($xmfReaper->id) ?></td>
                 <td><?= $xmfReaper->has('xmf_casilla') ? $this->Html->link($xmfReaper->xmf_casilla->name, ['controller' => 'XmfCasillas', 'action' => 'view', $xmfReaper->xmf_casilla->id]) : '' ?></td>
                 <td><?= $xmfReaper->has('xmf_tipo_votacione') ? $this->Html->link($xmfReaper->xmf_tipo_votacione->id, ['controller' => 'XmfTipoVotaciones', 'action' => 'view', $xmfReaper->xmf_tipo_votacione->id]) : '' ?></td>
                 <td><?= $xmfReaper->has('xmf_partido') ? $this->Html->link($xmfReaper->xmf_partido->id, ['controller' => 'XmfPartidos', 'action' => 'view', $xmfReaper->xmf_partido->id]) : '' ?></td>

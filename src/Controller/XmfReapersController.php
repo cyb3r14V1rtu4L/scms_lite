@@ -12,9 +12,7 @@ use App\Controller\AppController;
  */
 class XmfReapersController extends AppController
 {
-    public function isAuthorized ($user) {
-      return true;
-    }
+
     /**
      * Index method
      *

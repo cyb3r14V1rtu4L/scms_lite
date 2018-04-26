@@ -44,6 +44,7 @@
             echo $this->Form->control('nombre');
             echo $this->Form->control('formula');
             echo $this->Form->control('is_coalicion');
+            echo $this->Form->control('is_funcionario');
             echo $this->Form->control('has_parent');
             echo $this->Form->control('parent_id', ['options' => $parentXmfReapers, 'empty' => true]);
             echo $this->Form->control('tipo');
