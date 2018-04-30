@@ -27,7 +27,7 @@ class XmfViewReporteSegundosTercerosController extends AppController
             'XmfReapers.formula <>' => '',
             'XmfReapers.tipo' => $tipo
           ];
-          $data = $this->XmfReapers->find('all',['conditions'=> $conditions ]);
+          $data = $this->XmfReapers->find('all',['conditions'=> $conditions,'order'=>'orden ASC' ]);
           $data->select([
             'nombre'  => 'nombre',
             'votes'   => $data->newExpr('COALESCE(sum(XmfReapers.votes),0)')
@@ -42,7 +42,7 @@ class XmfViewReporteSegundosTercerosController extends AppController
             'XmfReapers.is_coalicion' => 1
             // 'XmfReapers.has_parent' => 1
           ];
-          $data = $this->XmfReapers->find('all',['conditions'=> $conditions]);
+          $data = $this->XmfReapers->find('all',['conditions'=> $conditions,'order'=>'orden ASC']);
           $data->select([
             // 'nombre'  => 'nombre',
             'name' => 'formula',
@@ -59,7 +59,7 @@ class XmfViewReporteSegundosTercerosController extends AppController
             'XmfReapers.has_parent' => 0,
             'XmfReapers.is_funcionario' => 1
           ];
-          $data = $this->XmfReapers->find('all',['conditions'=> $conditions]);
+          $data = $this->XmfReapers->find('all',['conditions'=> $conditions,'order'=>'orden ASC']);
           $data->select([
             'name' => 'formula',
             'data'   => $data->newExpr('COALESCE(sum(XmfReapers.votes),0)')
@@ -84,6 +84,7 @@ class XmfViewReporteSegundosTercerosController extends AppController
       $graf_one->hydrate(false);
       $graf_one =$graf_one->toArray();
       $tabular = $graf_one;
+
       foreach ($graf_one as $key => $value) {
         $jcategories[] = $value['nombre'];
         $jvotos[] = $value['votes'];
@@ -93,11 +94,9 @@ class XmfViewReporteSegundosTercerosController extends AppController
       $votes = json_encode($jvotos);
 
       // Graphics two
-
       $graf_two = $this->loadQrys($tipo,'two');
       $graf_two->hydrate(false);
       $graf_two =$graf_two->toArray();
-
       $tabular_two = $graf_two;
 
       foreach ($graf_two as $key => $value) {
