@@ -31,7 +31,9 @@ class XmfViewReporteSegundosTercerosController extends AppController
           $data->select([
             'nombre'  => 'nombre',
             'votes'   => $data->newExpr('COALESCE(sum(XmfReapers.votes),0)')
-          ])->group(['nombre']);
+          ])
+          ->group(['nombre'])
+          ;
       }
 
       if ($tipo != null and $graphic == 'two') {
@@ -45,9 +47,9 @@ class XmfViewReporteSegundosTercerosController extends AppController
           $data = $this->XmfReapers->find('all',['conditions'=> $conditions,'order'=>'orden ASC']);
           $data->select([
             // 'nombre'  => 'nombre',
-            'name' => 'formula',
+            'name' => 'XmfReapers.formula',
             'data'   => $data->newExpr('COALESCE(sum(XmfReapers.votes),0)')
-          ])->group(['formula']);
+          ])->group(['XmfReapers.formula']);
       }
 
       if ($tipo != null and $graphic == 'three') {
@@ -81,7 +83,22 @@ class XmfViewReporteSegundosTercerosController extends AppController
 
       // Graphic one
       $graf_one = $this->loadQrys($tipo,'one');
-      $graf_one->hydrate(false);
+      $graf_one->hydrate(false)
+      ->join([
+              'box' => [
+                  'table' => 'xmf_boxes_orders',
+                  'type' => 'INNER',
+                  'conditions' => ['box.name = XmfReapers.nombre','box.xmf_boxes_blocks_id = 1 ','box.status = 1'],
+              ],
+              'tipo' => [
+                  'table' => 'xmf_tipo_votaciones',
+                  'type' => 'INNER',
+                  'conditions' => ['box.xmf_tipo_votaciones_id = tipo.id','tipo.tipo = XmfReapers.tipo'],
+              ]
+      ])
+      // ->order(['box.order'])
+      ;
+
       $graf_one =$graf_one->toArray();
       $tabular = $graf_one;
 
@@ -95,7 +112,27 @@ class XmfViewReporteSegundosTercerosController extends AppController
 
       // Graphics two
       $graf_two = $this->loadQrys($tipo,'two');
-      $graf_two->hydrate(false);
+      $graf_two->hydrate(false)
+      ->join([
+              'box' => [
+                  'table' => 'xmf_boxes_orders',
+                  'type' => 'INNER',
+                  'conditions' => [
+                                     'replace(XmfReapers.formula,"-"," ") = upper(replace(box.formula,"_"," "))'
+                                    ,'box.xmf_boxes_blocks_id = 2 '
+                                    ,'XmfReapers.nombre = box.name'
+                                    ,'box.status = 1'
+                                  ],
+              ],
+              'tipo' => [
+                  'table' => 'xmf_tipo_votaciones',
+                  'type' => 'INNER',
+                  'conditions' => ['box.xmf_tipo_votaciones_id = tipo.id','tipo.tipo = XmfReapers.tipo'],
+              ]
+      ])
+      // ->order(['box.order'])
+      ;
+
       $graf_two =$graf_two->toArray();
       $tabular_two = $graf_two;
 
