@@ -36,27 +36,6 @@ class XmfReportsSegundoTerceroController extends AppController
       $this->getCounterHead();
       $this->LoadModel('XmfCasillas');
 
-      /*$graf_data = $this->XmfCasillas->find('all'
-                                            ,[
-                                                'conditions'=>[
-                                                  'or' =>[
-                                                    'XmfCasillas.hora_instalacion is not null',
-                                                    'XmfCasillas.hora_cierre is not null'
-                                                  ]
-                                                ]
-                                             ]
-                                           );
-      $graf_data->select([
-        // 'name'                => 'name',
-        'instalacion'    => $graf_data->func()->count('hora_instalacion'),
-        'cierre'  => $graf_data->func()->count('hora_cierre')
-      ]);
-      // ->group(['xmf_casillas_id','name']);
-      $graf_data->hydrate(false);
-      $graf_data =$graf_data->toArray();
-      // $graf_data =$graf_data->toList();*/
-
-
       $instaladas = $this->XmfCasillas->find('all',['conditions'=>['XmfCasillas.status'=>'V']]);
       $instaladas->select([
         // 'name'                => 'name',
@@ -137,15 +116,15 @@ class XmfReportsSegundoTerceroController extends AppController
 
       $votantes_s = 0;
       $promovidos_s = 0;
-      $jcategories = array('FLUJO DE VOTACIONES');
-      foreach ($graf_data as $key => $value) {
+      $jcategories = array('ACUMULADO DE VOTACIONES');
+      foreach ($graf_data as $key => $value)
+      {
         $votantes_s +=$value['votantes_segundo'];
         $promovidos_s +=$value['promovidos_segundo'];
-
       }
+
       $jvotantes[] = $votantes_s;
       $jpromovidos[] = $promovidos_s;
-
 
       $categories = json_encode($jcategories);
       $votantes = json_encode($jvotantes);
@@ -159,7 +138,11 @@ class XmfReportsSegundoTerceroController extends AppController
 
       $this->LoadModel('XmfViewReporteSegundosTerceros');
 
-      $graf_data = $this->XmfViewReporteSegundosTerceros->find('all',['conditions'=>[ 'XmfViewReporteSegundosTerceros.is_thirdteen' => 1 ]]);
+      $graf_data = $this->XmfViewReporteSegundosTerceros->find('all',['conditions'=>[ 'XmfViewReporteSegundosTerceros.is_thirdteen' => 1,
+                                                                                      'XmfViewReporteSegundosTerceros.is_twelve' => 1
+                                                                                    ]
+                                                                    ]
+                                                              );
       $graf_data->select([
         'name'                => 'name',
         'votantes_segundo'    => $graf_data->func()->sum('votantes_segundo'),
@@ -171,52 +154,7 @@ class XmfReportsSegundoTerceroController extends AppController
 
       $graf_data->hydrate(false);
       $graf_data =$graf_data->toArray();
-
-      $votantes_s = 0;
-      $promovidos_s = 0;
-      $jcategories = array('FLUJO DE VOTACIONES');
-      foreach ($graf_data as $key => $value) {
-        $votantes_s +=$value['votantes_tercero'];
-        $promovidos_s +=$value['promovidos_tercero'];
-
-      }
-
-      $jvotantes[] = $votantes_s;
-      $jpromovidos[] = $promovidos_s;
-
-      // debug($graf_data);
-      $categories = json_encode($jcategories);
-      $votantes = json_encode($jvotantes);
-      $promovidos = json_encode($jpromovidos);
-
-      $this->set(compact('votantes','promovidos','categories','votantes_s','promovidos_s'));
-
-      // Ancient sentence
-      // $this->render('Paper.Pages/reports/SegundoReporte');
-      // 3.x form
-      $this->viewBuilder()->template('Paper.Pages/reports/TercerReporte');
-    }
-
-
-    public function CuartoReporte() {
-      $this->getCounterHead();
-      $this->LoadModel('XmfViewReporteSegundosTerceros');
-
-      $graf_data = $this->XmfViewReporteSegundosTerceros->find('all',['conditions'=>['XmfViewReporteSegundosTerceros.is_thirdteen' => 1 ]]);
-      $graf_data->select([
-        'name'                => 'name',
-        'votantes_segundo'    => $graf_data->func()->sum('votantes_segundo'),
-        'promovidos_segundo'  => $graf_data->func()->sum('promovidos_segundo'),
-        'votantes_tercero'    => $graf_data->func()->sum('votantes_tercero'),
-        'promovidos_tercero'  => $graf_data->func()->sum('promovidos_tercero'),
-      ])
-      ->group(['xmf_casillas_id','name']);
-
-      $graf_data->hydrate(false);
-      $graf_data =$graf_data->toArray();
-
-
-
+      #debug($graf_data);
       $votantes_s = 0;
       $promovidos_s = 0;
       $jcategories = array('FLUJO DE VOTACIONES');
@@ -234,7 +172,86 @@ class XmfReportsSegundoTerceroController extends AppController
       }
 
       $votantes =$votantes_2+$votantes_3;
-      $promovidos =$votantes_3+$promovidos_3;
+      $promovidos =$promovidos_2+$promovidos_3;
+      $jvotantes[] = $votantes;
+      $jpromovidos[] = $promovidos;
+
+      $votantes_s = $votantes;
+      $promovidos_s = $promovidos;
+
+      // debug($graf_data);
+      $categories = json_encode($jcategories);
+      $votantes = json_encode($jvotantes);
+      $promovidos = json_encode($jpromovidos);
+
+      $this->pastelOchoDoce();
+
+      $this->set(compact('votantes','promovidos','categories','votantes_s','promovidos_s'));
+
+      // Ancient sentence
+      // $this->render('Paper.Pages/reports/SegundoReporte');
+      // 3.x form
+      $this->viewBuilder()->template('Paper.Pages/reports/TercerReporte');
+    }
+
+
+    public function CuartoReporte() {
+      $this->getCounterHead();
+      $this->LoadModel('XmfViewReporteSegundosTerceros');
+
+      $graf_data = $this->XmfViewReporteSegundosTerceros->find('all');
+      $graf_data->select([
+        'name'                => 'name',
+        'votantes_segundo'    => $graf_data->func()->sum('votantes_segundo'),
+        'promovidos_segundo'  => $graf_data->func()->sum('promovidos_segundo'),
+        'votantes_tercero'    => $graf_data->func()->sum('votantes_tercero'),
+        'promovidos_tercero'  => $graf_data->func()->sum('promovidos_tercero'),
+      ])
+      ->group(['xmf_casillas_id','name']);
+
+      $graf_data->hydrate(false);
+      $graf_data =$graf_data->toArray();
+      #debug($graf_data);
+
+      $this->LoadModel('XmfReportsCierre');
+
+      $graf_data_cierre = $this->XmfReportsCierre->find('all');
+      $graf_data_cierre->select([
+        'id'                => 'xmf_casillas_id',
+        'votantes'    => $graf_data_cierre->func()->sum('votantes'),
+        'promovidos'  => $graf_data_cierre->func()->sum('promovidos'),
+      ])
+      ->group(['xmf_casillas_id']);
+      $graf_data_cierre->hydrate(false);
+      $graf_data_cierre =$graf_data_cierre->toArray();
+
+      #debug($graf_data_cierre);
+      $votantes_cierre = 0;
+      $promovidos_cierre = 0;
+      foreach ($graf_data_cierre as $key => $value)
+      {
+        $votantes_cierre   += $value['votantes'];
+        $promovidos_cierre += $value['promovidos'];
+      }
+
+      $votantes_s = 0;
+      $promovidos_s = 0;
+      $jcategories = array('ACUMULADO DE VOTACIONES');
+
+      $votantes_2 = 0;
+      $promovidos_2 = 0;
+      $votantes_3 = 0;
+      $promovidos_3 = 0;
+      foreach ($graf_data as $key => $value)
+      {
+        $votantes_2   += $value['votantes_segundo'];
+        $promovidos_2 += $value['promovidos_segundo'];
+        $votantes_3   += $value['votantes_tercero'];
+        $promovidos_3 += $value['promovidos_tercero'];
+      }
+
+      $votantes =$votantes_2+$votantes_3+$votantes_cierre;
+      $promovidos =$promovidos_2+$promovidos_3+$promovidos_cierre;
       $jvotantes[] = $votantes;
       $jpromovidos[] = $promovidos;
 
@@ -244,7 +261,8 @@ class XmfReportsSegundoTerceroController extends AppController
       $categories = json_encode($jcategories);
       $votantes = json_encode($jvotantes);
       $promovidos = json_encode($jpromovidos);
-
+      $this->pastelOchoDoce();
+      $this->pastelOchoKince();
       $this->set(compact('votantes_s','promovidos_s','votantes','promovidos','categories'));
 
       #HISTÓRICO
@@ -254,6 +272,83 @@ class XmfReportsSegundoTerceroController extends AppController
       // $this->render('Paper.Pages/reports/SegundoReporte');
       // 3.x form
       $this->viewBuilder()->template('Paper.Pages/reports/CuartoReporte');
+    }
+
+
+    public function pastelOchoDoce()
+    {
+      /*
+      PASTEL HISTÓRICO 8:12
+      */
+      $graf_data12 = $this->XmfViewReporteSegundosTerceros->find('all',['conditions'=>['XmfViewReporteSegundosTerceros.is_twelve' => 1 ]]);
+      $graf_data12->select([
+        'name'                => 'name',
+        'votantes_segundo'    => $graf_data12->func()->sum('votantes_segundo'),
+        'promovidos_segundo'  => $graf_data12->func()->sum('promovidos_segundo'),
+        'votantes_tercero'    => $graf_data12->func()->sum('votantes_tercero'),
+        'promovidos_tercero'  => $graf_data12->func()->sum('promovidos_tercero'),
+      ])
+      ->group(['xmf_casillas_id','name']);
+      $graf_data12->hydrate(false);
+      $graf_data12 =$graf_data12->toArray();
+
+      $votantes_s12 = 0;
+      $promovidos_s12 = 0;
+
+      foreach ($graf_data12 as $key => $value)
+      {
+        $votantes_s12 +=$value['votantes_segundo'];
+        $promovidos_s12 +=$value['promovidos_segundo'];
+      }
+
+      /*
+      PASTEL HISTÓRICO 8:12
+      */
+      $this->set(compact('votantes_s12','promovidos_s12'));
+    }
+
+    function pastelOchoKince()
+    {
+      $this->LoadModel('XmfViewReporteSegundosTerceros');
+
+      $graf_data15 = $this->XmfViewReporteSegundosTerceros->find('all',['conditions'=>[ 'XmfViewReporteSegundosTerceros.is_thirdteen' => 1,
+                                                                                      'XmfViewReporteSegundosTerceros.is_twelve' => 1
+                                                                                    ]
+                                                                    ]
+                                                              );
+      $graf_data15->select([
+        'name'                => 'name',
+        'votantes_segundo'    => $graf_data15->func()->sum('votantes_segundo'),
+        'promovidos_segundo'  => $graf_data15->func()->sum('promovidos_segundo'),
+        'votantes_tercero'    => $graf_data15->func()->sum('votantes_tercero'),
+        'promovidos_tercero'  => $graf_data15->func()->sum('promovidos_tercero'),
+      ])
+      ->group(['xmf_casillas_id','name']);
+
+      $graf_data15->hydrate(false);
+      $graf_data15 =$graf_data15->toArray();
+
+      $votantes_s = 0;
+      $promovidos_s = 0;
+      $jcategories = array('FLUJO DE VOTACIONES');
+
+      $votantes_215 = 0;
+      $promovidos_215 = 0;
+      $votantes_315 = 0;
+      $promovidos_315 = 0;
+      
+      foreach ($graf_data15 as $key => $value)
+      {
+        $votantes_215   += $value['votantes_segundo'];
+        $promovidos_215 += $value['promovidos_segundo'];
+        $votantes_315   += $value['votantes_tercero'];
+        $promovidos_315 += $value['promovidos_tercero'];
+      }
+
+      $votantes_s15 =$votantes_215+$votantes_315;
+      $promovidos_s15 =$promovidos_215+$promovidos_315;
+
+      $this->set(compact('votantes_s15','promovidos_s15'));
     }
 
 
