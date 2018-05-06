@@ -2,5 +2,5 @@
 /config/app.php
 /tmp/*
 /logs/*
-/webroot/debug_kit/*
-/webroot/paper/*
+/webroot/debug_kit
+/webroot/paper

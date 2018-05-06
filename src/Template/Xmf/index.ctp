@@ -12,6 +12,7 @@
                     <p><a href="tel:9999999999">(999)-999 9999</a></p>
                 </div>
                     <div class="col-md-6 col-lg-6">
+                        <h2 class="title"><small>RAÚL RUIZ</small></h2>
                         <h5 class="title"><small>NOMBRE ABOGADO</small></h5>
                         <p><a href="tel:9999999999">(999)-999 9999</a></p>
                     </div>
