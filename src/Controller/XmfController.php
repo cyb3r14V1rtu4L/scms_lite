@@ -182,11 +182,15 @@ class XmfController extends AppController
 
             $casilla_id = $_POST['casilla_id'];
 
+            #ELIMINAR DATOS PRESENCIAS CASILLA
+            $this->XmfPresencesReferences->deleteAll(['xmf_casillas_id' => $casilla_id ]);
+
             #DATOS PRIMER REPORTE DE CASILLA
             $this->XmfCasillas->updateAll(
                 [
                  "lugar_indicado" =>  ($_POST['lugar_indicado']==false)?0:1,
                  "gente_fila" => ($_POST['gente_fila']==false)?0:1,
+                 "nombres_fila" => $_POST['nombres_fila'],
                 ],
                 ['id' => $casilla_id]
             );
@@ -210,16 +214,19 @@ class XmfController extends AppController
         }
     }
 
-
-
     public function addSecondReport()
     {
+        #ELIMINAR DATOS SEGUNDO REPORTE
+        $this->LoadModel('XmfReportsSegundoTercero');
+        $this->XmfReportsSegundoTercero->deleteAll(['xmf_casillas_id' => $_POST['casilla_id'],'votantes_tercero IS NULL', 'promovidos_tercero IS NULL']);
+
         $ReportsSegundoTerceroTable = TableRegistry::get('XmfReportsSegundoTercero');
         $ReportsSegundoTercero = $ReportsSegundoTerceroTable->newEntity();
 
         $ReportsSegundoTercero->xmf_casillas_id = $_POST['casilla_id'];
         $ReportsSegundoTercero->votantes_segundo = $_POST['votantes_segundo'];
         $ReportsSegundoTercero->promovidos_segundo = $_POST['promovidos_segundo'];
+        $ReportsSegundoTercero->created = $this->createdDate();
 
         if ($ReportsSegundoTerceroTable->save($ReportsSegundoTercero))
         {
@@ -229,12 +236,17 @@ class XmfController extends AppController
 
     public function addThirdReport()
     {
+        #ELIMINAR DATOS TERCER REPORTE
+        $this->LoadModel('XmfReportsSegundoTercero');
+        $this->XmfReportsSegundoTercero->deleteAll(['xmf_casillas_id' => $_POST['casilla_id'],'votantes_segundo IS NULL', 'promovidos_segundo IS NULL']);
+
         $ReportsSegundoTerceroTable = TableRegistry::get('XmfReportsSegundoTercero');
         $ReportsSegundoTercero = $ReportsSegundoTerceroTable->newEntity();
 
         $ReportsSegundoTercero->xmf_casillas_id = $_POST['casilla_id'];
         $ReportsSegundoTercero->votantes_tercero = $_POST['votantes_tercero'];
         $ReportsSegundoTercero->promovidos_tercero = $_POST['promovidos_tercero'];
+        $ReportsSegundoTercero->created = $this->createdDate();
 
         if ($ReportsSegundoTerceroTable->save($ReportsSegundoTercero))
         {
@@ -244,6 +256,10 @@ class XmfController extends AppController
 
     public function addForthReport()
     {
+        #ELIMINAR DATOS REPORTE CIERRE
+        $this->LoadModel('XmfReportsCierre');
+        $this->XmfReportsCierre->deleteAll(['xmf_casillas_id' => $_POST['casilla_id']]);
+
         $ReportsCierreTable = TableRegistry::get('XmfReportsCierre');
         $ReportsCierre = $ReportsCierreTable->newEntity();
         $ReportsCierre->xmf_casillas_id = $_POST['casilla_id'];
@@ -251,6 +267,7 @@ class XmfController extends AppController
         $ReportsCierre->habia_gente_fila =  ($_POST['habia_gente_fila']==="false")?0:1;;
         $ReportsCierre->votantes = $_POST['votantes'];
         $ReportsCierre->promovidos = $_POST['promovidos'];
+        $ReportsCierre->created = $this->createdDate();
 
         if ($ReportsCierreTable->save($ReportsCierre))
         {
@@ -271,13 +288,19 @@ class XmfController extends AppController
     public function addLastReport()
     {
         $this->LoadModel('XmfVotes');
+        $this->LoadModel('XmfReportsCierre');
 
-        if($this->request->is('ajax')) {
 
+        if($this->request->is('ajax'))
+        {
+            #DATOS PRIMER REPORTE FINAL
             $casilla_id = $_POST['casilla_id'];
 
-
-            #DATOS PRIMER REPORTE FINAL
+            #ELIMINAR DATOS REPORTE FINAL (POR TIPO)
+            $this->XmfVotes->deleteAll([
+                                        'xmf_casillas_id' => $casilla_id,
+                                        'xmf_tipo_votaciones_id' => $_POST['xmf_tipo_votaciones_id']
+                                      ]);
             $id_x = 1;
             for($x=1;$x<=26;$x++)
             {

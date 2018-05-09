@@ -26,19 +26,24 @@ class UsersController extends AppController
 
      if ($this->request->is('post')) {
        $user = $this->Auth->identify();
-       debug($user);
+       #debug($user);
        if ($user) {
          $this->Auth->setUser($user);
 
-         if ($this->Auth->user('is_superuser')) {
+         if ($this->Auth->user('is_superuser'))
+         {
+           #ADMIN MONITOR
             return $this->redirect(['controller'=>'XmfCasillas','action'=>'MonitorCasillas']);
          }else{
 
            if ($this->Auth->user('role_id') == 'e687cb91-4cdf-4ab2-992f-e76584199c2e')
+           #USER MINITOR
            {
              #return $this->redirect(['controller'=>'Pages','action'=>'home']);
+             return $this->redirect(['controller'=>'XmfCasillas','action'=>'MonitorCasillas']);
            }
            else if ($this->Auth->User('role_id') == '80687266-6761-43a2-bd98-f42349a9bb63')
+           #USER CAPTURA
            {
                //$this->redirect(['controller' => 'Pages', 'action' => 'reports/CapturaReporte']);
                $this->redirect(['controller' => 'Xmf', 'action' => 'index']);
@@ -49,7 +54,7 @@ class UsersController extends AppController
          }
 
        } else {
-         $this->Flash->error('Wrong',['key'=>'auth']);
+         //$this->Flash->error('Wrong',['key'=>'auth']);
        }
 
      }
