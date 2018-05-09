@@ -116,15 +116,23 @@ class XmfCasillasController extends AppController
 
     public function monitorCasillasAbiertas()
     {
+      $role_id = $_SESSION['Auth']['User']['role_id'];
+      if($role_id == 'e687cb91-4cdf-4ab2-992f-e76584199c2e')
+      {
+        $conditions = array('XmfCasillas.hora_inicio  IS NOT NULL','XmfCasillas.status'=>'V','XmfCasillas.rg_id'=>$_SESSION['Auth']['User']['id']);
+      }else{
+          $conditions = array('XmfCasillas.hora_inicio  IS NOT NULL','XmfCasillas.status'=>'V');
+      }
+
      $this->getCounterHead();
      $this->getIncidencias();
      $this->LoadModel('XmfViewReporteSegundosTerceros');
      $this->LoadModel('XmfReportsCierre');
-     $casillas_segundo_reporte = $this->XmfCasillas->find('all', array('conditions' => array('XmfCasillas.hora_inicio  IS NOT NULL','XmfCasillas.status'=>'V')));
+     $casillas_segundo_reporte = $this->XmfCasillas->find('all', array('conditions' => $conditions));
      $casillas_segundo_reporte->hydrate(false);
      $casillas_segundo_reporte =$casillas_segundo_reporte->toArray();
 
-     $casillas_tercer_reporte = $this->XmfCasillas->find('all', array('conditions' => array('XmfCasillas.hora_inicio  IS NOT NULL','XmfCasillas.status'=>'V')));
+     $casillas_tercer_reporte = $this->XmfCasillas->find('all', array('conditions' => $conditions));
      $casillas_tercer_reporte->hydrate(false);
      $casillas_tercer_reporte =$casillas_tercer_reporte->toArray();
 
