@@ -100,6 +100,11 @@ class XmfViewReporteSegundosTercerosController extends AppController
       ;
 
       $graf_one =$graf_one->toArray();
+      if($tipo == 'senador' || $tipo == 'diputado')
+      {
+        unset($graf_one[3]);
+        unset($graf_one[4]);
+      }
       $tabular = $graf_one;
 
       foreach ($graf_one as $key => $value) {
