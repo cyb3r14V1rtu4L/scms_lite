@@ -39,6 +39,7 @@ use Cake\Routing\Router;
  * `:action` markers.
  *
  */
+
 Router::defaultRouteClass('DashedRoute');
 
 Router::scope('/', function ($routes) {
@@ -53,6 +54,46 @@ Router::scope('/', function ($routes) {
      * ...and connect the rest of 'Pages' controller's URLs.
      */
     $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
+    #$routes->connect('/xmf-casillas/monitor-cerradas/:page', ['controller' => 'xmfCasillas', 'action' => 'monitorCerradas'],['page' => '[0-9]+']);
+
+    $routes->connect('/xmf-casillas/monitor-cerradas/:page',
+                      array('controller' => 'xmfCasillas', 'action' => 'monitorCerradas'),
+                      array(
+                      // order matters
+                      'pass' => array('slug','page'),
+                     'page'=> '[0-9]+'
+                      )
+                    );
+
+    $routes->connect('/xmf-casillas/monitor-presencias/:page',
+                      array('controller' => 'xmfCasillas', 'action' => 'monitorPresencias'),
+                      array(
+                      // order matters
+                      'pass' => array('slug','page'),
+                     'page'=> '[0-9]+'
+                      )
+                    );
+
+    $routes->connect('/xmf-casillas/monitor-ausentes/:page',
+                      array('controller' => 'xmfCasillas', 'action' => 'monitorAusentes'),
+                      array(
+                      // order matters
+                      'pass' => array('slug','page'),
+                     'page'=> '[0-9]+'
+                      )
+                    );
+
+    $routes->connect('/xmf-casillas/monitor-instalando/:page',
+                      array('controller' => 'xmfCasillas', 'action' => 'monitorInstalando'),
+                      array(
+                      // order matters
+                      'pass' => array('slug','page'),
+                     'page'=> '[0-9]+'
+                      )
+                    );
+
+
+
 
     /**
      * Connect catchall routes for all controllers.

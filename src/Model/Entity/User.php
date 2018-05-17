@@ -73,4 +73,6 @@ class User extends Entity
         'password',
         'token'
     ];
+
+    
 }
