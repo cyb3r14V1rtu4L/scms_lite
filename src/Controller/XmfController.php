@@ -223,10 +223,12 @@ class XmfController extends AppController
         $ReportsSegundoTerceroTable = TableRegistry::get('XmfReportsSegundoTercero');
         $ReportsSegundoTercero = $ReportsSegundoTerceroTable->newEntity();
 
+        $createdDate = date('Y-m-d').' 10:00:00';
+
         $ReportsSegundoTercero->xmf_casillas_id = $_POST['casilla_id'];
         $ReportsSegundoTercero->votantes_segundo = $_POST['votantes_segundo'];
         $ReportsSegundoTercero->promovidos_segundo = $_POST['promovidos_segundo'];
-        $ReportsSegundoTercero->created = $this->createdDate();
+        $ReportsSegundoTercero->created = $createdDate;
 
         if ($ReportsSegundoTerceroTable->save($ReportsSegundoTercero))
         {
@@ -243,10 +245,11 @@ class XmfController extends AppController
         $ReportsSegundoTerceroTable = TableRegistry::get('XmfReportsSegundoTercero');
         $ReportsSegundoTercero = $ReportsSegundoTerceroTable->newEntity();
 
+        $createdDate = date('Y-m-d').' 14:20:00';
         $ReportsSegundoTercero->xmf_casillas_id = $_POST['casilla_id'];
         $ReportsSegundoTercero->votantes_tercero = $_POST['votantes_tercero'];
         $ReportsSegundoTercero->promovidos_tercero = $_POST['promovidos_tercero'];
-        $ReportsSegundoTercero->created = $this->createdDate();
+        $ReportsSegundoTercero->created = $createdDate;
 
         if ($ReportsSegundoTerceroTable->save($ReportsSegundoTercero))
         {
@@ -262,12 +265,14 @@ class XmfController extends AppController
 
         $ReportsCierreTable = TableRegistry::get('XmfReportsCierre');
         $ReportsCierre = $ReportsCierreTable->newEntity();
+
+        $createdDate = date('Y-m-d').' 16:20:00';
         $ReportsCierre->xmf_casillas_id = $_POST['casilla_id'];
         $ReportsCierre->hr_cierre = $_POST['hr_cierre'];
         $ReportsCierre->habia_gente_fila =  ($_POST['habia_gente_fila']==="false")?0:1;;
         $ReportsCierre->votantes = $_POST['votantes'];
         $ReportsCierre->promovidos = $_POST['promovidos'];
-        $ReportsCierre->created = $this->createdDate();
+        $ReportsCierre->created = $createdDate;
 
         if ($ReportsCierreTable->save($ReportsCierre))
         {
@@ -289,7 +294,6 @@ class XmfController extends AppController
     {
         $this->LoadModel('XmfVotes');
         $this->LoadModel('XmfReportsCierre');
-
 
         if($this->request->is('ajax'))
         {
@@ -317,5 +321,26 @@ class XmfController extends AppController
                 }
             }
         }
+    }
+
+    public function insertCasillas()
+    {
+
+      for($x=1;$x<=360;$x++)
+      {
+          $CasillasTable = TableRegistry::get('XmfCasillas');
+          $Casilla = $CasillasTable->newEntity();
+
+          $Casilla->name = 'CA-'.$x;
+          $Casilla->description = 'CA-'.$x;
+
+          if($CasillasTable->save($Casilla))
+          {
+              $id = $Casilla->id;
+              echo json_encode(compact('Casilla'));
+          }else{
+            debug($CasillasTable);
+          }
+      }
     }
 }
