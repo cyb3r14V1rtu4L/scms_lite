@@ -246,7 +246,7 @@ class XmfCasillasController extends AppController
      }else{
           $conditions =  array('XmfCasillas.hora_cierre'=> 'IS NOT NULL','XmfCasillas.status'=>'X');
      }
-     pr($conditions);
+     #pr($conditions);
      $casillas_cerradas = $this->XmfCasillas->find('all', array('fields'=>array('id','name'),'conditions' => $conditions));
      $casillas_cerradas->hydrate(false);
 
