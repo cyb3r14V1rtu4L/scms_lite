@@ -2,7 +2,7 @@
 
 <div class="container-fluid">
     <div class="row" id="resMonitorCasillas">
-      <div class="col-lg-12"><?= $this->element('Paper.xmf/counter_head_status');?></div>
+      <div class="col-lg-12"><?= $this->element('Paper.xmf/counter_head_vertical');?></div>
 
       <div class="col-lg-12 col-sm-12">
         <div class="nav-tabs-navigation">

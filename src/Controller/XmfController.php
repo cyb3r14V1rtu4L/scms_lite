@@ -3,7 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
-
+use Cake\Utility\Security;
 /**
  * XmfCasillas Controller
  *
@@ -326,13 +326,13 @@ class XmfController extends AppController
     public function insertCasillas()
     {
 
-      for($x=1;$x<=360;$x++)
+      for($x=1;$x<=60;$x++)
       {
           $CasillasTable = TableRegistry::get('XmfCasillas');
           $Casilla = $CasillasTable->newEntity();
-
-          $Casilla->name = 'CA-'.$x;
-          $Casilla->description = 'CA-'.$x;
+          $name = ($x<10) ? 'CA-0'.$x :'CA-'.$x;
+          $Casilla->name = $name;
+          $Casilla->description = $name;
 
           if($CasillasTable->save($Casilla))
           {
@@ -342,5 +342,63 @@ class XmfController extends AppController
             debug($CasillasTable);
           }
       }
+    }
+
+    public function insertUsers()
+    {
+      $chunk = array(7,4,4,4,12);
+      for($x=1;$x<=60;$x++)
+      {
+        $pool = array_merge(range(0,9), range('a', 'z'));
+        $key ='';
+        foreach ($chunk as $length) {
+          for($i=0; $i < $length; $i++)
+          {
+            $key .= $pool[mt_rand(0, count($pool) - 1)];
+          }
+          $key.='-';
+        }
+
+        $UsersTable = TableRegistry::get('Users');
+        $User = $UsersTable->newEntity();
+
+        $User->id = rtrim($key,"-");
+        $User->role_id= '80687266-6761-43a2-bd98-f42349a9bb63';
+        $User->password= '$2y$10$7Nr7lHpeouo.3Swq.mM.3uNu0zjJmyyEGxgTOA1F9UYq7dXSFfyHK';
+        $User->username= ($x<10) ? 'CAPTURA0'.$x :'CAPTURA'.$x;
+        $User->first_name= 'CAPTURISTA';
+        $User->last_name= ($x<10) ? '0'.$x : $x;
+        $User->is_superuser = 0;
+        $User->active = 1;
+
+        if($UsersTable->save($User))
+        {
+            $user_id = $User->id;
+            $CasillasTable = TableRegistry::get('XmfCasillas');
+            $Casilla = $CasillasTable->newEntity();
+            $name = ($x<10) ? 'CA-0'.$x :'CA-'.$x;
+            $Casilla->user_id = $user_id;
+            $Casilla->name = $name;
+            $Casilla->description = $name;
+
+            if($CasillasTable->save($Casilla))
+            {
+                $id = $Casilla->id;
+                echo json_encode(compact('User'));
+                echo json_encode(compact('Casilla'));
+            }else{
+              debug($CasillasTable);
+            }
+        }else{
+          debug($UsersTable);
+        }
+      }
+    }
+
+    public function chekHash()
+    {
+      $this->_config['hashType'] = '';
+      $Pass = Security::hash('123',$this->_config['hashType'], true);
+      echo $Pass;exit;
     }
 }

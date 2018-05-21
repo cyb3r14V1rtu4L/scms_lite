@@ -1,6 +1,6 @@
 <div id="divResults">
 
-<?= $this->element('Paper.xmf/counter_head_status'); ?>
+<?= $this->element('Paper.xmf/counter_head_vertical'); ?>
 <div class="container-fluid">
     <div class="row" id="resMonitorCasillas">
     <div class="nav-tabs-navigation">

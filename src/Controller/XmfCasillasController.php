@@ -482,9 +482,6 @@ class XmfCasillasController extends AppController
   }
 
 
-
-
-
   public function getData () {
     // $this->getCounterHead();
     $this->LoadModel('XmfCasillas');
