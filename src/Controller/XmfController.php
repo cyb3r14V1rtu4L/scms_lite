@@ -351,7 +351,8 @@ class XmfController extends AppController
       {
         $pool = array_merge(range(0,9), range('a', 'z'));
         $key ='';
-        foreach ($chunk as $length) {
+        foreach ($chunk as $length)
+        {
           for($i=0; $i < $length; $i++)
           {
             $key .= $pool[mt_rand(0, count($pool) - 1)];
@@ -373,22 +374,22 @@ class XmfController extends AppController
 
         if($UsersTable->save($User))
         {
-            $user_id = $User->id;
-            $CasillasTable = TableRegistry::get('XmfCasillas');
-            $Casilla = $CasillasTable->newEntity();
-            $name = ($x<10) ? 'CA-0'.$x :'CA-'.$x;
-            $Casilla->user_id = $user_id;
-            $Casilla->name = $name;
-            $Casilla->description = $name;
+          $user_id = $User->id;
+          $CasillasTable = TableRegistry::get('XmfCasillas');
+          $Casilla = $CasillasTable->newEntity();
+          $name = ($x<10) ? 'CA-0'.$x :'CA-'.$x;
+          $Casilla->user_id = $user_id;
+          $Casilla->name = $name;
+          $Casilla->description = $name;
 
-            if($CasillasTable->save($Casilla))
-            {
-                $id = $Casilla->id;
-                echo json_encode(compact('User'));
-                echo json_encode(compact('Casilla'));
-            }else{
-              debug($CasillasTable);
-            }
+          if($CasillasTable->save($Casilla))
+          {
+            $id = $Casilla->id;
+            echo json_encode(compact('User'));
+            echo json_encode(compact('Casilla'));
+          }else{
+            debug($CasillasTable);
+          }
         }else{
           debug($UsersTable);
         }
@@ -397,7 +398,6 @@ class XmfController extends AppController
 
     public function chekHash()
     {
-      $this->_config['hashType'] = '';
       $Pass = Security::hash('123',$this->_config['hashType'], true);
       echo $Pass;exit;
     }

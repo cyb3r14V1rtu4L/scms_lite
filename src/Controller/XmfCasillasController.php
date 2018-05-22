@@ -318,11 +318,10 @@ class XmfCasillasController extends AppController
       #REPORTE IV
 
       $this->set(compact('active_1','active_2','active_3','active_4','active_5',
-      'casillas_primer_reporte',
-      'casillas_segundo_reporte',
-      'casillas_tercero_reporte',
-      'casillas_cuarto_reporte',
-      'id'));
+                         'casillas_primer_reporte', 'casillas_segundo_reporte',
+                         'casillas_tercero_reporte', 'casillas_cuarto_reporte',
+                         'id')
+                 );
   }
 
 
