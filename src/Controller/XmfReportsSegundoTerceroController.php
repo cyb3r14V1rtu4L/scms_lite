@@ -34,37 +34,44 @@ class XmfReportsSegundoTerceroController extends AppController
 
     public function PrimerReporte() {
       $this->getCounterHead();
-      $this->LoadModel('XmfCasillas');
 
-      $instaladas = $this->XmfCasillas->find('all',['conditions'=>['XmfCasillas.status'=>'V']]);
+      $role_id = $_SESSION['Auth']['User']['role_id'];
+      if($role_id == 'e687cb91-4cdf-4ab2-992f-e76584199c2e')
+      {
+        $conditions_v = array('XmfCasillas.status'=>'V','rg_id'=>$_SESSION['Auth']['User']['id']);
+        $conditions_a = array('XmfCasillas.status IS NULL','rg_id'=>$_SESSION['Auth']['User']['id']);
+      }else{
+        $conditions_v = ['XmfCasillas.status'=>'V'];
+        $conditions_a = ['XmfCasillas.status IS NULL'];
+      }
+
+      $this->LoadModel('XmfCasillas');
+      $instaladas = $this->XmfCasillas->find('all',['conditions'=> $conditions_v]);
       $instaladas->select([
-        // 'name'                => 'name',
         'instalacion'    => $instaladas->func()->count('id'),
-        #'cierre'  => $instaladas->func()->count('hora_cierre')
       ]);
-      // ->group(['xmf_casillas_id','name']);
       $instaladas->hydrate(false);
       $instaladas =$instaladas->toArray();
 
-      $cerradas = $this->XmfCasillas->find('all',['conditions'=>['XmfCasillas.status IS NULL']]);
+      $cerradas = $this->XmfCasillas->find('all',['conditions'=> $conditions_a]);
       $cerradas->select([
-        // 'name'                => 'name',
         'cierre'  => $cerradas->func()->count('id')
       ]);
-      // ->group(['xmf_casillas_id','name']);
       $cerradas->hydrate(false);
       $cerradas =$cerradas->toArray();
       $graf_data[0] = array_merge($instaladas[0],$cerradas[0]);
 
+      $total= 0;
       foreach ($graf_data as $key => $value)
       {
         $jinstalacion[] = $value['instalacion'];
         $jcierre[] = $value['cierre'];
+        $total += $value['instalacion']+$value['cierre'];
       }
+      $instalacion = $jinstalacion;
+      $cierre = $jcierre;
 
-      $instalacion = json_encode($jinstalacion);
-      $cierre = json_encode($jcierre);
-      $total = json_encode(array_sum($jinstalacion + $jcierre));
+      //$total = json_encode(array_sum($jinstalacion + $jcierre));
 
       $tabular = $this->getData();
       $tabular = $tabular->toArray();
@@ -101,6 +108,7 @@ class XmfReportsSegundoTerceroController extends AppController
     public function SegundoReporte() {
       // debug('XmfReportsSegundoTercero::SegundoReporte');
       $this->getCounterHead();
+
       $this->LoadModel('XmfViewReporteSegundosTerceros');
       $graf_data = $this->XmfViewReporteSegundosTerceros->find('all',['conditions'=>['XmfViewReporteSegundosTerceros.is_twelve' => 1 ]]);
       $graf_data->select([
@@ -139,7 +147,7 @@ class XmfReportsSegundoTerceroController extends AppController
       $this->LoadModel('XmfViewReporteSegundosTerceros');
 
       $graf_data = $this->XmfViewReporteSegundosTerceros->find('all',['conditions'=>[ 'XmfViewReporteSegundosTerceros.is_thirdteen' => 1,
-                                                                                      'XmfViewReporteSegundosTerceros.is_twelve' => 1
+                                                                                      #'XmfViewReporteSegundosTerceros.is_twelve' => 1
                                                                                     ]
                                                                     ]
                                                               );
@@ -211,7 +219,6 @@ class XmfReportsSegundoTerceroController extends AppController
 
       $graf_data->hydrate(false);
       $graf_data =$graf_data->toArray();
-      #debug($graf_data);
 
       $this->LoadModel('XmfReportsCierre');
 
@@ -312,7 +319,7 @@ class XmfReportsSegundoTerceroController extends AppController
       $this->LoadModel('XmfViewReporteSegundosTerceros');
 
       $graf_data15 = $this->XmfViewReporteSegundosTerceros->find('all',['conditions'=>[ 'XmfViewReporteSegundosTerceros.is_thirdteen' => 1,
-                                                                                      'XmfViewReporteSegundosTerceros.is_twelve' => 1
+                                                                                      #'XmfViewReporteSegundosTerceros.is_twelve' => 1
                                                                                     ]
                                                                     ]
                                                               );
@@ -336,7 +343,7 @@ class XmfReportsSegundoTerceroController extends AppController
       $promovidos_215 = 0;
       $votantes_315 = 0;
       $promovidos_315 = 0;
-      
+
       foreach ($graf_data15 as $key => $value)
       {
         $votantes_215   += $value['votantes_segundo'];

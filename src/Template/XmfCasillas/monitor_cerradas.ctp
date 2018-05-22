@@ -1,6 +1,6 @@
-<!-- Set the notification -->
-<?= $this->Html->script('xmf/notifications/notify.js', ['block' => true]); ?>
-<?= $this->element('Paper.xmf/counter_head'); ?>
+<div id="divResults">
+
+<?= $this->element('Paper.xmf/counter_head_vertical'); ?>
 <div class="container-fluid">
     <div class="row" id="resMonitorCasillas">
     <div class="nav-tabs-navigation">
@@ -13,49 +13,35 @@
 </div>
 <div id="my-tab-content" class="tab-content text-center">
     <div class="tab-pane active" id="cerradas">
+
         <p>
             <h4>CASILLAS CERRADAS</h4>
             <hr/>
-            <?php
-            foreach($casillas_cerradas as $cp){
-            ?>
-                <div class="col-lg-2 col-sm-12">
-                    <div class="card ">
-                        <div class="content">
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <div class="">
-                                        <div class="text-center"><?=$cp['name']?></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="footer">
-                                <hr />
-                                    <div class="text-center">
-                                        <a href="tel:9999999999">
-                                            <span class="ti-mobile"></span>
-                                        </a>
-                                        &nbsp;
-                                        <a href="<?php echo $this->Url->build('/XmfCasillas/CapturaResultados/'.$cp['id'].'/4'); ?>">
-                                            <span class="ti-package"></span>
-                                        </a>
-                                        &nbsp;
-                                        <?php
-                                        #$votantes = $cp['votos']['votantes_segundo']+$cp['votos']['votantes_tercero'];
-                                        #$promovidos =$cp['votos']['promovidos_segundo']+$cp['votos']['promovidos_tercero'];
-
-                                        ?>
-                                        <!--<a href="#" rel="tooltip" style="white-space: nowrap;" title="<?=$votantes?>/<?=$promovidos?>"><span class="pie"><?=$votantes?>/<?=$promovidos?></span></a> -->
-
-                                    </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            <?php
-            }
-            ?>
+            <?= $this->element('Paper.xmf/pagination/casillas_status'); ?>
         </p>
+        <div class="col-lg-12">
+          <div class="paginator">
+              <ul class="pagination">
+                <?php
+
+                $this->Paginator->options([
+                    'url' => [
+                        'controller' => 'XmfCasillas',
+                        'action' => 'monitorCerradas'
+                        ]
+                    ]);
+
+
+                ?>
+                  <?= $this->Paginator->first('<< ' . __('Primera')) ?>
+                  <?= $this->Paginator->prev('< ' . __('Anterior')) ?>
+                  <?= $this->Paginator->numbers() ?>
+                  <?= $this->Paginator->next(__('Siguiente') . ' >') ?>
+                  <?= $this->Paginator->last(__('Última') . ' >>') ?>
+              </ul>
+          </div>
+
+        </div>
     </div>
     <div class="tab-pane" id="incidencias">
         <?= $this->element('Paper.xmf/reportes/incidencias'); ?>
@@ -83,3 +69,23 @@
     </div>
 
 </div>   <!-- container-fluid -->
+
+<script type="text/javascript">
+$(document).ready(function () {
+$(".pagination a").bind("click", function (event) {
+    if(!$(this).attr('href'))
+        return false;
+    $.ajax({
+        type: 'POST',
+        dataType: "html",
+        evalScripts:true,
+
+        success:function (data, textStatus) {
+            $("#divResults").html(data);
+        },
+        url:$(this).attr('href')});
+        return false;
+    });
+    });
+</script>
+</div><!--divResults-->

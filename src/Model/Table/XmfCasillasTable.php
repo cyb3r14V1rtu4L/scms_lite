@@ -36,12 +36,12 @@ class XmfCasillasTable extends Table
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
-        $this->addBehavior('Timestamp');
+        /*  $this->addBehavior('Timestamp');
 
-        $this->belongsTo('Users', [
+      $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
             'joinType' => 'INNER'
-        ]);
+        ]);*/
     }
 
     /**
@@ -50,9 +50,9 @@ class XmfCasillasTable extends Table
      * @param \Cake\Validation\Validator $validator Validator instance.
      * @return \Cake\Validation\Validator
      */
-    public function validationDefault(Validator $validator)
+  /*  public function validationDefault(Validator $validator)
     {
-        $validator
+        /*$validator
             ->integer('id')
             ->allowEmpty('id', 'create');
 
@@ -120,10 +120,10 @@ class XmfCasillasTable extends Table
      * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
      * @return \Cake\ORM\RulesChecker
      */
-    public function buildRules(RulesChecker $rules)
+  /*  public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->isUnique(['name']));
 
         return $rules;
-    }
+    }*/
 }

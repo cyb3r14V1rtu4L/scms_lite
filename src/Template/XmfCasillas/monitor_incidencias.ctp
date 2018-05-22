@@ -1,6 +1,6 @@
 <!-- Set the notification -->
 <?= $this->Html->script('xmf/notifications/notify.js', ['block' => true]); ?>
-<?= $this->element('Paper.xmf/counter_head'); ?>
+<?= $this->element('Paper.xmf/counter_head_status'); ?>
 <div class="container-fluid">
     <div class="row" id="resMonitorCasillas">
     <div class="nav-tabs-navigation">
