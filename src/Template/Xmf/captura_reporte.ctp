@@ -17,7 +17,8 @@
 
 <div class="container-fluid">
   <div class="row">
-    <button type="button" class="btn btn-danger pull-right"  onclick="enviarIncidencia()"><small>Enviar Incidencia <i class="ti-pulse"></i></small></button>
+    <button type="button" class="btn btn-info pull-left active"  onclick="window.location.href='/xmf/index'"><small>Mi Casilla - <i class="ti-package"></i></small></button>
+    <button type="button" class="btn btn-danger pull-right active"  onclick="enviarIncidencia()"><small>Enviar Incidencia <i class="ti-pulse"></i></small></button>
     <input type="hidden" id="xcasilla" value="<?=$_SESSION['Casilla']['id']?>"/>
   </div>
   <br/>

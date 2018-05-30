@@ -72,7 +72,11 @@ class AppController extends Controller
               ]
           ]);
 
-
+          $this->LoadModel('XmfCasillas');
+          $user_data = $this->XmfCasillas->find('all',['conditions'=>['user_id' => $this->Auth->user('id')]]);
+          $user_data =$user_data->toArray();
+          $_SESSION['Casilla'] = $user_data[0];
+          $this->set('userCasillas',$user_data);
     }
 
     public function getCounterHead($page=1){
