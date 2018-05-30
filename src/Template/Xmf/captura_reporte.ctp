@@ -43,7 +43,7 @@
                                     <div class="icon-circle">
                                         <i class="ti-package"></i>
                                     </div>
-                                    PRIMER REPORTE
+                                    APERTURA DE CASILLA
                                 </a>
                             </li>
                             <li>
@@ -51,7 +51,7 @@
                                     <div class="icon-circle">
                                         <i class="ti-user"></i>
                                     </div>
-                                    SEGUNDO REPORTE
+                                    PRIMER REPORTE
                                 </a>
                             </li>
                             <li>
@@ -59,7 +59,7 @@
                                     <div class="icon-circle">
                                         <i class="ti-user"></i>
                                     </div>
-                                    TERCER REPORTE
+                                    SEGUNDO REPORTE
                                 </a>
                             </li>
                             <li>
@@ -67,7 +67,7 @@
                                     <div class="icon-circle">
                                         <i class="ti-hand-stop"></i>
                                     </div>
-                                    CUARTO REPORTE
+                                    TERCER REPORTE
                                 </a>
                             </li>
                             <li>

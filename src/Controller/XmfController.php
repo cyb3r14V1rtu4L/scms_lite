@@ -398,7 +398,7 @@ class XmfController extends AppController
 
     public function chekHash()
     {
-      $Pass = Security::hash('123',$this->_config['hashType'], true);
+      $Pass = Security::hash('123','sha512', true);
       echo $Pass;exit;
     }
 }
