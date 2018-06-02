@@ -38,7 +38,7 @@
                                   <p>de</p>
                                   <p id="mes" class="mes"></p>
                                   <p>del</p>
-                                  <p id="anio" class="anio"></p>
+                                  <p id="anio" class="<a href="#"></a>nio"></p>
                                 </div>
                                 <div class="reloj">
                                   <p id="horas" class="horas"></p>
@@ -113,15 +113,16 @@
 
             <div class="text-center">
                 <div class="row">
-                    <h5><?=$userCasillas[0]['name'];?></h5>
+
+                    <h5><?=$_SESSION['userCasillas'][0]['name'];?></h5>
                     <div class="col-md-4 ">
-                        <h5><small><?=$userCasillas[0]['clave_agrupamiento'];?></small></h5>
+                        <h5><small><?=$_SESSION['userCasillas'][0]['clave_agrupamiento'];?></small></h5>
                     </div>
                     <div class="col-md-4">
                         <h5><small></small></h5>
                     </div>
                     <div class="col-md-4">
-                        <h5><small><?=$userCasillas[0]['urbana'];?></small></h5>
+                        <h5><small><?=$_SESSION['userCasillas'][0]['urbana'];?></small></h5>
                     </div>
 
                 </div>

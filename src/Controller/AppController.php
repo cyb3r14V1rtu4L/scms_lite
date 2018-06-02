@@ -71,12 +71,8 @@ class AppController extends Controller
                 'action'  => 'welcome'
               ]
           ]);
+          
 
-          $this->LoadModel('XmfCasillas');
-          $user_data = $this->XmfCasillas->find('all',['conditions'=>['user_id' => $this->Auth->user('id')]]);
-          $user_data =$user_data->toArray();
-          $_SESSION['Casilla'] = $user_data[0];
-          $this->set('userCasillas',$user_data);
     }
 
     public function getCounterHead($page=1){
@@ -158,7 +154,7 @@ class AppController extends Controller
         $casilla_datos = $this->XmfCasillas->find('all',['conditions'=>['XmfCasillas.id' => $ci['xmf_casillas_id'] ]]);
         $casilla_datos->hydrate(false);
         $casilla_datos =$casilla_datos->toArray();
-        $CasillasIncidencias[$k]['CasillaDatos'] = $casilla_datos[0];
+        $CasillasIncidencias[$k]['CasillaDatos'] = $casilla_datos;
       }
       $this->set(compact('CasillasIncidencias'));
     }
