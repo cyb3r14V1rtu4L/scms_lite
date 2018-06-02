@@ -15,7 +15,13 @@
 <?= $this->Html->script('bootstrap-select', ['block' => true]); ?>
 
 <div class="container-fluid">
-    <button type="button" class="btn btn-danger pull-right" onclick="showNotificationInci('top','right')"><small>Enviar Incidencia <i class="ti-pulse"></i></small></button>
+  <div class="row">
+    <button type="button" class="btn btn-danger pull-right active"  onclick="enviarIncidencia()"><small>Enviar Incidencia <i class="ti-pulse"></i></small></button>
+    <input type="hidden" id="xcasilla" value="<?= (isset($id)) ? $id : $_SESSION['Casilla']['id'];?>"/>
+  </div>
+  <br/>
+
+
     <div class="row">
         <div class="col-sm-12">
             <!--      Wizard container        -->
@@ -31,39 +37,39 @@
                             <div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="4" style="width: 15%;"></div>
                         </div>
                         <ul>
-                            <li class="<?=$active_1?>">
+                            <li>
                                 <a href="#primer_reporte" data-toggle="tab">
                                     <div class="icon-circle">
                                         <i class="ti-package"></i>
                                     </div>
+                                    APERTURA DE CASILLA
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#segundo_reporte" data-toggle="tab">
+                                    <div class="icon-circle">
+                                        <i class="ti-user"></i>
+                                    </div>
                                     PRIMER REPORTE
                                 </a>
                             </li>
-                            <li class="<?=$active_2?>">
-                                <a href="#segundo_reporte" data-toggle="tab">
+                            <li>
+                                <a href="#tercer_reporte" data-toggle="tab">
                                     <div class="icon-circle">
                                         <i class="ti-user"></i>
                                     </div>
                                     SEGUNDO REPORTE
                                 </a>
                             </li>
-                            <li class="<?=$active_3?>">
-                                <a href="#tercer_reporte" data-toggle="tab">
-                                    <div class="icon-circle">
-                                        <i class="ti-user"></i>
-                                    </div>
-                                    TERCER REPORTE
-                                </a>
-                            </li>
-                            <li class="<?=$active_4?>">
+                            <li>
                                 <a href="#cuarto_reporte" data-toggle="tab">
                                     <div class="icon-circle">
                                         <i class="ti-hand-stop"></i>
                                     </div>
-                                    CUARTO REPORTE
+                                    TERCER REPORTE
                                 </a>
                             </li>
-                            <li class="<?=$active_5?>" >
+                            <li>
                                 <a href="#resultados_finales" data-toggle="tab">
                                     <div class="icon-circle">
                                         <i class="ti-stats-up"></i>
@@ -74,19 +80,19 @@
                         </ul>
                     </div>
                     <div class="tab-content">
-                        <div class="tab-pane <?=$active_1?>" id="primer_reporte">
+                        <div class="tab-pane" id="primer_reporte">
                         <?= $this->element('Paper.xmf/reportes-cap/primer_reporte'); ?>
                     </div>
-                    <div class="tab-pane <?=$active_2?>" id="segundo_reporte">
+                    <div class="tab-pane" id="segundo_reporte">
                         <?= $this->element('Paper.xmf/reportes-cap/segundo_reporte'); ?>
                     </div>
-                    <div class="tab-pane <?=$active_3?>" id="tercer_reporte">
+                    <div class="tab-pane" id="tercer_reporte">
                     <?= $this->element('Paper.xmf/reportes-cap/tercer_reporte'); ?>
                     </div>
-                    <div class="tab-pane <?=$active_4?>" id="cuarto_reporte">
+                    <div class="tab-pane" id="cuarto_reporte">
                     <?= $this->element('Paper.xmf/reportes-cap/cuarto_reporte'); ?>
                     </div>
-                    <div class="tab-pane <?=$active_5?>" id="resultados_finales">
+                    <div class="tab-pane" id="resultados_finales">
                     <?= $this->element('Paper.xmf/reportes-cap/resultados_finales'); ?>
                     </div>
                     <div class="wizard-footer">
@@ -123,4 +129,33 @@ $(document).ready(function() {
 
     $(".voto").attr('maxlength','4');
 });
+
+function enviarIncidencia()
+{
+     $.ajax({
+         url: '/XmfCasillas/enviarIncidencia',
+         type: "POST",
+         dataType: "json",
+         data: {
+             xmf_casillas_id:$('#xcasilla').val(),
+             xmf_total_incidencias:1
+         }
+         ,
+         success: function (json) {
+
+             $.notify ({
+                  icon: 'ti-pulse',
+                  message: "<b>Incidencia</b> Enviada."
+
+                },{
+                    type: 'danger',
+                    timer: 2000
+                });
+                $('#btn_reporte_2').attr('disabled','disabled');
+         },
+         error: function (xhr, textStatus, errorThrown) {
+             console.log(xhr);
+         }
+     });
+ }
 </script>

@@ -30,15 +30,26 @@ class XmfController extends AppController
      */
     public function capturaReporte(){}
 
-    public function index($type=null)
+    public function index($type=null,$casilla_id=null)
     {
+        $role_id = $_SESSION['Auth']['User']['role_id'];
+        $conditions = ($role_id == '80687266-6761-43a2-bd98-f42349a9bb63') ? ['user_id' => $this->Auth->user('id')] :  ['id' => $casilla_id];
+        $this->LoadModel('XmfCasillas');
+        $user_data = $this->XmfCasillas->find('all',['conditions'=> $conditions]);
+        $user_data =$user_data->toArray();
+
+        $_SESSION['Casilla']['id'] = $user_data[0]['id'];
+        $_SESSION['userCasillas'] =$user_data;
+
         $xmfCasillas = null;
         $this->LoadModel('XmfViewIncidencias');
         $this->LoadModel('XmfCasillas');
         $this->LoadModel('Users');
         $user_data = $this->XmfCasillas->find('all',['conditions'=>['user_id' => $this->Auth->user('id')]]);
         $user_data =$user_data->toArray();
-        $_SESSION['Casilla'] = $user_data[0];
+
+        #$_SESSION['Casilla'] = ($casilla_id !== 'null') ? $casilla_id : $user_data[0];
+
         $this->set('userCasillas',$user_data);
 
         $message_p = (empty($user_data[0]['hora_presencia'])) ? 'Presencia Asignada' : 'Presencia Asignada Previamente';
@@ -77,7 +88,13 @@ class XmfController extends AppController
                     ['id' => $user_data[0]['id']]
                 );
             }
-            return $this->redirect(['action' => 'index']);
+
+            if($role_id == '80687266-6761-43a2-bd98-f42349a9bb63')
+            {
+              return $this->redirect(['action' => 'index']);
+            }else{
+              return $this->redirect(['controller'=>'xmfCasillas','action' => 'monitorCasillas']);
+            }
         }
     }
 
