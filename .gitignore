@@ -2,6 +2,8 @@
 /config/app.php
 /tmp/*
 /logs/*
+/webroot/paper
+/webroot/debug_kit
 /webroot/*
 .buildpath
 .project
