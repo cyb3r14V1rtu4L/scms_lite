@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Security;
+use Cake\ORM\Entity;
 /**
  * XmfCasillas Controller
  *
@@ -35,22 +36,20 @@ class XmfController extends AppController
         $role_id = $_SESSION['Auth']['User']['role_id'];
         $conditions = ($role_id == '80687266-6761-43a2-bd98-f42349a9bb63') ? ['user_id' => $this->Auth->user('id')] :  ['id' => $casilla_id];
         $this->LoadModel('XmfCasillas');
-        $user_data = $this->XmfCasillas->find('all',['conditions'=> $conditions]);
+        $user_data = $this->XmfCasillas->find('all',['fields'=>['id','rg_casilla','rg_telefono','name','clave_agrupamiento','urbana','hora_presencia'],'conditions'=> $conditions]);
         $user_data =$user_data->toArray();
 
         $_SESSION['Casilla']['id'] = $user_data[0]['id'];
-        $_SESSION['userCasillas'] =$user_data;
-
+        $_SESSION['userCasillas'] =$user_data[0];
         $xmfCasillas = null;
         $this->LoadModel('XmfViewIncidencias');
+
         $this->LoadModel('XmfCasillas');
         $this->LoadModel('Users');
-        $user_data = $this->XmfCasillas->find('all',['conditions'=>['user_id' => $this->Auth->user('id')]]);
-        $user_data =$user_data->toArray();
 
         #$_SESSION['Casilla'] = ($casilla_id !== 'null') ? $casilla_id : $user_data[0];
 
-        $this->set('userCasillas',$user_data);
+        $this->set('userCasillas',$user_data[0]);
 
         $message_p = (empty($user_data[0]['hora_presencia'])) ? 'Presencia Asignada' : 'Presencia Asignada Previamente';
         $this->set('message_p',$message_p);
@@ -363,9 +362,119 @@ class XmfController extends AppController
 
     public function insertUsers()
     {
-      $chunk = array(7,4,4,4,12);
-      for($x=1;$x<=60;$x++)
+      $path = ROOT.'/webroot/migrations/casillas.csv';
+      $html = '';
+      $r=0;
+      $chunk = array(7,4,4,4);
+
+      if (($file = fopen($path, "r")) !== FALSE)
       {
+        while (($xmf = fgetcsv($file, 1000,';')) !== FALSE)
+        {
+          $pool = array_merge(range(0,9), range('a', 'z'));
+          $key ='';
+          foreach ($chunk as $length)
+          {
+            for($i=0; $i < $length; $i++)
+            {
+              $key .= $pool[mt_rand(0, count($pool) - 1)];
+            }
+            $key.='-';
+          }
+
+          $UsersTable = TableRegistry::get('Users');
+          $User = $UsersTable->newEntity();
+
+          $User->id = rtrim($key,"-");
+          $User->role_id= '80687266-6761-43a2-bd98-f42349a9bb63';
+          $User->password= '$2y$10$7Nr7lHpeouo.3Swq.mM.3uNu0zjJmyyEGxgTOA1F9UYq7dXSFfyHK';
+          $User->username= $xmf[0].$xmf[1];
+
+          $user_name = explode(" ",$xmf[3]);
+          $User->last_name= $user_name[0].' '.$user_name[1];
+          $first_name = '';
+          $first_name.= (isset($user_name[2])) ? $user_name[2] : '';
+          $first_name.= (isset($user_name[3])) ? ' '.$user_name[3] : '';
+          $first_name.= (isset($user_name[4])) ? ' '.$user_name[4] : '';
+          $first_name.= (isset($user_name[5])) ? ' '.$user_name[5] : '';
+          $User->first_name=$first_name;
+
+          $User->is_superuser = 0;
+          $User->active = 1;
+          $User->rc_telefono = $xmf[4];
+          $User->rg_telefono = $xmf[6];
+
+          if($UsersTable->save($User))
+          {
+            $user_id = $User->id;
+            $CasillasTable = TableRegistry::get('XmfCasillas');
+            $Casilla = $CasillasTable->newEntity();
+            $name = $xmf[0].' '.$xmf[1];
+            $Casilla->user_id = $user_id;
+            $Casilla->name = $name;
+            $Casilla->description = $name;
+            $Casilla->rc_telefono = $xmf[4];
+            $Casilla->rg_casilla = $xmf[5];
+            $Casilla->rg_telefono = $xmf[6];
+
+
+            if($CasillasTable->save($Casilla))
+            {
+              $id = $Casilla->id;
+              echo json_encode(compact('User'));
+              echo json_encode(compact('Casilla'));
+            }else{
+              debug($CasillasTable);
+            }
+          }else{
+            debug($UsersTable);
+          }
+        }
+      }exit;
+    }
+
+
+    public function insertRGCasillas()
+    {
+      $path = ROOT.'/webroot/migrations/rg_casillas.csv';
+      $html = '';
+      $r=0;
+      $chunk = array(7,4,4,4);
+
+      if (($file = fopen($path, "r")) !== FALSE)
+      {
+        $this->LoadModel('XmfCasillas');
+        while (($xmf = fgetcsv($file, 1000,';')) !== FALSE)
+        {
+          $casilla_data = $this->XmfCasillas->find('all',['fields'=>'id','conditions'=>['name' => $xmf[0].' '.$xmf[1]]]);
+          $casilla_data =$casilla_data->toArray();
+
+          $CasillaUpdated = $this->XmfCasillas->updateAll(
+                              ["rg_casilla" => $xmf[2],"rg_telefono"=>$xmf[3],"rc_telefono"=>$xmf[4]],
+                              ['id' => $casilla_data[0]['id']]
+                          );
+          debug($CasillaUpdated);
+        }
+      }exit;
+    }
+
+
+    public function insertRGUsers()
+    {
+      $this->LoadModel('XmfCasillas');
+      $casilla_data = $this->XmfCasillas->find('all',['fields'=>['id','name','rg_id']]);
+      $casilla_data =$casilla_data->toArray();
+
+      $group_casillas = array_chunk($casilla_data, 34);
+      $group_casillas[9] = array_merge($group_casillas[9],$group_casillas[10]);
+      unset($group_casillas[10]);
+
+      $x=1;
+      $chunk = array(7,4,4,4);
+
+      foreach($group_casillas as $group)
+      {
+
         $pool = array_merge(range(0,9), range('a', 'z'));
         $key ='';
         foreach ($chunk as $length)
@@ -381,37 +490,103 @@ class XmfController extends AppController
         $User = $UsersTable->newEntity();
 
         $User->id = rtrim($key,"-");
-        $User->role_id= '80687266-6761-43a2-bd98-f42349a9bb63';
+        $User->role_id= 'e687cb91-4cdf-4ab2-992f-e76584199c2e';
         $User->password= '$2y$10$7Nr7lHpeouo.3Swq.mM.3uNu0zjJmyyEGxgTOA1F9UYq7dXSFfyHK';
-        $User->username= ($x<10) ? 'CAPTURA0'.$x :'CAPTURA'.$x;
-        $User->first_name= 'CAPTURISTA';
-        $User->last_name= ($x<10) ? '0'.$x : $x;
+        $User->username= ($x<10) ? 'MONITOR0'.$x : 'MONITOR'.$x;
+
+        $User->first_name= 'MONITOR';
+        $User->last_name = ($x<10) ? '0'.$x : $x ;
+
         $User->is_superuser = 0;
         $User->active = 1;
 
         if($UsersTable->save($User))
         {
-          $user_id = $User->id;
-          $CasillasTable = TableRegistry::get('XmfCasillas');
-          $Casilla = $CasillasTable->newEntity();
-          $name = ($x<10) ? 'CA-0'.$x :'CA-'.$x;
-          $Casilla->user_id = $user_id;
-          $Casilla->name = $name;
-          $Casilla->description = $name;
-
-          if($CasillasTable->save($Casilla))
-          {
-            $id = $Casilla->id;
-            echo json_encode(compact('User'));
-            echo json_encode(compact('Casilla'));
-          }else{
-            debug($CasillasTable);
-          }
-        }else{
-          debug($UsersTable);
+            $id = $User->id;
+            foreach ($group as $casilla)
+            {
+              $CasillaUpdated = $this->XmfCasillas->updateAll(["rg_id" => $id],['id' => $casilla['id']]);
+            }
+            $x++;
         }
       }
+exit;
+      /*
+      foreach ($casilla_data as $casilla)
+      {
+
+      }
+*/
+
+
+      /*$path = ROOT.'/webroot/migrations/monitor_users.csv';
+      $html = '';
+      $x=1;
+      $chunk = array(7,4,4,4);
+
+      if (($file = fopen($path, "r")) !== FALSE)
+      {
+        while (($xmf = fgetcsv($file, 1000,';')) !== FALSE)
+        {
+          $user_name = explode(" ",$xmf[0]);
+
+          $pool = array_merge(range(0,9), range('a', 'z'));
+          $key ='';
+          foreach ($chunk as $length)
+          {
+            for($i=0; $i < $length; $i++)
+            {
+              $key .= $pool[mt_rand(0, count($pool) - 1)];
+            }
+            $key.='-';
+          }
+
+          $UsersTable = TableRegistry::get('Users');
+          $User = $UsersTable->newEntity();
+
+          $User->id = rtrim($key,"-");
+          $User->role_id= 'e687cb91-4cdf-4ab2-992f-e76584199c2e';
+          $User->password= '$2y$10$7Nr7lHpeouo.3Swq.mM.3uNu0zjJmyyEGxgTOA1F9UYq7dXSFfyHK';
+          $User->username= ($x<10) ? 'MONITOR0'.$x : 'MONITOR'.$x;
+
+          $user_name = explode(" ",$xmf[0]);
+          $User->last_name = $user_name[0].' '.$user_name[1];
+          $first_name = '';
+          $first_name.= (isset($user_name[2])) ? $user_name[2] : '';
+          $first_name.= (isset($user_name[3])) ? ' '.$user_name[3] : '';
+          $first_name.= (isset($user_name[4])) ? ' '.$user_name[4] : '';
+          $first_name.= (isset($user_name[5])) ? ' '.$user_name[5] : '';
+          $User->first_name=$first_name;
+
+          $User->is_superuser = 0;
+          $User->active = 1;
+
+          if($UsersTable->save($User))
+          {
+              $id = $User->id;
+              $this->LoadModel('XmfCasillas');
+              $casilla_data = $this->XmfCasillas->find('all',['fields'=>'id','conditions'=>['rg_casilla' => $xmf[0]]]);
+              $casilla_data =$casilla_data->toArray();
+
+              foreach ($casilla_data as $casilla)
+              {
+                $CasillaUpdated = $this->XmfCasillas->updateAll(
+                                    ["rg_id" => $id],
+                                    ['id' => $casilla['id']]
+                                );
+              }
+              $x++;
+              echo json_encode(compact('User'));
+
+          }else{
+            debug($UsersTable);
+          }
+        }
+      }exit;*/
     }
+
+
+
 
     public function chekHash()
     {

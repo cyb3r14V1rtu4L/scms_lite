@@ -21,7 +21,6 @@ use Cake\Validation\Validator;
  */
 class XmfCasillasTable extends Table
 {
-
     /**
      * Initialize method
      *

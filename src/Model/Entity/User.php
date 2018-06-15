@@ -61,7 +61,9 @@ class User extends Entity
         'modified' => true,
         'role' => true,
         'articles' => true,
-        'social_accounts' => true
+        'social_accounts' => true,
+        'rg_telefono' => true,
+        'rc_telefono' => true,
     ];
 
     /**
@@ -74,5 +76,5 @@ class User extends Entity
         'token'
     ];
 
-    
+
 }

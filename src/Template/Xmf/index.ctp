@@ -7,13 +7,13 @@
                     <hr/>
                 </div>
                 <div class="col-md-6 col-lg-6">
-                    <h2 class="title"><small>ULISES MEJIA</small></h2>
-                    <h5 class="title"><small>REPRESENTANTE GENERAL</small></h5>
-                    <p><a href="tel:9999999999">(999)-999 9999</a></p>
+                    <h5 class="title"><small><?=$userCasillas['rg_casilla'];?></small></h5>
+                    <h6 class="title"><small>REPRESENTANTE GENERAL</small></h6>
+                    <p><a href="tel:<?=$userCasillas['rg_telefono'];?>"><?=$userCasillas['rg_telefono'];?></a></p>
                 </div>
                     <div class="col-md-6 col-lg-6">
-                        <h2 class="title"><small>RAÚL RUIZ</small></h2>
-                        <h5 class="title"><small>NOMBRE ABOGADO</small></h5>
+                        <h5 class="title"><small>RAÚL RUIZ</small></h5>
+                        <h6 class="title"><small>NOMBRE ABOGADO</small></h6>
                         <p><a href="tel:9999999999">(999)-999 9999</a></p>
                     </div>
                 <br/>
@@ -21,9 +21,12 @@
                 <br/>
                 <div class="text-center">
                     <div class="row">
-                        <h5>FUNCIONES PRINCIPALES - CASILLA</h5>
-                        <h3><?=strtoupper($_SESSION['Auth']['User']['first_name'].' '.$_SESSION['Auth']['User']['last_name']);?></h3>
-                        <h5><small>FUNCIONARIO DE CASILLA<small></h5>
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                          <hr/>
+                          <h4><small>FUNCIONES PRINCIPALES - CASILLA</small></h5>
+                        </div>
+                        <h5><?=strtoupper($_SESSION['Auth']['User']['first_name'].'<br/>'.$_SESSION['Auth']['User']['last_name']);?></h5>
+                        <h6><small>FUNCIONARIO DE CASILLA<small></h6>
                           <input type="hidden" id="xmf_casillas_id" value="<?=$_SESSION['Casilla']['id']?>">
                         <div class="row">
                             <div id="clocker" style="text-align:center;padding:1em 0;">
@@ -92,7 +95,7 @@
                           <br/>
                           <div class="col-md-6 col-lg-6 col-sm-12">
                             <?php
-                            $type_btn = (!empty($userCasillas[0]['hora_presencia'])) ? 'button' : 'post' ;
+                            $type_btn = (!empty($userCasillas['hora_presencia'])) ? 'button' : 'post' ;
                             ?>
                                 <button id="btn_presencia" type="button" class="btn btn-warning" onclick="window.location='<?php echo $this->Url->build('/Xmf/CapturaReporte'); ?>'"><small>ENVIAR REPORTES <i class="ti-stats-up"></i></small></button>
                                 <br/>
@@ -114,15 +117,15 @@
             <div class="text-center">
                 <div class="row">
 
-                    <h5><?=$_SESSION['userCasillas'][0]['name'];?></h5>
+                    <h5><?=$_SESSION['userCasillas']['name'];?></h5>
                     <div class="col-md-4 ">
-                        <h5><small><?=$_SESSION['userCasillas'][0]['clave_agrupamiento'];?></small></h5>
+                        <h5><small><?=$_SESSION['userCasillas']['clave_agrupamiento'];?></small></h5>
                     </div>
                     <div class="col-md-4">
                         <h5><small></small></h5>
                     </div>
                     <div class="col-md-4">
-                        <h5><small><?=$_SESSION['userCasillas'][0]['urbana'];?></small></h5>
+                        <h5><small><?=$_SESSION['userCasillas']['urbana'];?></small></h5>
                     </div>
 
                 </div>

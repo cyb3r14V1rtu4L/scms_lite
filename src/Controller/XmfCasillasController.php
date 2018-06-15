@@ -112,6 +112,9 @@ class XmfCasillasController extends AppController
       $this->getCounterHead();
       $this->getIncidencias();
 
+      $fields = ['id','name','rc_telefono','rg_telefono'];
+
+
       $role_id = $_SESSION['Auth']['User']['role_id'];
       if($role_id == 'e687cb91-4cdf-4ab2-992f-e76584199c2e')
       {
@@ -123,14 +126,14 @@ class XmfCasillasController extends AppController
       }
 
       $this->LoadModel('XmfCasillas');
-      $instaladas = $this->XmfCasillas->find('all',['conditions'=> $conditions_v]);
+      $instaladas = $this->XmfCasillas->find('all',['fields'=>$fields,'conditions'=> $conditions_v]);
       $instaladas->select([
         'instalacion'    => $instaladas->func()->count('id'),
       ]);
       $instaladas->hydrate(false);
       $instaladas =$instaladas->toArray();
 
-      $cerradas = $this->XmfCasillas->find('all',['conditions'=> $conditions_a]);
+      $cerradas = $this->XmfCasillas->find('all',['fields'=>$fields,'conditions'=> $conditions_a]);
       $cerradas->select([
         'cierre'  => $cerradas->func()->count('id')
       ]);
@@ -173,13 +176,13 @@ class XmfCasillasController extends AppController
      }else{
          $conditions = array('XmfCasillas.hora_inicio  IS NOT NULL','XmfCasillas.status'=>'V');
      }
+     $fields = ['id','name','rc_telefono','rg_telefono'];
 
-
-     $casillas_segundo_reporte = $this->XmfCasillas->find('all', array('conditions' => $conditions));
+     $casillas_segundo_reporte = $this->XmfCasillas->find('all', array('fields'=>$fields,'conditions' => $conditions));
      $casillas_segundo_reporte->hydrate(false);
      $casillas_segundo_reporte =$casillas_segundo_reporte->toArray();
 
-     $casillas_tercer_reporte = $this->XmfCasillas->find('all', array('conditions' => $conditions));
+     $casillas_tercer_reporte = $this->XmfCasillas->find('all', array('fields'=>$fields,'conditions' => $conditions));
      $casillas_tercer_reporte->hydrate(false);
      $casillas_tercer_reporte =$casillas_tercer_reporte->toArray();
 
@@ -226,7 +229,7 @@ class XmfCasillasController extends AppController
 
      foreach($casillas_cuarto_reporte as $k=>$cp)
      {
-       $casilla_datos = $this->XmfCasillas->find('all',['conditions'=>['XmfCasillas.id' => $cp['xmf_casillas_id'] ]]);
+       $casilla_datos = $this->XmfCasillas->find('all',['fields'=>$fields,'conditions'=>['XmfCasillas.id' => $cp['xmf_casillas_id'] ]]);
        $casilla_datos->hydrate(false);
        $casilla_datos =$casilla_datos->toArray();
        $casillas_cuarto_reporte[$k]['CasillaDatos'] = $casilla_datos[0];
@@ -247,7 +250,7 @@ class XmfCasillasController extends AppController
           $conditions =  array('XmfCasillas.hora_cierre'=> 'IS NOT NULL','XmfCasillas.status'=>'X');
      }
      #pr($conditions);
-     $casillas_cerradas = $this->XmfCasillas->find('all', array('fields'=>array('id','name'),'conditions' => $conditions));
+     $casillas_cerradas = $this->XmfCasillas->find('all', array('fields'=>$fields,'conditions' => $conditions));
      $casillas_cerradas->hydrate(false);
 
      $casillas_cerradas =$casillas_cerradas->toArray();
@@ -266,11 +269,12 @@ class XmfCasillasController extends AppController
         case '5':$active_1='';$active_2='';$active_3='';$active_4='';$active_5='active';break;
         default: $active_1='active';$active_2='';$active_3='';$active_4='';$active_5='';break;
       }
+      $fields = ['id','name','rc_telefono','rg_telefono'];
 
       #REPORTE I
       $this->LoadModel('XmfCasillas');
       $this->LoadModel('XmfPresencesReferences');
-      $casilla_datos = $this->XmfCasillas->find('all',['conditions'=>['XmfCasillas.id' => $id ]]);
+      $casilla_datos = $this->XmfCasillas->find('all',['fields'=>$fields,'conditions'=>['XmfCasillas.id' => $id ]]);
       $casilla_datos->hydrate(false);
       $casilla_datos =$casilla_datos->toArray();
       $casillas_primer_reporte = $casilla_datos[0];
@@ -373,9 +377,10 @@ class XmfCasillasController extends AppController
                             'page' => $page,
                             'order' => array('XmfCasillas.name' => 'asc')
                            );
+    $fields = ['id','name','rc_telefono','rg_telefono'];
 
     $this->LoadModel('XmfCasillas');
-    $casillas_presentes = $this->paginate($this->XmfCasillas->find('all',array('fields'=>array('id','name'),'conditions' => array('XmfCasillas.hora_presencia  IS NOT NULL','XmfCasillas.status'=>'P',$conditions))));
+    $casillas_presentes = $this->paginate($this->XmfCasillas->find('all',array('fields'=>$fields,'conditions' => array('XmfCasillas.hora_presencia  IS NOT NULL','XmfCasillas.status'=>'P',$conditions))));
     $casillas_presentes =$casillas_presentes->toArray();
 
     $this->getIncidencias();
@@ -406,9 +411,10 @@ class XmfCasillasController extends AppController
                             'order' => array('XmfCasillas.name' => 'asc')
                            );
 
+    $fields = ['id','name','rc_telefono','rg_telefono'];
 
     $this->LoadModel('XmfCasillas');
-    $casillas_ausentes = $this->paginate($this->XmfCasillas->find('all', array('fields'=>array('id','name'),'conditions' => array('XmfCasillas.hora_presencia IS NULL',$conditions))));
+    $casillas_ausentes = $this->paginate($this->XmfCasillas->find('all', array('fields'=>$fields,'conditions' => array('XmfCasillas.hora_presencia IS NULL',$conditions))));
     $casillas_ausentes =$casillas_ausentes->toArray();
     $this->getIncidencias();
     $this->set(compact('casillas_ausentes'));
@@ -438,9 +444,10 @@ class XmfCasillasController extends AppController
                             'order' => array('XmfCasillas.name' => 'asc')
                            );
 
+    $fields = ['id','name','rc_telefono','rg_telefono'];
 
     $this->LoadModel('XmfCasillas');
-    $casillas_instalando = $this->paginate($this->XmfCasillas->find('all', array('fields'=>array('id','name'),'conditions' => array('XmfCasillas.hora_instalacion  IS NOT NULL','XmfCasillas.status'=>'I',$conditions))));
+    $casillas_instalando = $this->paginate($this->XmfCasillas->find('all', array('fields'=>$fields,'conditions' => array('XmfCasillas.hora_instalacion  IS NOT NULL','XmfCasillas.status'=>'I',$conditions))));
     $casillas_instalando =$casillas_instalando->toArray();
     $this->getIncidencias();
     $this->set(compact('casillas_instalando'));
@@ -466,14 +473,16 @@ class XmfCasillasController extends AppController
     }else{
       $conditions = null;
     }
+
     $this->paginate = array('limit'=>35,
                             'page' => $page,
                             'order' => array('XmfCasillas.name' => 'asc')
                            );
-
+                           
+    $fields = ['id','name','rc_telefono','rg_telefono'];
     $this->LoadModel('XmfCasillas');
 
-    $casillas_cerradas = $this->paginate($this->XmfCasillas->find('all', array('fields'=>array('id','name'),'conditions' => array('XmfCasillas.hora_cierre IS NOT NULL','XmfCasillas.status'=>'X',$conditions))));
+    $casillas_cerradas = $this->paginate($this->XmfCasillas->find('all', array('fields'=>$fields,'conditions' => array('XmfCasillas.hora_cierre IS NOT NULL','XmfCasillas.status'=>'X',$conditions))));
     $casillas_cerradas =$casillas_cerradas->toArray();
     $this->getIncidencias();
     $this->set(compact('casillas_cerradas'));

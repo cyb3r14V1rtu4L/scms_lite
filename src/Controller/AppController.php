@@ -71,8 +71,7 @@ class AppController extends Controller
                 'action'  => 'welcome'
               ]
           ]);
-          
-
+            
     }
 
     public function getCounterHead($page=1){

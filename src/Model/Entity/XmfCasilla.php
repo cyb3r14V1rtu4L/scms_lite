@@ -16,11 +16,14 @@ use Cake\ORM\Entity;
  * @property string $urbana
  * @property string $distrito
  * @property string $locacion
+ * @property string $rg_casilla
+ * @property string $rg_telefono
  * @property \Cake\I18n\Time $hora_instalacion
  * @property \Cake\I18n\Time $hora_inicio
  * @property \Cake\I18n\Time $hora_cierre
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
+
  */
 class XmfCasilla extends Entity
 {
@@ -47,6 +50,9 @@ class XmfCasilla extends Entity
         'hora_instalacion' => true,
         'hora_inicio' => true,
         'hora_cierre' => true,
+        'rg_casilla' => true,
+        'rg_telefono' => true,
+        'rc_telefono' => true,
         'created' => true,
         'modified' => true
     ];
