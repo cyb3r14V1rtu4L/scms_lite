@@ -14,7 +14,7 @@
                     <div class="col-md-6 col-lg-6">
                         <h5 class="title"><small>RAÚL RUIZ</small></h5>
                         <h6 class="title"><small>NOMBRE ABOGADO</small></h6>
-                        <p><a href="tel:9999999999">(999)-999 9999</a></p>
+                        <p><a href="tel:9848018319">9848018319</a></p>
                     </div>
                 <br/>
                 <hr/>
