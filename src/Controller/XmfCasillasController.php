@@ -269,8 +269,12 @@ class XmfCasillasController extends AppController
         case '5':$active_1='';$active_2='';$active_3='';$active_4='';$active_5='active';break;
         default: $active_1='active';$active_2='';$active_3='';$active_4='';$active_5='';break;
       }
-      $fields = ['id','name','rc_telefono','rg_telefono'];
-
+      $fields = [
+                  'id','user_id','rg_id','name',
+                  'hora_presencia','hora_instalacion','hora_inicio','hora_cierre',
+                  'lugar_indicado','gente_fila','status','nombres_fila',
+                  'abogado_casilla','rg_casilla','rg_telefono','rc_telefono'
+                ];
       #REPORTE I
       $this->LoadModel('XmfCasillas');
       $this->LoadModel('XmfPresencesReferences');
@@ -321,9 +325,18 @@ class XmfCasillasController extends AppController
       $casillas_cuarto_reporte = $casillas_cuarto_reporte->toArray();
       #REPORTE IV
 
+      #REPORTE FINAL
+      $this->LoadModel('XmfVotes');
+      $casillas_reporte_final = $this->XmfVotes->find('all',['conditions'=>['XmfVotes.xmf_casillas_id' => $id ]]);
+      $casillas_reporte_final->hydrate(false);
+      $casillas_reporte_final = $casillas_reporte_final->toArray();
+
+      #REPORTE FINAL
+
       $this->set(compact('active_1','active_2','active_3','active_4','active_5',
                          'casillas_primer_reporte', 'casillas_segundo_reporte',
                          'casillas_tercero_reporte', 'casillas_cuarto_reporte',
+                         'casillas_reporte_final',
                          'id')
                  );
   }
@@ -478,7 +491,7 @@ class XmfCasillasController extends AppController
                             'page' => $page,
                             'order' => array('XmfCasillas.name' => 'asc')
                            );
-                           
+
     $fields = ['id','name','rc_telefono','rg_telefono'];
     $this->LoadModel('XmfCasillas');
 
