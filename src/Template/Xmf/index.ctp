@@ -5,6 +5,7 @@
                 <div class="author">
                     <img class="avatar border-white" src="<?php echo $this->request->webroot?>paper/img/partidos_png/PAN.png" alt="...">
                     <hr/>
+
                 </div>
                 <div class="col-md-6 col-lg-6">
                     <h5 class="title"><small><?=$userCasillas['rg_casilla'];?></small></h5>
@@ -57,7 +58,8 @@
                             </div>
                             -->
                         </div>
-                        <hr/>
+                        <hr/><br/>
+
                         <div class="row">
                           <?= $this->Form->create(null, array('type' => 'post', 'url' => ['controller' => 'Xmf', 'action' => 'index/presencia'], 'id' => 'submit-form')); ?>
                           <div class="col-md-4 col-lg-4 col-sm-12">
@@ -74,7 +76,7 @@
                           <?php
                           $type_btn = (!empty($userCasillas[0]['hora_instalacion'])) ? 'button' : 'post' ;
                           ?>
-                              <button id="btn_instalacion" type="<?=$type_btn;?>" class="btn btn-info" onclick="showNotificationC('top','right')"><small>INSTALACIÓN <i class="ti-package"></i></small></button>
+                              <button id="btn_instalacion" type="<?=$type_btn;?>" class="btn btn-warning" onclick="showNotificationC('top','right')"><small>INSTALACIÓN <i class="ti-package"></i></small></button>
                               <br/>
                               <h5><small>Instalar Casilla</small></h5>
                           </div>
@@ -84,18 +86,18 @@
                               <?php
                               $type_btn = (!empty($userCasillas[0]['hora_inicio'])) ? 'button' : 'post' ;
                               ?>
-                              <button type="<?=$type_btn;?>" class="btn btn-info" onclick="showNotificationI('top','right')"><small>INICIO VOTACIÓN <i class="ti-user"></i></small></button>
+                              <button type="<?=$type_btn;?>" class="btn btn-danger" onclick="showNotificationI('top','right')"><small>INICIO VOTACIÓN <i class="ti-user"></i></small></button>
                               <br/>
                               <h5><small>08:00 HRS.</small></h5>
                           </div>
                           <?= $this->Form->end(); ?>
                         </div>
                         <hr/>
-                        <div class="row">
+                        <!--<div class="row">
                           <br/>
                           <div class="col-md-6 col-lg-6 col-sm-12">
                             <?php
-                            $type_btn = (!empty($userCasillas['hora_presencia'])) ? 'button' : 'post' ;
+                            #$type_btn = (!empty($userCasillas['hora_presencia'])) ? 'button' : 'post' ;
                             ?>
                                 <button id="btn_presencia" type="button" class="btn btn-warning" onclick="window.location='<?php echo $this->Url->build('/Xmf/CapturaReporte'); ?>'"><small>ENVIAR REPORTES <i class="ti-stats-up"></i></small></button>
                                 <br/>
@@ -107,12 +109,12 @@
                           <h5><small>Notificar Incidencia</small></h5>
                         </div>
                       </div>
+                    -->
 
                     </div>
 
                 </div>
             </div>
-            <hr>
 
             <div class="text-center">
                 <div class="row">
@@ -133,8 +135,7 @@
         </div>
     </div>
 
-    <div class="row">
-    </div>
+    <div class="row"> </div>
 
     <script>
     function showNotificationP(from, align){

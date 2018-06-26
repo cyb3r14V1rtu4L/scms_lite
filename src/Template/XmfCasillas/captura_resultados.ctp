@@ -37,7 +37,7 @@
                             <div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="4" style="width: 15%;"></div>
                         </div>
                         <ul>
-                            <li>
+                            <li class="<?=$active_1;?>">
                                 <a href="#primer_reporte" data-toggle="tab">
                                     <div class="icon-circle">
                                         <i class="ti-package"></i>
@@ -45,7 +45,7 @@
                                     APERTURA DE CASILLA
                                 </a>
                             </li>
-                            <li>
+                            <li class="<?=$active_2;?>">
                                 <a href="#segundo_reporte" data-toggle="tab">
                                     <div class="icon-circle">
                                         <i class="ti-user"></i>
@@ -53,7 +53,7 @@
                                     PRIMER REPORTE
                                 </a>
                             </li>
-                            <li>
+                            <li class="<?=$active_3;?>">
                                 <a href="#tercer_reporte" data-toggle="tab">
                                     <div class="icon-circle">
                                         <i class="ti-user"></i>
@@ -61,7 +61,7 @@
                                     SEGUNDO REPORTE
                                 </a>
                             </li>
-                            <li>
+                            <li class="<?=$active_4;?>">
                                 <a href="#cuarto_reporte" data-toggle="tab">
                                     <div class="icon-circle">
                                         <i class="ti-hand-stop"></i>
@@ -69,7 +69,7 @@
                                     TERCER REPORTE
                                 </a>
                             </li>
-                            <li>
+                            <li class="<?=$active_5;?>">
                                 <a href="#resultados_finales" data-toggle="tab">
                                     <div class="icon-circle">
                                         <i class="ti-stats-up"></i>
@@ -80,36 +80,36 @@
                         </ul>
                     </div>
                     <div class="tab-content">
-                        <div class="tab-pane" id="primer_reporte">
+                        <div class="tab-pane  <?=$active_1;?>" id="primer_reporte">
                         <?= $this->element('Paper.xmf/reportes-cap/primer_reporte'); ?>
-                    </div>
-                    <div class="tab-pane" id="segundo_reporte">
-                        <?= $this->element('Paper.xmf/reportes-cap/segundo_reporte'); ?>
-                    </div>
-                    <div class="tab-pane" id="tercer_reporte">
-                    <?= $this->element('Paper.xmf/reportes-cap/tercer_reporte'); ?>
-                    </div>
-                    <div class="tab-pane" id="cuarto_reporte">
-                    <?= $this->element('Paper.xmf/reportes-cap/cuarto_reporte'); ?>
-                    </div>
-                    <div class="tab-pane" id="resultados_finales">
-                    <?= $this->element('Paper.xmf/reportes-cap/resultados_finales'); ?>
-                    </div>
-                    <div class="wizard-footer">
-                        <hr/>
-                        <div class="pull-right">
-
-                            <input type='button' class='btn btn-next btn-fill btn-success btn-wd' name='next' value='Siguiente' />
-                            <input type='button' class='btn btn-finish btn-fill btn-success btn-wd' name='finish' value='Siguiente' />
-
                         </div>
-
-                        <div class="pull-left">
-                            <input type='button' class='btn btn-previous btn-default btn-wd' name='previous' value='Anterior' />
+                        <div class="tab-pane <?=$active_2;?>" id="segundo_reporte">
+                            <?= $this->element('Paper.xmf/reportes-cap/segundo_reporte'); ?>
                         </div>
-                        <div class="clearfix"></div>
-                </div>
-            </div> <!-- wizard container -->
+                        <div class="tab-pane <?=$active_3;?>" id="tercer_reporte">
+                        <?= $this->element('Paper.xmf/reportes-cap/tercer_reporte'); ?>
+                        </div>
+                        <div class="tab-pane <?=$active_4;?>" id="cuarto_reporte">
+                        <?= $this->element('Paper.xmf/reportes-cap/cuarto_reporte'); ?>
+                        </div>
+                        <div class="tab-pane <?=$active_5;?>" id="resultados_finales">
+                        <?= $this->element('Paper.xmf/reportes-cap/resultados_finales'); ?>
+                        </div>
+                        <div class="wizard-footer">
+                            <hr/>
+                            <div class="pull-right">
+
+                                <input type='button' class='btn btn-next btn-fill btn-success btn-wd' name='next' value='Siguiente' />
+                                <input type='button' class='btn btn-finish btn-fill btn-success btn-wd' name='finish' value='Siguiente' />
+
+                            </div>
+
+                            <div class="pull-left">
+                                <input type='button' class='btn btn-previous btn-default btn-wd' name='previous' value='Anterior' />
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                  </div> <!-- wizard container -->
         </div>
     </div>
 </div> <!-- row -->

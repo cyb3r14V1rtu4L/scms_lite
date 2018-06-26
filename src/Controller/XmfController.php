@@ -29,7 +29,14 @@ class XmfController extends AppController
      *
      * @return \Cake\Http\Response|void
      */
-    public function capturaReporte(){}
+    public function capturaReporte()
+    {
+      $role_id = $_SESSION['Auth']['User']['role_id'];
+      if($role_id == '80687266-6761-43a2-bd98-f42349a9bb63')
+      {
+        return $this->redirect(['action' => 'index']);
+      }
+    }
 
     public function index($type=null,$casilla_id=null)
     {
