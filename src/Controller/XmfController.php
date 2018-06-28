@@ -5,6 +5,8 @@ use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Security;
 use Cake\ORM\Entity;
+
+use Cake\Auth\DefaultPasswordHasher;
 /**
  * XmfCasillas Controller
  *
@@ -346,7 +348,7 @@ class XmfController extends AppController
         }
     }
 
-    public function insertCasillas()
+    /*public function insertCasillas()
     {
 
       for($x=1;$x<=60;$x++)
@@ -365,11 +367,70 @@ class XmfController extends AppController
             debug($CasillasTable);
           }
       }
+    }*/
+
+    public function insertAdminUsers()
+    {
+      $path = ROOT.'/webroot/migrations/admin_list.csv';
+      /*
+      668 |	B1  | 1 |MARTINEZ|DENEGRI|ZULIA ZOE|9841317651|ESTRADA MEJIA DAVID ANTONIO|9842791663
+      -0- | -1- | X |----3---|---4---|----5----|----6-----|-------------7-------------|------8----
+      */
+
+      $html = '';
+      $r=0;
+      $chunk = array(7,4,4,4);
+
+      $Password='camp18';
+      $HashPass = new DefaultPasswordHasher();
+
+      if (($file = fopen($path, "r")) !== FALSE)
+      {
+        while (($xmf = fgetcsv($file, 1000,';')) !== FALSE)
+        {
+          $pool = array_merge(range(0,9), range('a', 'z'));
+          $key ='';
+          foreach ($chunk as $length)
+          {
+            for($i=0; $i < $length; $i++)
+            {
+              $key .= $pool[mt_rand(0, count($pool) - 1)];
+            }
+            $key.='-';
+          }
+
+          $UsersTable = TableRegistry::get('Users');
+          $User = $UsersTable->newEntity();
+
+          $User->id = rtrim($key,"-");
+          $User->role_id= '5197c80d-2d30-4225-a757-b31592c9e0f0';
+
+          $User->password = $HashPass->hash($Password);
+
+          $User->first_name=$xmf[0];
+          $User->last_name= $xmf[1];
+          $User->username= $xmf[2];
+
+          $User->is_superuser = 1;
+          $User->active = 1;
+
+          if(!$UsersTable->save($User))
+          {
+            debug($UsersTable);
+          }
+        }
+      }
+      exit;
     }
 
-    public function insertUsers()
+    public function insertUsersCasillas()
     {
-      $path = ROOT.'/webroot/migrations/casillas.csv';
+      $path = ROOT.'/webroot/migrations/rc_list.csv';
+      /*
+      668 |	B1  | 1 |MARTINEZ|DENEGRI|ZULIA ZOE|9841317651|ESTRADA MEJIA DAVID ANTONIO|9842791663
+      -0- | -1- | X |----3---|---4---|----5----|----6-----|-------------7-------------|------8----
+      */
+
       $html = '';
       $r=0;
       $chunk = array(7,4,4,4);
@@ -394,22 +455,17 @@ class XmfController extends AppController
 
           $User->id = rtrim($key,"-");
           $User->role_id= '80687266-6761-43a2-bd98-f42349a9bb63';
-          $User->password= '$2y$10$7Nr7lHpeouo.3Swq.mM.3uNu0zjJmyyEGxgTOA1F9UYq7dXSFfyHK';
+          $User->password= '$2y$10$7Nr7lHpeouo.3Swq.mM.3uNu0zjJmyyEGxgTOA1F9UYq7dXSFfyHK';#123
+
           $User->username= $xmf[0].$xmf[1];
 
-          $user_name = explode(" ",$xmf[3]);
-          $User->last_name= $user_name[0].' '.$user_name[1];
-          $first_name = '';
-          $first_name.= (isset($user_name[2])) ? $user_name[2] : '';
-          $first_name.= (isset($user_name[3])) ? ' '.$user_name[3] : '';
-          $first_name.= (isset($user_name[4])) ? ' '.$user_name[4] : '';
-          $first_name.= (isset($user_name[5])) ? ' '.$user_name[5] : '';
-          $User->first_name=$first_name;
+          $User->last_name= $xmf[3].' '.$xmf[4];
+          $User->first_name=$xmf[5];
 
           $User->is_superuser = 0;
           $User->active = 1;
-          $User->rc_telefono = $xmf[4];
-          $User->rg_telefono = $xmf[6];
+          $User->rc_telefono = $xmf[6];
+          $User->rg_telefono = $xmf[8];
 
           if($UsersTable->save($User))
           {
@@ -420,9 +476,9 @@ class XmfController extends AppController
             $Casilla->user_id = $user_id;
             $Casilla->name = $name;
             $Casilla->description = $name;
-            $Casilla->rc_telefono = $xmf[4];
-            $Casilla->rg_casilla = $xmf[5];
-            $Casilla->rg_telefono = $xmf[6];
+            $Casilla->rc_telefono = $xmf[6];
+            $Casilla->rg_casilla = $xmf[7];
+            $Casilla->rg_telefono = $xmf[8];
 
 
             if($CasillasTable->save($Casilla))
@@ -440,32 +496,6 @@ class XmfController extends AppController
       }exit;
     }
 
-
-    public function insertRGCasillas()
-    {
-      $path = ROOT.'/webroot/migrations/rg_casillas.csv';
-      $html = '';
-      $r=0;
-      $chunk = array(7,4,4,4);
-
-      if (($file = fopen($path, "r")) !== FALSE)
-      {
-        $this->LoadModel('XmfCasillas');
-        while (($xmf = fgetcsv($file, 1000,';')) !== FALSE)
-        {
-          $casilla_data = $this->XmfCasillas->find('all',['fields'=>'id','conditions'=>['name' => $xmf[0].' '.$xmf[1]]]);
-          $casilla_data =$casilla_data->toArray();
-
-          $CasillaUpdated = $this->XmfCasillas->updateAll(
-                              ["rg_casilla" => $xmf[2],"rg_telefono"=>$xmf[3],"rc_telefono"=>$xmf[4]],
-                              ['id' => $casilla_data[0]['id']]
-                          );
-          debug($CasillaUpdated);
-        }
-      }exit;
-    }
-
-
     public function insertRGUsers()
     {
       $this->LoadModel('XmfCasillas');
@@ -481,7 +511,6 @@ class XmfController extends AppController
 
       foreach($group_casillas as $group)
       {
-
         $pool = array_merge(range(0,9), range('a', 'z'));
         $key ='';
         foreach ($chunk as $length)
@@ -499,7 +528,7 @@ class XmfController extends AppController
         $User->id = rtrim($key,"-");
         $User->role_id= 'e687cb91-4cdf-4ab2-992f-e76584199c2e';
         $User->password= '$2y$10$7Nr7lHpeouo.3Swq.mM.3uNu0zjJmyyEGxgTOA1F9UYq7dXSFfyHK';
-        $User->username= ($x<10) ? 'MONITOR0'.$x : 'MONITOR'.$x;
+        $User->username= ($x<10) ? 'M0NIT0R0'.$x : 'M0NIT0R'.$x;
 
         $User->first_name= 'MONITOR';
         $User->last_name = ($x<10) ? '0'.$x : $x ;
@@ -517,87 +546,44 @@ class XmfController extends AppController
             $x++;
         }
       }
-exit;
-      /*
-      foreach ($casilla_data as $casilla)
-      {
+      exit;
 
-      }
-*/
+    }
 
-
-      /*$path = ROOT.'/webroot/migrations/monitor_users.csv';
+  /*
+  public function insertRGCasillas()
+  {
+      $path = ROOT.'/webroot/migrations/rc_list.csv';
       $html = '';
-      $x=1;
+      $r=0;
       $chunk = array(7,4,4,4);
 
       if (($file = fopen($path, "r")) !== FALSE)
       {
+        $this->LoadModel('XmfCasillas');
         while (($xmf = fgetcsv($file, 1000,';')) !== FALSE)
         {
-          $user_name = explode(" ",$xmf[0]);
-
-          $pool = array_merge(range(0,9), range('a', 'z'));
-          $key ='';
-          foreach ($chunk as $length)
-          {
-            for($i=0; $i < $length; $i++)
-            {
-              $key .= $pool[mt_rand(0, count($pool) - 1)];
-            }
-            $key.='-';
-          }
-
-          $UsersTable = TableRegistry::get('Users');
-          $User = $UsersTable->newEntity();
-
-          $User->id = rtrim($key,"-");
-          $User->role_id= 'e687cb91-4cdf-4ab2-992f-e76584199c2e';
-          $User->password= '$2y$10$7Nr7lHpeouo.3Swq.mM.3uNu0zjJmyyEGxgTOA1F9UYq7dXSFfyHK';
-          $User->username= ($x<10) ? 'MONITOR0'.$x : 'MONITOR'.$x;
-
-          $user_name = explode(" ",$xmf[0]);
-          $User->last_name = $user_name[0].' '.$user_name[1];
-          $first_name = '';
-          $first_name.= (isset($user_name[2])) ? $user_name[2] : '';
-          $first_name.= (isset($user_name[3])) ? ' '.$user_name[3] : '';
-          $first_name.= (isset($user_name[4])) ? ' '.$user_name[4] : '';
-          $first_name.= (isset($user_name[5])) ? ' '.$user_name[5] : '';
-          $User->first_name=$first_name;
-
-          $User->is_superuser = 0;
-          $User->active = 1;
-
-          if($UsersTable->save($User))
-          {
-              $id = $User->id;
-              $this->LoadModel('XmfCasillas');
-              $casilla_data = $this->XmfCasillas->find('all',['fields'=>'id','conditions'=>['rg_casilla' => $xmf[0]]]);
-              $casilla_data =$casilla_data->toArray();
-
-              foreach ($casilla_data as $casilla)
-              {
-                $CasillaUpdated = $this->XmfCasillas->updateAll(
-                                    ["rg_id" => $id],
-                                    ['id' => $casilla['id']]
-                                );
-              }
-              $x++;
-              echo json_encode(compact('User'));
-
-          }else{
-            debug($UsersTable);
-          }
+          echo $xmf[0].' '.$xmf[1];
+          $casilla_data = $this->XmfCasillas->find('all',['fields'=>'id','conditions'=>['name'=>'668 B1']]);
+          $casilla_data =$casilla_data->toArray();
+          debug($casilla_data);exit;
+          $CasillaUpdated = $this->XmfCasillas->updateAll(
+                              ["rg_casilla" => $xmf[7],"rg_telefono"=>$xmf[8],"rc_telefono"=>$xmf[6]],
+                              ['id' => $casilla_data[0]['id']]
+                          );
+          debug($CasillaUpdated);
         }
-      }exit;*/
+      }exit;
     }
-
-
+    */
 
 
     public function chekHash()
     {
-      $Pass = Security::hash('123','sha512', true);
-      echo $Pass;exit;
+      $Password='camp18';
+      $HashPass = new DefaultPasswordHasher();
+      $newPassw = $HashPass->hash($Password);
+
+      echo $newPassw;exit;
     }
 }

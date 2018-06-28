@@ -155,6 +155,12 @@ class XmfViewReporteSegundosTercerosController extends AppController
       $graf_three->hydrate(false);
       $graf_three =$graf_three->toArray();
 
+      #FIXING 4 THE MOMENT
+      for($x=0;$x<=8;$x++)
+      {
+        unset($graf_three[$x]);
+      }
+
       $tabular_three = $graf_three;
 
       foreach ($graf_three as $keytr => $valuetr) {
