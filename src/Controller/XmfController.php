@@ -331,18 +331,25 @@ class XmfController extends AppController
                                         'xmf_tipo_votaciones_id' => $_POST['xmf_tipo_votaciones_id']
                                       ]);
             $id_x = 1;
-            for($x=1;$x<=26;$x++)
+            for($x=1;$x<=27;$x++)
             {
-                $VotosTable = TableRegistry::get('XmfVotes');
-                $Votos = $VotosTable->newEntity();
+                if(isset($_POST['xmf_partido_id_'.$x]))
+                {
+                    if($_POST['xmf_partido_id_'.$x] != 0)
+                    {
+                        $VotosTable = TableRegistry::get('XmfVotes');
+                        $Votos = $VotosTable->newEntity();
 
-                $Votos->xmf_casillas_id = $casilla_id;
-                $Votos->xmf_tipo_votaciones_id = $_POST['xmf_tipo_votaciones_id'];
-                $Votos->xmf_partidos_id = $_POST['xmf_partido_id_'.$x];
-                $Votos->votes = $_POST['xmf_partido_'.$x];
+                        $Votos->xmf_casillas_id = $casilla_id;
+                        $Votos->xmf_tipo_votaciones_id = $_POST['xmf_tipo_votaciones_id'];
+                        $Votos->xmf_partidos_id = $_POST['xmf_partido_id_' . $x];
+                        $Votos->votes = $_POST['xmf_partido_' . $x];
 
-                if ($VotosTable->save($Votos)) {
-                    $id = $Votos->id;
+                        if ($VotosTable->save($Votos))
+                        {
+                            $id = $Votos->id;
+                        }
+                    }
                 }
             }
         }

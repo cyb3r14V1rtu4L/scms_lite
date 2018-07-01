@@ -170,8 +170,10 @@ class XmfCasillasController extends AppController
      $this->LoadModel('XmfViewReporteSegundosTerceros');
      $this->LoadModel('XmfReportsCierre');
      $this->LoadModel('XmfPrimerReporteTab');
+     $this->LoadModel('XmfReapers');
 
-     if($role_id == 'e687cb91-4cdf-4ab2-992f-e76584199c2e')
+
+        if($role_id == 'e687cb91-4cdf-4ab2-992f-e76584199c2e')
      {
        $conditions = array('XmfCasillas.hora_inicio  IS NOT NULL','XmfCasillas.status'=>'V','XmfCasillas.rg_id'=>$_SESSION['Auth']['User']['id']);
      }else{
@@ -264,6 +266,9 @@ class XmfCasillasController extends AppController
      $casillas_cerradas->hydrate(false);
      $casillas_cerradas =$casillas_cerradas->toArray();
 
+
+
+
      $this->set(compact('casillas_representantes','casillas_segundo_reporte','casillas_tercer_reporte','casillas_cuarto_reporte','casillas_cerradas'));
    }
 
@@ -350,12 +355,28 @@ class XmfCasillasController extends AppController
 
       #REPORTE FINAL
 
+      /*
+      * INI RESULTADOS FINALES
+      */
+
+
+      $data_resFinalesP = $this->getResultadosFinales('Presidente',$id);
+      $data_resFinalesS = $this->getResultadosFinales('Senador',$id);
+      $data_resFinalesD = $this->getResultadosFinales('Diputado',$id);
+      $data_resFinalesA = $this->getResultadosFinales('Ayuntamiento',$id);
+
+      /*
+      * FIN RESULTADOS FINALES
+     */
+
       $this->set(compact('active_1','active_2','active_3','active_4','active_5',
                          'casillas_primer_reporte', 'casillas_segundo_reporte',
                          'casillas_tercero_reporte', 'casillas_cuarto_reporte',
-                         'casillas_reporte_final',
+                         'casillas_reporte_final','data_resFinalesP',
+                         'data_resFinalesS', 'data_resFinalesD','data_resFinalesA',
                          'id')
                  );
+
   }
 
 
@@ -374,6 +395,75 @@ class XmfCasillasController extends AppController
           $id = $CasillasIncidencias->id;
       }
     }
+  }
+
+  public function getResultadosFinales($tipo,$xmf_casillas_id)
+  {
+      $this->LoadModel('XmfReapers');
+
+      $conditions = [
+          'XmfReapers.formula is not null',
+          'XmfReapers.formula <>' => '',
+          'XmfReapers.is_coalicion' => 0,
+          'XmfReapers.xmf_casillas_id' => $xmf_casillas_id,
+          'XmfReapers.tipo' => $tipo,
+          'XmfReapers.has_parent' => 0,
+          'XmfReapers.is_funcionario' => 1
+      ];
+
+      $data_partidos = $this->XmfReapers->find('all',['conditions'=> $conditions,'order'=>'orden ASC']);
+      $data_partidos->select([
+          'id' => 'xmf_partidos_id',
+          'name' => 'formula',
+          'data'   => $data_partidos->newExpr('COALESCE(sum(XmfReapers.votes),0)')
+      ])->group(['formula']);
+      $data_partidos->hydrate(false);
+      $data_partidos = array_chunk($data_partidos->toArray(),3);
+
+      $conditions = [
+          'XmfReapers.formula is not null',
+          'XmfReapers.formula <>' => '',
+          'XmfReapers.xmf_casillas_id' => $xmf_casillas_id,
+          'XmfReapers.tipo' => $tipo,
+          'XmfReapers.is_coalicion' => 1
+          // 'XmfReapers.has_parent' => 1
+      ];
+
+      $data_coaliciones = $this->XmfReapers->find('all',['conditions'=> $conditions,'order'=>'orden ASC']);
+      $data_coaliciones->select([
+          'id' => 'xmf_partidos_id',
+          'name' => 'XmfReapers.formula',
+          'data'   => $data_coaliciones->newExpr('COALESCE(sum(XmfReapers.votes),0)')
+      ])->group(['XmfReapers.formula']);
+
+      $data_coaliciones->hydrate(false);
+      $data_coaliciones =array_chunk($data_coaliciones->toArray(),4);
+
+      $conditions = [
+          'XmfReapers.formula is not null',
+          'XmfReapers.formula <>' => '',
+          'XmfReapers.xmf_casillas_id' => $xmf_casillas_id,
+          'XmfReapers.tipo' => $tipo
+      ];
+      $data_votos = $this->XmfReapers->find('all',['conditions'=> $conditions,'order'=>'orden ASC' ]);
+      $data_votos->select([
+          'id' => 'xmf_partidos_id',
+          'nombre'  => 'nombre',
+          'votes'   => $data_votos->newExpr('COALESCE(sum(XmfReapers.votes),0)')
+      ])
+          ->group(['nombre'])
+      ;
+      $data_votos->hydrate(false);
+      $data_votos = $data_votos->toArray();
+
+      $xP = ($tipo == 'Presidente') ? 3 : 5;
+      for($x=0;$x<=$xP;$x++)
+      {
+          unset($data_votos[$x]);
+      }
+      $data_votos = array_chunk($data_votos,2);
+      $data_resFinales = array('partidos'=>$data_partidos,'coaliciones'=>$data_coaliciones,'noreg_nulos'=>$data_votos);
+      return $data_resFinales;
   }
 
   public function monitorIncidencias()
