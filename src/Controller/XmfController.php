@@ -331,7 +331,7 @@ class XmfController extends AppController
                                         'xmf_tipo_votaciones_id' => $_POST['xmf_tipo_votaciones_id']
                                       ]);
             $id_x = 1;
-            for($x=1;$x<=27;$x++)
+            for($x=1;$x<=39;$x++)
             {
                 if(isset($_POST['xmf_partido_id_'.$x]))
                 {

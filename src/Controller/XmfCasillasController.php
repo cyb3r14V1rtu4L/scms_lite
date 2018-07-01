@@ -456,7 +456,7 @@ class XmfCasillasController extends AppController
       $data_votos->hydrate(false);
       $data_votos = $data_votos->toArray();
 
-      $xP = ($tipo == 'Presidente') ? 3 : 5;
+      $xP = ($tipo == 'Senador') ? 5 : 3;
       for($x=0;$x<=$xP;$x++)
       {
           unset($data_votos[$x]);
