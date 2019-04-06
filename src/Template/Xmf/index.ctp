@@ -8,14 +8,14 @@
 
                 </div>
                 <div class="col-md-6 col-lg-6">
-                    <h5 class="title"><small><?=$userCasillas['rg_casilla'];?></small></h5>
+                    <h5 class="title"><small>JAVIER SANTOS</small></h5>
                     <h6 class="title"><small>REPRESENTANTE GENERAL</small></h6>
-                    <p><a href="tel:<?=$userCasillas['rg_telefono'];?>"><?=$userCasillas['rg_telefono'];?></a></p>
+                    <p><a href="tel:9993519085">(999)-351 9085</a></p>
                 </div>
                     <div class="col-md-6 col-lg-6">
-                        <h5 class="title"><small>RAÚL RUIZ</small></h5>
+                        <h5 class="title"><small>NOMBRE ABOGADO</small></h5>
                         <h6 class="title"><small>NOMBRE ABOGADO</small></h6>
-                        <p><a href="tel:9848018319">9848018319</a></p>
+                        <p><a href="tel:9999999999">(999)-999 9999</a></p>
                     </div>
                 <br/>
                 <hr/>
