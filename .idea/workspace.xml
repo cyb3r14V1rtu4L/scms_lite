@@ -2,42 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9e06a0e1-fc37-4477-bc6b-ce53af1c3e06" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/plugins/Paper/webroot/img/partidos_png/No-Registrados.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/plugins/Paper/webroot/img/partidos_png/Votos-Nulos.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitmodules" beforeDir="false" afterPath="$PROJECT_DIR$/.gitmodules" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/scms_lite.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/scms_lite.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/counter_head_status.ctp" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/counter_head_status.ctp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/counter_head_vertical.ctp" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/counter_head_vertical.ctp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/graficas/abierta_cerrada_pastel.ctp" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/graficas/abierta_cerrada_pastel.ctp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/graficas/acumulado_barras.ctp" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/graficas/acumulado_barras.ctp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/graficas/acumulado_res_finales.ctp" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/graficas/acumulado_res_finales.ctp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/graficas/acumulado_res_finales_coas.ctp" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/graficas/acumulado_res_finales_coas.ctp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/graficas/acumulado_res_finales_coas_concentrado.ctp" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/graficas/acumulado_res_finales_coas_concentrado.ctp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/graficas/votaciones_8_12.ctp" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/graficas/votaciones_8_12.ctp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/graficas/votaciones_8_16.ctp" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/graficas/votaciones_8_16.ctp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/graficas/votaciones_8_18.ctp" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/graficas/votaciones_8_18.ctp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/monitor_abiertas.ctp" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/monitor_abiertas.ctp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/navbar.ctp" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/navbar.ctp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/reportes-cap/resultados_finales.ctp" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/reportes-cap/resultados_finales.ctp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/sidebar.ctp" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/sidebar.ctp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/sidebar/capturista.ctp" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/sidebar/capturista.ctp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/sidebar/superadmin.ctp" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/sidebar/superadmin.ctp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/Paper/src/Template/Layout/core/login_core.ctp" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/Paper/src/Template/Layout/core/login_core.ctp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/Paper/src/Template/Pages/reports/CapturaReporte.ctp" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/Paper/src/Template/Pages/reports/CapturaReporte.ctp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/Paper/src/Template/Pages/reports/ResultadosFinales.ctp" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/Paper/src/Template/Pages/reports/ResultadosFinales.ctp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/Paper/webroot/css/ct-paper.css" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/Paper/webroot/css/ct-paper.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/Paper/webroot/css/paper-bootstrap-wizard.css" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/Paper/webroot/css/paper-bootstrap-wizard.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/Paper/webroot/css/paper-dashboard.css" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/Paper/webroot/css/paper-dashboard.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/Paper/webroot/sass/paper/_variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/Paper/webroot/sass/paper/_variables.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/XmfController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/XmfController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/XmfViewReporteSegundosTercerosController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/XmfViewReporteSegundosTercerosController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Template/Users/login.ctp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Template/Users/login.ctp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Template/Xmf/captura_reporte.ctp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Template/Xmf/captura_reporte.ctp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Template/XmfCasillas/captura_resultados.ctp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Template/XmfCasillas/captura_resultados.ctp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Template/XmfCasillas/monitor_instalando.ctp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Template/XmfCasillas/monitor_instalando.ctp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webroot/paper" beforeDir="false" afterPath="$PROJECT_DIR$/webroot/paper" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/Paper" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/Paper" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Template/Xmf/index.ctp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Template/Xmf/index.ctp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webroot/paper/css/ct-paper.css" beforeDir="false" afterPath="$PROJECT_DIR$/webroot/paper/css/ct-paper.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webroot/paper/css/paper-bootstrap-wizard.css" beforeDir="false" afterPath="$PROJECT_DIR$/webroot/paper/css/paper-bootstrap-wizard.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webroot/paper/css/paper-dashboard.css" beforeDir="false" afterPath="$PROJECT_DIR$/webroot/paper/css/paper-dashboard.css" afterDir="false" />
@@ -49,37 +16,16 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/reportes-cap/resultados_finales.ctp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="475">
-              <caret line="102" column="22" selection-start-line="102" selection-start-column="22" selection-end-line="102" selection-end-column="22" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/sidebar/capturista.ctp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
-              <caret line="12" column="22" selection-start-line="12" selection-start-column="22" selection-end-line="12" selection-end-column="22" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/plugins/Paper/src/Template/Pages/reports/ResultadosFinales.ctp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="8" column="37" selection-start-line="8" selection-start-column="37" selection-end-line="8" selection-end-column="37" />
+            <state relative-caret-position="133">
+              <caret line="163" column="49" lean-forward="true" selection-start-line="163" selection-start-column="49" selection-end-line="163" selection-end-column="49" />
             </state>
           </provider>
         </entry>
@@ -87,13 +33,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/graficas/acumulado_res_finales.ctp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
+            <state relative-caret-position="779">
               <caret line="41" column="142" selection-start-line="40" selection-start-column="42" selection-end-line="41" selection-end-column="142" />
-              <folding>
-                <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#0;n#tr#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#1;n#tr#0;n#!!top" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -101,7 +42,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Template/Xmf/captura_reporte.ctp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="114">
+            <state relative-caret-position="1596">
               <caret line="84" column="38" selection-start-line="84" selection-start-column="38" selection-end-line="84" selection-end-column="38" />
             </state>
           </provider>
@@ -110,7 +51,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Template/XmfCasillas/captura_resultados.ctp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="313">
+            <state relative-caret-position="1805">
               <caret line="95" column="43" selection-start-line="95" selection-start-column="43" selection-end-line="95" selection-end-column="43" />
             </state>
           </provider>
@@ -119,17 +60,35 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../SIE/plugins/Paper/src/Template/Element/xmf/reportes-cap/resultados_finales.ctp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17562">
+            <state relative-caret-position="23560">
               <caret line="1240" column="55" selection-start-line="1240" selection-start-column="41" selection-end-line="1240" selection-end-column="55" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Controller/XmfController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
+            <state relative-caret-position="77">
               <caret line="579" column="64" selection-start-line="579" selection-start-column="28" selection-end-line="579" selection-end-column="64" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config/app.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="117">
+              <caret line="223" column="26" lean-forward="true" selection-start-line="223" selection-start-column="26" selection-end-line="223" selection-end-column="26" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/plugins/Paper/src/Template/Layout/core/login_core.ctp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="242">
+              <caret line="140" column="23" lean-forward="true" selection-start-line="140" selection-start-column="23" selection-end-line="140" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -156,12 +115,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>COALICIÓN MORENA-PT</find>
-      <find>monitorAu</find>
-      <find>&quot;36&quot;</find>
-      <find>xcasilla</find>
-      <find>casillas_segundo_reporte</find>
-      <find>casilla_id</find>
       <find>frente</find>
       <find>frentexqroo</find>
       <find>page-footer</find>
@@ -186,6 +139,12 @@
       <find>mi casilla</find>
       <find>migration</find>
       <find>No Registrados</find>
+      <find>S.I.E</find>
+      <find>xmf cristina ::</find>
+      <find>.:: XMF Cristina ::.</find>
+      <find>PAN.png</find>
+      <find>CAPTURAR RESULTADO DE LAS ELECCIONES.</find>
+      <find>#7AC29A</find>
     </findStrings>
     <replaceStrings>
       <replace>'+tipo_voto+'</replace>
@@ -196,6 +155,8 @@
       <replace>#BB3C00</replace>
       <replace>#D84500</replace>
       <replace>MUNICIPIO</replace>
+      <replace>.:: SICEL Sistema Integral de Control Electoral ::.</replace>
+      <replace>#086619</replace>
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$</dir>
@@ -203,7 +164,7 @@
     </dirStrings>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/plugins/Paper" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -217,7 +178,6 @@
         <option value="$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/reportes-cap/tercer_reporte.ctp" />
         <option value="$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/sidebar.ctp" />
         <option value="$PROJECT_DIR$/src/Template/Users/login.ctp" />
-        <option value="$PROJECT_DIR$/plugins/Paper/src/Template/Layout/core/login_core.ctp" />
         <option value="$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/navbar.ctp" />
         <option value="$PROJECT_DIR$/plugins/Paper/src/Template/Pages/reports/CapturaReporte.ctp" />
         <option value="$PROJECT_DIR$/src/Template/XmfCasillas/captura_resultados.ctp" />
@@ -227,9 +187,11 @@
         <option value="$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/sidebar/superadmin.ctp" />
         <option value="$PROJECT_DIR$/plugins/Paper/src/Template/Pages/reports/ResultadosFinales.ctp" />
         <option value="$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/graficas/acumulado_res_finales.ctp" />
-        <option value="$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/reportes-cap/resultados_finales.ctp" />
         <option value="$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/sidebar/capturista.ctp" />
         <option value="$PROJECT_DIR$/src/Controller/XmfController.php" />
+        <option value="$PROJECT_DIR$/plugins/Paper/src/Template/Layout/core/login_core.ctp" />
+        <option value="$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/reportes-cap/resultados_finales.ctp" />
+        <option value="$PROJECT_DIR$/src/Template/Xmf/index.ctp" />
       </list>
     </option>
   </component>
@@ -287,9 +249,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="206" />
-    <option name="width" value="898" />
-    <option name="height" value="508" />
+    <option name="x" value="249" />
+    <option name="y" value="910" />
+    <option name="width" value="888" />
+    <option name="height" value="507" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -310,6 +273,11 @@
             <path>
               <item name="sicel" type="b2602c69:ProjectViewProjectNode" />
               <item name="sicel" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sicel" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sicel" type="462c0819:PsiDirectoryNode" />
               <item name="plugins" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -323,12 +291,15 @@
               <item name="sicel" type="462c0819:PsiDirectoryNode" />
               <item name="plugins" type="462c0819:PsiDirectoryNode" />
               <item name="Paper" type="462c0819:PsiDirectoryNode" />
-              <item name="webroot" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="sicel" type="b2602c69:ProjectViewProjectNode" />
               <item name="sicel" type="462c0819:PsiDirectoryNode" />
-              <item name="webroot" type="462c0819:PsiDirectoryNode" />
+              <item name="plugins" type="462c0819:PsiDirectoryNode" />
+              <item name="Paper" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Template" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -388,20 +359,19 @@
       <workItem from="1530405552061" duration="6051000" />
       <workItem from="1530445463819" duration="10523000" />
       <workItem from="1554440759337" duration="19979000" />
+      <workItem from="1554542487257" duration="7655000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="88746000" />
+    <option name="totallyTimeSpent" value="96401000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1360" height="768" extended-state="6" />
+    <frame x="0" y="768" width="1366" height="732" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25494674" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25757575" />
       <window_info id="Structure" order="1" weight="0.24961948" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Database Changes" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32881355" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -410,8 +380,10 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32917318" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.5338983" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Docker" order="10" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="11" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -488,22 +460,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/plugins/Paper/src/Template/Layout/core/login_core.ctp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="107">
-          <caret line="190" lean-forward="true" selection-start-line="190" selection-end-line="190" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/reportes-cap/primer_reporte_zeros.ctp">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/app.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="217" column="27" selection-start-line="217" selection-start-column="27" selection-end-line="217" selection-end-column="27" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/navbar.ctp">
       <provider selected="true" editor-type-id="text-editor">
@@ -557,27 +515,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/sidebar/superadmin.ctp">
+    <entry file="file://$PROJECT_DIR$/config/paths.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1064">
-          <caret line="56" column="102" selection-start-line="56" selection-start-column="102" selection-end-line="56" selection-end-column="102" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../SIE/plugins/Paper/src/Template/Element/xmf/reportes-cap/resultados_finales.ctp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17562">
-          <caret line="1240" column="55" selection-start-line="1240" selection-start-column="41" selection-end-line="1240" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/reportes-cap/resultados_finales.ctp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="475">
-          <caret line="102" column="22" selection-start-line="102" selection-start-column="22" selection-end-line="102" selection-end-column="22" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
+        <state relative-caret-position="195">
+          <caret line="30" column="8" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="8" />
         </state>
       </provider>
     </entry>
@@ -597,34 +538,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/graficas/acumulado_res_finales.ctp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
+        <state relative-caret-position="779">
           <caret line="41" column="142" selection-start-line="40" selection-start-column="42" selection-end-line="41" selection-end-column="142" />
-          <folding>
-            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#0;n#tr#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#1;n#tr#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Template/Xmf/captura_reporte.ctp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
+        <state relative-caret-position="1596">
           <caret line="84" column="38" selection-start-line="84" selection-start-column="38" selection-end-line="84" selection-end-column="38" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Template/XmfCasillas/captura_resultados.ctp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="313">
+        <state relative-caret-position="1805">
           <caret line="95" column="43" selection-start-line="95" selection-start-column="43" selection-end-line="95" selection-end-column="43" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/paths.php">
+    <entry file="file://$PROJECT_DIR$/../SIE/plugins/Paper/src/Template/Element/xmf/reportes-cap/resultados_finales.ctp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="30" column="8" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="8" />
+        <state relative-caret-position="23560">
+          <caret line="1240" column="55" selection-start-line="1240" selection-start-column="41" selection-end-line="1240" selection-end-column="55" />
         </state>
       </provider>
     </entry>
@@ -635,10 +571,38 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/sidebar/superadmin.ctp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1064">
+          <caret line="56" column="102" selection-start-line="56" selection-start-column="102" selection-end-line="56" selection-end-column="102" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Controller/XmfController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
+        <state relative-caret-position="77">
           <caret line="579" column="64" selection-start-line="579" selection-start-column="28" selection-end-line="579" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/app.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="117">
+          <caret line="223" column="26" lean-forward="true" selection-start-line="223" selection-start-column="26" selection-end-line="223" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plugins/Paper/src/Template/Layout/core/login_core.ctp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="140" column="23" lean-forward="true" selection-start-line="140" selection-start-column="23" selection-end-line="140" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/reportes-cap/resultados_finales.ctp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="163" column="49" lean-forward="true" selection-start-line="163" selection-start-column="49" selection-end-line="163" selection-end-column="49" />
         </state>
       </provider>
     </entry>

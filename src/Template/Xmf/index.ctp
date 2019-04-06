@@ -3,7 +3,7 @@
         <div class="card card-user">
             <div class="content">
                 <div class="author">
-                    <img class="avatar border-white" src="<?php echo $this->request->webroot?>paper/img/partidos_png/PAN.png" alt="...">
+                    <img class="avatar border-white" src="<?php echo $this->request->webroot?>paper/img/partidos_png/pri.png" alt="...">
                     <hr/>
 
                 </div>
