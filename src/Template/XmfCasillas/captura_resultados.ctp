@@ -37,14 +37,14 @@
                             <div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="4" style="width: 15%;"></div>
                         </div>
                         <ul>
-                            <li class="<?=$active_1;?>">
+                            <!--<li class="<?/*=$active_1;*/?>">
                                 <a href="#primer_reporte" data-toggle="tab">
                                     <div class="icon-circle">
                                         <i class="ti-package"></i>
                                     </div>
                                     APERTURA DE CASILLA
                                 </a>
-                            </li>
+                            </li>-->
                             <li class="<?=$active_2;?>">
                                 <a href="#segundo_reporte" data-toggle="tab">
                                     <div class="icon-circle">
@@ -80,9 +80,9 @@
                         </ul>
                     </div>
                     <div class="tab-content">
-                        <div class="tab-pane  <?=$active_1;?>" id="primer_reporte">
-                        <?= $this->element('Paper.xmf/reportes-cap/primer_reporte'); ?>
-                        </div>
+                        <!--<div class="tab-pane  <?/*=$active_1;*/?>" id="primer_reporte">
+                        <?/*= $this->element('Paper.xmf/reportes-cap/primer_reporte'); */?>
+                        </div>-->
                         <div class="tab-pane <?=$active_2;?>" id="segundo_reporte">
                             <?= $this->element('Paper.xmf/reportes-cap/segundo_reporte'); ?>
                         </div>

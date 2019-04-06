@@ -160,6 +160,11 @@ class XmfViewReporteSegundosTercerosController extends AppController
       {
         unset($graf_three[$x]);
       }
+      for($x=13;$x<=17;$x++)
+      {
+        unset($graf_three[$x]);
+      }
+
 
       $tabular_three = $graf_three;
 

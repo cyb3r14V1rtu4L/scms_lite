@@ -8,7 +8,7 @@
         <div class="nav-tabs-navigation">
             <div class="nav-tabs-wrapper">
                 <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-                    <li class="active"><a href="#cerradas" data-toggle="tab">INSTALADANDO (<?=$count_instalando?>)</a></li>
+                    <li class="active"><a href="#cerradas" data-toggle="tab">INSTALANDO (<?=$count_instalando?>)</a></li>
                     <li class=""><a href="#incidencias" data-toggle="tab" style="color:red" >INCIDENCIAS (<?=$casillas_incidencias;?>)</a></li>
                 </ul>
             </div>
@@ -16,7 +16,7 @@
         <div id="my-tab-content" class="tab-content text-center">
             <div class="tab-pane active" id="cerradas">
                 <p>
-                    <h4>CASILLAS INSTALADANDO</h4>
+                    <h4>CASILLAS INSTALANDO</h4>
                     <hr/>
                     <?= $this->element('Paper.xmf/pagination/casillas_instalando'); ?>
                 </p>

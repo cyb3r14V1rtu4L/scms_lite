@@ -432,11 +432,127 @@ class XmfController extends AppController
 
     public function insertUsersCasillas()
     {
-      $path = ROOT.'/webroot/migrations/rc_list.csv';
+      $path = ROOT.'/webroot/migrations/mpios.csv';
       /*
-      668 |	B1  | 1 |MARTINEZ|DENEGRI|ZULIA ZOE|9841317651|ESTRADA MEJIA DAVID ANTONIO|9842791663
-      -0- | -1- | X |----3---|---4---|----5----|----6-----|-------------7-------------|------8----
-      */
+       * No	MUNICIPIO	DELEGADO POLITICO MUNICIPAL	TELEFONO DELEGADO	LOCAL
+       *
+            '09vsntt-sfs8-jjls-cyzz',
+            '0bfoni4-on41-ygki-puqp',
+            '0csyg14-tzz8-p0ty-bbqx',
+            '0lgc1y6-rako-jfxg-1uoo',
+            '0pws77r-bln8-h5q3-wtaj',
+            '0soy225-zwjb-2f3f-cx54',
+            '0tr5s6v-ofzx-apr3-p6if',
+            '10rq8wz-01hm-vzbz-7rpa',
+            '13pk34y-dtne-l7g6-gw22',
+            '14qtekj-d9ld-3hvx-f6ee',
+            '1enjvce-04vg-f8u1-tgoo',
+            '22hgm7v-olqh-7vlg-fkwk',
+            '2eukob7-mwii-i0hm-3u78',
+            '2qad2z2-oqut-x6na-mz5w',
+            '2uz1otf-0khs-aq47-3i0r',
+            '2xb49q7-jhm1-udot-mckq',
+            '3fc9kyj-f0w6-ovxr-rqs8',
+            '3fm3ssk-cxuj-njoj-t12w',
+            '3paihyg-50cd-icdc-5fk3',
+            '3r4zdwe-im5s-ey7x-xzwy',
+            '3rtgha9-jq2h-p5ha-056o',
+            '3tltrvm-0rrz-5bsq-scns',
+            '49yjdbl-lipk-lu0v-ltev',
+            '4kyimuk-iiek-6f7d-2uo4',
+            '6dtf8h3-e99r-3cpt-ulfx',
+            '6eztmuu-1pqu-cjyu-7q1n',
+            '6lsnjvi-tywx-cl74-qw3p',
+            '6qupbyk-h33j-5h6i-x5ue',
+            '72wh0tu-bu9x-pqxg-3h9a',
+            '7j8mld1-0ela-vufs-njju',
+            '7l0xgx3-iag8-vwct-u1cm',
+            '81w9vgy-6csx-8s7e-3bwh',
+            '84jgse1-s2t5-54pz-8br2',
+            '8sdfaj7-9a9c-gle0-x9ao',
+            '8x76ics-234x-mm87-11gq',
+            '8z8e30p-pfno-18d3-ifvp',
+            '915pn8b-rjti-rxc1-7dpa',
+            '9kqc9bb-0mnc-uh8b-qwl7',
+            '9qhc92p-zwuz-jsix-0z3r',
+            'a4zxo28-jzsz-92xj-so1j',
+            'b0qx105-il1i-3ke7-47ko',
+            'bz01n9s-eodk-26ek-w3x2',
+            'crmihup-nd0g-4uup-oqf8',
+            'cuv4cao-9trz-yjql-h3e5',
+            'd3y4kpl-sexi-rjd2-zlxa',
+            'dfhh34q-gw9o-of41-gud7',
+            'dnwxmkg-awss-tb8x-41r8',
+            'dqlxwyd-s7nt-khz9-mwnz',
+            'e8pfx15-czfl-9pt9-sgol',
+            'f1lfzgt-oz7a-3aod-y6vl',
+            'fih8x6k-tqvu-80ot-2u2n',
+            'g8718vo-q08u-jm8i-ki2a',
+            'gwzpnnb-t04k-tyth-v4pf',
+            'gx7kl1w-1ua7-9es3-3ub2',
+            'gzrv6zo-7ltw-r7f0-vl33',
+            'hkcp0iu-76ub-tbiy-z47o',
+            'iraif2r-wkft-yqee-asxk',
+            'ito2bog-1al8-t2k0-6zi3',
+            'iue5ttj-u2v8-5p6p-62kr',
+            'jfa4lab-mbhd-k8nj-4pbi',
+            'jmi42ul-et56-n823-qzfc',
+            'juer7bk-qbi0-xqds-tmqn',
+            'jv9b3e7-2hei-dmwp-qolw',
+            'kq12sj8-s1hz-blq0-z89f',
+            'kwbe7nm-1t5i-rwlc-n5oy',
+            'laf3qlg-tadn-8mx2-djg0',
+            'lb3ff90-1ncv-9v1u-y6cp',
+            'lhzhh7b-gx6r-uhzx-7r4e',
+            'll39dih-5bo2-8ll2-p2mv',
+            'llrh64y-0gdm-f3lv-s8rq',
+            'lxvdege-k50r-m2hw-ctps',
+            'lzll1t5-ydhp-byw0-ipxf',
+            'm5qykj6-vbn6-fs8f-izbn',
+            'mu9m9cb-ijij-g81x-4dm8',
+            'n6rx9hz-c2f3-ribm-mlwz',
+            'nlkjr3b-844i-rqwr-poco',
+            'nz4mbcq-eh11-6n1l-yi58',
+            'p1l1krt-33ea-einj-chh1',
+            'plbybhd-2m0o-ooks-q1me',
+            'ps0ppmd-97px-01v6-5ifj',
+            'q6lutsk-bs4g-vig9-gr24',
+            'q92np5h-iflh-zqvh-kp5z',
+            'qagnrx3-ddc4-8d80-a356',
+            'qybll85-hgr9-9gsf-72js',
+            'r160qj9-e4cf-h9p5-ep3k',
+            'rdf24cc-ku2m-c179-qrw7',
+            'rhdbl5t-7ath-2uzd-pff3',
+            'rzr8uuk-0i6y-csip-qn23',
+            'sd2vud5-w6pq-fzq2-mohu',
+            'se8bnzr-bd9c-tncy-7qvb',
+            'suih448-ylgr-syj0-fjg7',
+            'ttoiq2d-vqxc-i7k2-rt2x',
+            'v1dt28x-k7vk-lal4-kpt9',
+            'vecv42m-6sc9-bab9-ehkl',
+            'vo42bpk-af2c-iwq6-calw',
+            'w1iu50z-hlk0-eggc-3oiu',
+            'w6k0xya-3ysu-8hn0-ingj',
+            'w6yzkft-bvh7-brfe-946o',
+            'w7c1h9t-fm8q-kkx8-59np',
+            'wcazbzt-qux5-euor-ho6c',
+            'whylo53-vw5k-frdq-ytn2',
+            'wi4v9xx-1qzc-rr5t-dk6y',
+            'wksckfl-p25p-dm54-811w',
+            'wml856m-7lh3-uc03-k4zt',
+            'wtaflzu-hslz-b0cm-tb1n',
+            'x1gxbrl-3n2g-0jdy-h6k7',
+            'xdtfnj9-u0up-ykdm-fa69',
+            'xgtuzn6-kelr-u167-sjgu',
+            'y30grin-7ut2-1hsm-ksn0',
+            'yblw2qy-qhiw-nvi5-r4jw',
+            'z4f2gtt-ju4j-n1np-oju5',
+            'zdqzy2i-wyxe-59o4-q191',
+            'zup4sk5-m22d-av18-4cpp',
+            'zvs9qp4-ixmu-pofk-shm5',
+            'zvvsycz-q9vk-316e-nmcq'
+
+       * */
 
       $html = '';
       $r=0;
@@ -461,31 +577,30 @@ class XmfController extends AppController
           $User = $UsersTable->newEntity();
 
           $User->id = rtrim($key,"-");
-          $User->role_id= '80687266-6761-43a2-bd98-f42349a9bb63';
-          $User->password= '$2y$10$7Nr7lHpeouo.3Swq.mM.3uNu0zjJmyyEGxgTOA1F9UYq7dXSFfyHK';#123
+          $User->role_id = '80687266-6761-43a2-bd98-f42349a9bb63';
+          $User->password = '$2y$10$7Nr7lHpeouo.3Swq.mM.3uNu0zjJmyyEGxgTOA1F9UYq7dXSFfyHK';#123
 
-          $User->username= $xmf[0].$xmf[1];
+          $User->username = str_replace(" ","", $xmf[1]) . $xmf[0];
 
-          $User->last_name= $xmf[3].' '.$xmf[4];
-          $User->first_name=$xmf[5];
+          $User->first_name=$xmf[2];
 
           $User->is_superuser = 0;
           $User->active = 1;
-          $User->rc_telefono = $xmf[6];
-          $User->rg_telefono = $xmf[8];
+          $User->rc_telefono = $xmf[3];
+          $User->rg_telefono = $xmf[3];
 
           if($UsersTable->save($User))
           {
             $user_id = $User->id;
             $CasillasTable = TableRegistry::get('XmfCasillas');
             $Casilla = $CasillasTable->newEntity();
-            $name = $xmf[0].' '.$xmf[1];
+            $name = $xmf[1];
             $Casilla->user_id = $user_id;
             $Casilla->name = $name;
             $Casilla->description = $name;
-            $Casilla->rc_telefono = $xmf[6];
-            $Casilla->rg_casilla = $xmf[7];
-            $Casilla->rg_telefono = $xmf[8];
+            $Casilla->rc_telefono = $xmf[3];
+            $Casilla->rg_casilla = $xmf[3];
+            $Casilla->rg_telefono = $xmf[3];
 
 
             if($CasillasTable->save($Casilla))
