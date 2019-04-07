@@ -105,6 +105,28 @@ class XmfReportsSegundoTerceroController extends AppController
       return $tabular;
     }
 
+    public function getDataPrimerReporte () {
+        // $this->getCounterHead();
+        $this->LoadModel('XmfCasillas');
+        $tabular = $this->XmfCasillas->find('all'
+            ,[
+                'conditions'=>[
+                    'or' =>[
+                        'XmfCasillas.reporte' => 1,
+                        'XmfCasillas.hora_cierre is not null'
+                    ]
+                ]
+            ]
+        );
+        $tabular->select([
+            'name'           => 'name',
+            'instalacion'    => 'hora_instalacion',
+            'inicio'         => 'hora_inicio'
+        ]);
+
+        return $tabular;
+    }
+
     public function SegundoReporte() {
       // debug('XmfReportsSegundoTercero::SegundoReporte');
       $this->getCounterHead();
@@ -137,7 +159,23 @@ class XmfReportsSegundoTerceroController extends AppController
       $categories = json_encode($jcategories);
       $votantes = json_encode($jvotantes);
       $promovidos = json_encode($jpromovidos);
-      $this->set(compact('votantes','promovidos','categories','votantes_s','promovidos_s'));
+
+      /*$tabular = $this->getDataPrimerReporte();
+      $tabular = $tabular->toArray();
+
+      foreach($tabular as $key=>$mpio){
+          foreach ($graf_data as $dataVotes){
+              if($dataVotes['name'] == $mpio['name']){
+                  $tabular[$key]['votos'] = $dataVotes['votantes_segundo'];
+              }
+          }
+      }
+
+      pr($tabular);*/
+
+        $tabular = $graf_data;
+
+      $this->set(compact('votantes','promovidos','categories','votantes_s','promovidos_s','tabular'));
       $this->viewBuilder()->template('Paper.Pages/reports/SegundoReporte');
     }
 
