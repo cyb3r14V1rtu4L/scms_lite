@@ -244,6 +244,7 @@ class XmfReportsSegundoTerceroController extends AppController
 
       $graf_data = $this->XmfViewReporteSegundosTerceros->find('all');
       $graf_data->select([
+        'id'     => 'xmf_casillas_id',
         'name'                => 'name',
         'votantes_segundo'    => $graf_data->func()->sum('votantes_segundo'),
         'promovidos_segundo'  => $graf_data->func()->sum('promovidos_segundo'),
@@ -255,25 +256,45 @@ class XmfReportsSegundoTerceroController extends AppController
       $graf_data->hydrate(false);
       $graf_data =$graf_data->toArray();
 
+      foreach ($graf_data as $k=>$data){
+          $totalVotos = $data['votantes_segundo'] + $data['votantes_tercero'];
+          $graf_data[$k]['total_votos'] = $totalVotos;
+
+      }
+
       $this->LoadModel('XmfReportsCierre');
 
       $graf_data_cierre = $this->XmfReportsCierre->find('all');
       $graf_data_cierre->select([
+        //'name'      => 'name',
         'id'                => 'xmf_casillas_id',
         'votantes'    => $graf_data_cierre->func()->sum('votantes'),
         'promovidos'  => $graf_data_cierre->func()->sum('promovidos'),
       ])
       ->group(['xmf_casillas_id']);
+
       $graf_data_cierre->hydrate(false);
       $graf_data_cierre =$graf_data_cierre->toArray();
 
       #debug($graf_data_cierre);
       $votantes_cierre = 0;
       $promovidos_cierre = 0;
+
       foreach ($graf_data_cierre as $key => $value)
       {
         $votantes_cierre   += $value['votantes'];
         $promovidos_cierre += $value['promovidos'];
+      }
+
+      foreach ($graf_data as $k=>$data) {
+          foreach ($graf_data_cierre as $kk=>$ddata) {
+              $totalVotos = 0;
+
+              if($data['id'] == $ddata['id']) {
+                  $totalVotos = $ddata['votantes'] + $data['total_votos'];
+                  $graf_data[$k]['total_votos'] = $totalVotos;
+              }
+          }
       }
 
       $votantes_s = 0;
@@ -305,7 +326,7 @@ class XmfReportsSegundoTerceroController extends AppController
       $promovidos = json_encode($jpromovidos);
       $this->pastelOchoDoce();
       $this->pastelOchoKince();
-      $this->set(compact('votantes_s','promovidos_s','votantes','promovidos','categories'));
+      $this->set(compact('votantes_s','promovidos_s','votantes','promovidos','categories','graf_data'));
 
       #HISTÓRICO
 
