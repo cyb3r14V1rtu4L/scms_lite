@@ -584,9 +584,45 @@ class XmfCasillasController extends AppController
     $this->LoadModel('XmfCasillas');
     $casillas_instalando = $this->paginate($this->XmfCasillas->find('all', array('fields'=>$fields,'conditions' => array('XmfCasillas.hora_instalacion  IS NOT NULL','XmfCasillas.status'=>'I',$conditions))));
     $casillas_instalando =$casillas_instalando->toArray();
+
     $this->getIncidencias();
     $this->set(compact('casillas_instalando'));
   }
+
+    public function monitorAbiertas($page=1)
+    {
+        $this->getCounterHead();
+        /*
+        +----------+--------------------------------------+
+        | name     | id                                   |
+        +----------+--------------------------------------+
+        | Admin    | 5197c80d-2d30-4225-a757-b31592c9e0f0 |
+        | Captura  | 80687266-6761-43a2-bd98-f42349a9bb63 |
+        | Monitor* | e687cb91-4cdf-4ab2-992f-e76584199c2e |
+        +----------+--------------------------------------+
+        */
+        $role_id = $_SESSION['Auth']['User']['role_id'];
+        if($role_id == 'e687cb91-4cdf-4ab2-992f-e76584199c2e')
+        {
+            $conditions = array('rg_id'=>$_SESSION['Auth']['User']['id']);
+        }else{
+            $conditions = null;
+        }
+        $this->paginate = array('limit'=>35,
+            'page' => $page,
+            'order' => array('XmfCasillas.name' => 'asc')
+        );
+
+        $fields = ['id','name','rc_telefono','rg_telefono'];
+
+        $this->LoadModel('XmfCasillas');
+        $casillas_abiertas = $this->paginate($this->XmfCasillas->find('all', array('fields'=>$fields,'conditions' => array('XmfCasillas.hora_inicio  IS NOT NULL','XmfCasillas.status'=>'V',$conditions))));
+        $casillas_abiertas = $casillas_abiertas->toArray();
+        $count_abiertas = count($casillas_abiertas);
+        $this->getIncidencias();
+        $this->set(compact('casillas_abiertas'));
+        $this->set(compact('count_abiertas'));
+    }
 
 
   public function monitorCerradas($page=1)
