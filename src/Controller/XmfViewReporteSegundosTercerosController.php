@@ -173,6 +173,7 @@ class XmfViewReporteSegundosTercerosController extends AppController
         $j3votos[] = (int)$valuetr['data'];
       }
 
+
       $categories_three = json_encode($j3categories);
       $votes_three = json_encode($j3votos);
 

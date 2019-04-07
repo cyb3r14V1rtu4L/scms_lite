@@ -78,7 +78,7 @@
                           ?>
                               <button id="btn_instalacion" type="<?=$type_btn;?>" class="btn btn-warning" onclick="showNotificationC('top','right')"><small>INSTALACIÓN <i class="ti-package"></i></small></button>
                               <br/>
-                              <h5><small>Instalar Casilla</small></h5>
+                              <h5><small>09:00 HRS.</small></h5>
                           </div>
                           <?= $this->Form->end(); ?>
                           <?= $this->Form->create(null, array('type' => 'post', 'url' => ['controller' => 'Xmf', 'action' => 'index/inicio'], 'id' => 'submit-form')); ?>
@@ -88,7 +88,7 @@
                               ?>
                               <button type="<?=$type_btn;?>" class="btn btn-danger" onclick="showNotificationI('top','right')"><small>INICIO VOTACIÓN <i class="ti-user"></i></small></button>
                               <br/>
-                              <h5><small>08:00 HRS.</small></h5>
+                              <h5><small>Iniciar Votación</small></h5>
                           </div>
                           <?= $this->Form->end(); ?>
                         </div>

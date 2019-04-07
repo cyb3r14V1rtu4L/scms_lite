@@ -243,14 +243,16 @@ class XmfController extends AppController
     {
         #ELIMINAR DATOS SEGUNDO REPORTE
         $this->LoadModel('XmfReportsSegundoTercero');
-        $this->XmfReportsSegundoTercero->deleteAll(['xmf_casillas_id' => $_POST['casilla_id'],'votantes_tercero IS NULL', 'promovidos_tercero IS NULL']);
+        $this->LoadModel('XmfCasillas');
+        $casilla_id = $_POST['casilla_id'];
+        $this->XmfReportsSegundoTercero->deleteAll(['xmf_casillas_id' => $casilla_id,'votantes_tercero IS NULL', 'promovidos_tercero IS NULL']);
 
         $ReportsSegundoTerceroTable = TableRegistry::get('XmfReportsSegundoTercero');
         $ReportsSegundoTercero = $ReportsSegundoTerceroTable->newEntity();
 
         $createdDate = date('Y-m-d').' 10:00:00';
 
-        $ReportsSegundoTercero->xmf_casillas_id = $_POST['casilla_id'];
+        $ReportsSegundoTercero->xmf_casillas_id = $casilla_id;
         $ReportsSegundoTercero->votantes_segundo = $_POST['votantes_segundo'];
         $ReportsSegundoTercero->promovidos_segundo = $_POST['promovidos_segundo'];
         $ReportsSegundoTercero->created = $createdDate;
@@ -258,6 +260,14 @@ class XmfController extends AppController
         if ($ReportsSegundoTerceroTable->save($ReportsSegundoTercero))
         {
             $id = $ReportsSegundoTercero->id;
+
+            $this->XmfCasillas->updateAll(
+                [
+                    "reporte" => 1
+                ],
+                ['id' => $casilla_id]
+            );
+
         }
     }
 
@@ -265,13 +275,17 @@ class XmfController extends AppController
     {
         #ELIMINAR DATOS TERCER REPORTE
         $this->LoadModel('XmfReportsSegundoTercero');
-        $this->XmfReportsSegundoTercero->deleteAll(['xmf_casillas_id' => $_POST['casilla_id'],'votantes_segundo IS NULL', 'promovidos_segundo IS NULL']);
+        $this->LoadModel('XmfCasillas');
+
+        $casilla_id = $_POST['casilla_id'];
+
+        $this->XmfReportsSegundoTercero->deleteAll(['xmf_casillas_id' => $casilla_id, 'votantes_segundo IS NULL', 'promovidos_segundo IS NULL']);
 
         $ReportsSegundoTerceroTable = TableRegistry::get('XmfReportsSegundoTercero');
         $ReportsSegundoTercero = $ReportsSegundoTerceroTable->newEntity();
 
         $createdDate = date('Y-m-d').' 14:20:00';
-        $ReportsSegundoTercero->xmf_casillas_id = $_POST['casilla_id'];
+        $ReportsSegundoTercero->xmf_casillas_id = $casilla_id;
         $ReportsSegundoTercero->votantes_tercero = $_POST['votantes_tercero'];
         $ReportsSegundoTercero->promovidos_tercero = $_POST['promovidos_tercero'];
         $ReportsSegundoTercero->created = $createdDate;
@@ -279,6 +293,13 @@ class XmfController extends AppController
         if ($ReportsSegundoTerceroTable->save($ReportsSegundoTercero))
         {
             $id = $ReportsSegundoTercero->id;
+
+            $this->XmfCasillas->updateAll(
+                [
+                    "reporte" => 2
+                ],
+                ['id' => $casilla_id]
+            );
         }
     }
 
@@ -293,10 +314,10 @@ class XmfController extends AppController
 
         $createdDate = date('Y-m-d').' 16:20:00';
         $ReportsCierre->xmf_casillas_id = $_POST['casilla_id'];
-        $ReportsCierre->hr_cierre = $_POST['hr_cierre'];
-        $ReportsCierre->habia_gente_fila =  ($_POST['habia_gente_fila']==="false")?0:1;;
+        /*$ReportsCierre->hr_cierre = $_POST['hr_cierre'];
+        $ReportsCierre->habia_gente_fila =  ($_POST['habia_gente_fila']==="false")?0:1;;*/
         $ReportsCierre->votantes = $_POST['votantes'];
-        $ReportsCierre->promovidos = $_POST['promovidos'];
+        /*$ReportsCierre->promovidos = $_POST['promovidos'];*/
         $ReportsCierre->created = $createdDate;
 
         if ($ReportsCierreTable->save($ReportsCierre))
@@ -307,8 +328,9 @@ class XmfController extends AppController
             $this->LoadModel('XmfCasillas');
             $this->XmfCasillas->updateAll(
                 [
-                 "hora_cierre" =>  $_POST['hr_cierre'],
+                 "hora_cierre" =>  date("H:m"),
                  "status" => "X",
+                 "reporte" => 3,
                 ],
                 ['id' => $_POST['casilla_id']]
             );
@@ -352,6 +374,15 @@ class XmfController extends AppController
                     }
                 }
             }
+
+            #UPDATE REPORTE CASILLA RESULTADOS FINALES
+            $this->LoadModel('XmfCasillas');
+            $this->XmfCasillas->updateAll(
+                [
+                    "reporte" => 4,
+                ],
+                ['id' => $_POST['casilla_id']]
+            );
         }
     }
 
