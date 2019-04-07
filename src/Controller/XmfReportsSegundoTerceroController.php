@@ -186,9 +186,7 @@ class XmfReportsSegundoTerceroController extends AppController
 
       $graf_data = $this->XmfViewReporteSegundosTerceros->find('all',['conditions'=>[ 'XmfViewReporteSegundosTerceros.is_thirdteen' => 1,
                                                                                       #'XmfViewReporteSegundosTerceros.is_twelve' => 1
-                                                                                    ]
-                                                                    ]
-                                                              );
+                                                              ]]);
       $graf_data->select([
         'name'                => 'name',
         'votantes_segundo'    => $graf_data->func()->sum('votantes_segundo'),
@@ -200,7 +198,6 @@ class XmfReportsSegundoTerceroController extends AppController
 
       $graf_data->hydrate(false);
       $graf_data =$graf_data->toArray();
-      #debug($graf_data);
       $votantes_s = 0;
       $promovidos_s = 0;
       $jcategories = array('FLUJO DE VOTACIONES');
@@ -231,8 +228,8 @@ class XmfReportsSegundoTerceroController extends AppController
       $promovidos = json_encode($jpromovidos);
 
       $this->pastelOchoDoce();
-
-      $this->set(compact('votantes','promovidos','categories','votantes_s','promovidos_s'));
+      $tabular = $graf_data;
+      $this->set(compact('votantes','promovidos','categories','votantes_s','promovidos_s','tabular'));
 
       // Ancient sentence
       // $this->render('Paper.Pages/reports/SegundoReporte');
