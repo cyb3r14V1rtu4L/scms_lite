@@ -161,12 +161,32 @@ class XmfCasillasController extends AppController
 
     }
 
+    public function formulaMunicipios(){
+        $this->LoadModel('XmfVotes');
+
+        $data = $this->XmfVotes->find('all');
+        $data->select([
+            'name' => 'name',
+            'id'  => 'xmf_casillas_id',
+            'votes'   => $data->newExpr('COALESCE(sum(XmfVotes.votes),0)')
+        ])->join([
+            'box' => [
+                'table' => 'xmf_casillas',
+                'type' => 'INNER',
+                'conditions' => ['box.id = XmfVotes.xmf_casillas_id'],
+            ],
+
+        ])->group(['xmf_casillas_id']);
+        return($data);
+    }
+
     public function monitorCasillasAbiertas()
     {
       $role_id = $_SESSION['Auth']['User']['role_id'];
-
+      $formulaMunicipios = $this->formulaMunicipios();
      $this->getCounterHead();
      $this->getIncidencias();
+
      $this->LoadModel('XmfViewReporteSegundosTerceros');
      $this->LoadModel('XmfReportsCierre');
      $this->LoadModel('XmfPrimerReporteTab');
@@ -284,7 +304,10 @@ class XmfCasillasController extends AppController
 
 
 
-     $this->set(compact('casillas_representantes','casillas_segundo_reporte','casillas_tercer_reporte','casillas_cuarto_reporte','casillas_cerradas','casillas_finales_reporte'));
+     $this->set(compact('casillas_representantes',
+         'casillas_segundo_reporte','casillas_tercer_reporte',
+         'casillas_cuarto_reporte','casillas_cerradas',
+         'casillas_finales_reporte','formulaMunicipios'));
    }
 
   public function capturaResultados($id=null,$tab)
