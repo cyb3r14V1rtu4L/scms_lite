@@ -17,6 +17,25 @@ class XmfViewReporteSegundosTercerosController extends AppController
       return true;
     }
 
+    public function formulaMunicipios(){
+        $this->LoadModel('XmfVotes');
+
+        $data = $this->XmfVotes->find('all');
+        $data->select([
+            'name' => 'name',
+            'id'  => 'xmf_casillas_id',
+            'votes'   => $data->newExpr('COALESCE(sum(XmfVotes.votes),0)')
+        ])->join([
+            'box' => [
+                'table' => 'xmf_casillas',
+                'type' => 'INNER',
+                'conditions' => ['box.id = XmfVotes.xmf_casillas_id'],
+            ],
+
+        ])->group(['xmf_casillas_id']);
+        return($data);
+    }
+
     public function loadQrys($tipo = null , $graphic = null) {
 
       $this->LoadModel('XmfReapers');
@@ -65,7 +84,8 @@ class XmfViewReporteSegundosTercerosController extends AppController
           $data->select([
             'name' => 'formula',
             'data'   => $data->newExpr('COALESCE(sum(XmfReapers.votes),0)')
-          ])->group(['formula']);
+          ])
+          ->group(['formula']);
       }
 
       // debug($data);
@@ -98,9 +118,9 @@ class XmfViewReporteSegundosTercerosController extends AppController
       ])
       // ->order(['box.order'])
       ;
-
       $graf_one =$graf_one->toArray();
-      if($tipo == 'senador' || $tipo == 'diputado')
+
+        if($tipo == 'senador' || $tipo == 'diputado')
       {
         unset($graf_one[3]);
         unset($graf_one[4]);
@@ -160,6 +180,7 @@ class XmfViewReporteSegundosTercerosController extends AppController
       {
         unset($graf_three[$x]);
       }
+
       for($x=13;$x<=17;$x++)
       {
         unset($graf_three[$x]);
@@ -177,10 +198,14 @@ class XmfViewReporteSegundosTercerosController extends AppController
       $categories_three = json_encode($j3categories);
       $votes_three = json_encode($j3votos);
 
+
+      $formulaMunicipios = $this->formulaMunicipios();
+
       $this->set(compact(
                         'votes','tipo','categories','tabular',
                         'votes_two','categories_two','tabular_two',
-                        'votes_three','categories_three','tabular_three'
+                        'votes_three','categories_three','tabular_three',
+                        'formulaMunicipios'
                         ));
       $this->viewBuilder()->template('Paper.Pages/reports/ResultadosFinales');
 
