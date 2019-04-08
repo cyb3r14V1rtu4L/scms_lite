@@ -301,9 +301,6 @@ class XmfCasillasController extends AppController
     $casillas_cerradas->hydrate(false);
     $casillas_cerradas =$casillas_cerradas->toArray();
 
-
-
-
      $this->set(compact('casillas_representantes',
          'casillas_segundo_reporte','casillas_tercer_reporte',
          'casillas_cuarto_reporte','casillas_cerradas',
