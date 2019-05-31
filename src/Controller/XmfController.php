@@ -353,7 +353,7 @@ class XmfController extends AppController
                                         'xmf_tipo_votaciones_id' => $_POST['xmf_tipo_votaciones_id']
                                       ]);
             $id_x = 1;
-            for($x=1;$x<=39;$x++)
+            for($x=1;$x<=40;$x++)
             {
                 if(isset($_POST['xmf_partido_id_'.$x]))
                 {
@@ -730,7 +730,7 @@ class XmfController extends AppController
     }
     */
 
-
+    #GeneratePassword W/Hash
     public function chekHash()
     {
       $Password='camp18';
@@ -738,5 +738,88 @@ class XmfController extends AppController
       $newPassw = $HashPass->hash($Password);
 
       echo $newPassw;exit;
+    }
+
+
+    public function leeXML()
+    {
+        $path = ROOT.'/webroot/migrations/XML-FILE.xml';
+
+        $xml = simplexml_load_file($path);
+        $ns = $xml->getNamespaces(true);
+        $xml->registerXPathNamespace('c', $ns['cfdi']);
+        $xml->registerXPathNamespace('t', $ns['tfd']);
+
+        $CFDI = array(
+            'UUID' => null,
+            'Nombre' => null,
+            'Rfc' => null,
+            'Fecha' => null,
+            'Tipo' => null,
+            'SubTotal' => null,
+            'Impuestos' => null,
+            'Total' => null
+        );
+
+        $CFDI_XLS = array(
+            0 => [
+                'UUID' => null,
+                'Nombre' => null,
+                'Rfc' => null,
+                'Fecha' => null,
+                'Tipo' => null,
+                'SubTotal' => null,
+                'Impuestos' => null,
+                'Total' => null
+            ]
+        );
+
+        foreach($xml->xpath('//cfdi:Emisor') as $Emisor) {
+            $CFDI['Nombre'] = $Emisor['Nombre'];
+            $CFDI['Rfc'] = $Emisor['Rfc'];
+
+        }
+
+        foreach($xml->xpath('//cfdi:Comprobante') as $Comprobante) {
+            $CFDI['Fecha'] = $Comprobante['Fecha'];
+            $CFDI['Tipo'] = $Comprobante['TipoDeComprobante'];
+            $CFDI['SubTotal'] = $Comprobante['SubTotal'];
+            $CFDI['Total'] = $Comprobante['Total'];
+        }
+
+        foreach($xml->xpath('//cfdi:Impuestos') as $Impuestos) {
+            $CFDI['Impuestos'] = $Impuestos['TotalImpuestosTrasladados'];
+        }
+
+
+        foreach ($xml->xpath('//t:TimbreFiscalDigital') as $tfd) {
+            $CFDI['UUID'] = $tfd['UUID'];
+        }
+
+        $fileName = $CFDI['Rfc'] .' - '. date("Hms") . ".xls";
+        header("Content-Disposition: attachment; filename=\"$fileName\"");
+        header("Content-Type: application/vnd.ms-excel");
+
+        $CFDI_XLS[0]['Nombre'] = $CFDI['Nombre'][0];
+        $CFDI_XLS[0]['Rfc'] = $CFDI['Rfc'][0];
+        $CFDI_XLS[0]['Fecha'] = $CFDI['Fecha'][0];
+        $CFDI_XLS[0]['Tipo'] = $CFDI['Tipo'][0];
+        $CFDI_XLS[0]['SubTotal'] = $CFDI['SubTotal'][0];
+        $CFDI_XLS[0]['Total'] = $CFDI['Total'][0];
+        $CFDI_XLS[0]['Impuestos'] = $CFDI['Impuestos'];
+        $CFDI_XLS[0]['UUID'] = $CFDI['UUID'][0];
+
+        $flag = false;
+        foreach($CFDI_XLS as $row) {
+            if(!$flag) {
+                // display column names as first row
+                echo implode("\t", array_keys($row)) . "\n";
+                $flag = true;
+            }
+
+            echo implode("\t", array_values($row)) . "\n";
+        }
+
+        exit;
     }
 }

@@ -453,7 +453,7 @@ class XmfCasillasController extends AppController
           'data'   => $data_partidos->newExpr('COALESCE(sum(XmfReapers.votes),0)')
       ])->group(['formula']);
       $data_partidos->hydrate(false);
-      $data_partidos = array_chunk($data_partidos->toArray(),3);
+      $data_partidos = array_chunk($data_partidos->toArray(),4);
 
       $conditions = [
           'XmfReapers.formula is not null',
@@ -496,7 +496,18 @@ class XmfCasillasController extends AppController
       {
           unset($data_votos[$x]);
       }
+
+
+
+     //
+
+      foreach ($data_votos as $k=>$dv){
+          if($dv['id'] != 34 && $dv['id'] != 33){
+              unset($data_votos[$k]);
+          }
+      }
       $data_votos = array_chunk($data_votos,2);
+
       $data_resFinales = array('partidos'=>$data_partidos,'coaliciones'=>$data_coaliciones,'noreg_nulos'=>$data_votos);
       return $data_resFinales;
   }

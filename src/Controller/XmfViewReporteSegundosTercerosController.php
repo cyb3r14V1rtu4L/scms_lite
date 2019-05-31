@@ -92,7 +92,7 @@ class XmfViewReporteSegundosTercerosController extends AppController
       return $data;
     }
 
-    public function lastReport($tipo=null) {
+    /*public function lastReport($tipo=null) {
 
       if ($tipo != null && $tipo != 'presidente' ) {
         $add_cond = $tipo;
@@ -208,6 +208,118 @@ class XmfViewReporteSegundosTercerosController extends AppController
                         'formulaMunicipios'
                         ));
       $this->viewBuilder()->template('Paper.Pages/reports/ResultadosFinales');
+
+    } // end last_report
+    */
+
+    public function lastReport($tipo=null) {
+
+        if ($tipo != null && $tipo != 'presidente' ) {
+            $add_cond = $tipo;
+        } else {
+            $add_cond = 'presidente';
+        }
+        $tipo = $add_cond;
+
+        // Graphic one
+        $graf_one = $this->loadQrys($tipo,'one');
+        $graf_one->hydrate(false)
+            ->join([
+                'box' => [
+                    'table' => 'xmf_boxes_orders',
+                    'type' => 'INNER',
+                    'conditions' => ['box.name = XmfReapers.nombre','box.xmf_boxes_blocks_id = 1 ','box.status = 1'],
+                ],
+                'tipo' => [
+                    'table' => 'xmf_tipo_votaciones',
+                    'type' => 'INNER',
+                    'conditions' => ['box.xmf_tipo_votaciones_id = tipo.id','tipo.tipo = XmfReapers.tipo'],
+                ]
+            ])
+            // ->order(['box.order'])
+        ;
+        $graf_one =$graf_one->toArray();
+        //pr($graf_one);
+
+        if($tipo == 'senador' || $tipo == 'diputado')
+        {
+            unset($graf_one[3]);
+            unset($graf_one[4]);
+        }
+        $tabular = $graf_one;
+
+        foreach ($graf_one as $key => $value) {
+            $jcategories[] = $value['nombre'];
+            $jvotos[] = $value['votes'];
+        }
+
+        $categories = json_encode($jcategories);
+        $votes = json_encode($jvotos);
+
+        // Graphics two
+        $graf_two = $this->loadQrys($tipo,'two');
+        $graf_two->hydrate(false)
+            ->join([
+                'box' => [
+                    'table' => 'xmf_boxes_orders',
+                    'type' => 'INNER',
+                    'conditions' => [
+                        'replace(XmfReapers.formula,"-"," ") = upper(replace(box.formula,"_"," "))'
+                        ,'box.xmf_boxes_blocks_id = 2 '
+                        ,'XmfReapers.nombre = box.name'
+                        ,'box.status = 1'
+                    ],
+                ],
+                'tipo' => [
+                    'table' => 'xmf_tipo_votaciones',
+                    'type' => 'INNER',
+                    'conditions' => ['box.xmf_tipo_votaciones_id = tipo.id','tipo.tipo = XmfReapers.tipo'],
+                ]
+            ])
+            // ->order(['box.order'])
+        ;
+
+        $graf_two =$graf_two->toArray();
+        $tabular_two = $graf_two;
+        $j2categories=array();
+        $j2votos=array();
+        foreach ($graf_two as $key => $value) {
+            $j2categories[] = $value['name'];
+            $j2votos[] = (int)$value['data'];
+        }
+
+        $categories_two = json_encode($j2categories);
+        $votes_two = json_encode($j2votos);
+
+        // Graphics three
+
+        $graf_three = $this->loadQrys($tipo,'three');
+        $graf_three->hydrate(false);
+        $graf_three =$graf_three->toArray();
+
+        #FIXING 4 THE MOMENT
+        for($x=0;$x<=8;$x++)
+        {
+            unset($graf_three[$x]);
+        }
+
+        $tabular_three = $graf_three;
+
+        foreach ($graf_three as $keytr => $valuetr) {
+            $j3categories[] = $valuetr['name'];
+            $j3votos[] = (int)$valuetr['data'];
+        }
+
+        $categories_three = json_encode($j3categories);
+        $votes_three = json_encode($j3votos);
+        $formulaMunicipios = $this->formulaMunicipios();
+        $this->set(compact(
+            'votes','tipo','categories','tabular',
+            'votes_two','categories_two','tabular_two',
+            'votes_three','categories_three','tabular_three',
+            'formulaMunicipios'
+        ));
+        $this->viewBuilder()->template('Paper.Pages/reports/ResultadosFinales');
 
     } // end last_report
 
