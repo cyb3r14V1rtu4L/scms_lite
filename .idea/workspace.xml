@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9e06a0e1-fc37-4477-bc6b-ce53af1c3e06" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/Paper" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/Paper" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/Paper/db/sicel_municipios.sql" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/Paper/db/sicel_municipios.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/XmfController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/XmfController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/XmfViewReporteSegundosTercerosController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/XmfViewReporteSegundosTercerosController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/home_captura.ctp" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/Paper/src/Template/Element/xmf/home_captura.ctp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Template/Xmf/index.ctp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Template/Xmf/index.ctp" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -82,7 +79,7 @@
         <entry file="file://$PROJECT_DIR$/src/Controller/XmfController.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="317">
-              <caret line="887" column="42" selection-start-line="887" selection-start-column="42" selection-end-line="887" selection-end-column="42" />
+              <caret line="902" column="33" selection-start-line="902" selection-start-column="33" selection-end-line="902" selection-end-column="33" />
               <folding>
                 <element signature="e#15538#20005#0#PHP" />
               </folding>
@@ -275,7 +272,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="y" value="768" />
     <option name="width" value="1366" />
     <option name="height" value="732" />
@@ -375,18 +372,17 @@
       <workItem from="1554648720551" duration="35028000" />
       <workItem from="1559186502504" duration="11211000" />
       <workItem from="1559261609946" duration="24039000" />
-      <workItem from="1559424509419" duration="2970000" />
+      <workItem from="1559424509419" duration="4678000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="195573000" />
+    <option name="totallyTimeSpent" value="197281000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="768" width="1366" height="732" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26666668" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26666668" />
       <window_info id="Structure" order="1" weight="0.24961948" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -756,7 +752,7 @@
     <entry file="file://$PROJECT_DIR$/src/Controller/XmfController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="317">
-          <caret line="887" column="42" selection-start-line="887" selection-start-column="42" selection-end-line="887" selection-end-column="42" />
+          <caret line="902" column="33" selection-start-line="902" selection-start-column="33" selection-end-line="902" selection-end-column="33" />
           <folding>
             <element signature="e#15538#20005#0#PHP" />
           </folding>
