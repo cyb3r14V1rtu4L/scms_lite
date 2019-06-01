@@ -280,6 +280,7 @@ class XmfViewReporteSegundosTercerosController extends AppController
         ;
 
         $graf_two =$graf_two->toArray();
+        //pr($graf_two);
         $tabular_two = $graf_two;
         $j2categories=array();
         $j2votos=array();
@@ -287,7 +288,6 @@ class XmfViewReporteSegundosTercerosController extends AppController
             $j2categories[] = $value['name'];
             $j2votos[] = (int)$value['data'];
         }
-
         $categories_two = json_encode($j2categories);
         $votes_two = json_encode($j2votos);
 

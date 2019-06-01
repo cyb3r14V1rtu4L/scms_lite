@@ -463,7 +463,8 @@ class XmfController extends AppController
 
     public function insertUsersCasillas()
     {
-      $path = ROOT.'/webroot/migrations/mpios.csv';
+      #$path = ROOT.'/webroot/migrations/mpios.csv';
+      $path = ROOT.'/webroot/migrations/morena.csv';
       /*
        * No	MUNICIPIO	DELEGADO POLITICO MUNICIPAL	TELEFONO DELEGADO	LOCAL
        *
@@ -584,6 +585,13 @@ class XmfController extends AppController
             'zvvsycz-q9vk-316e-nmcq'
 
        * */
+
+      /*
+       * Morena
+       *
+       * Partido Político;RUTA;A;CASILLA;Sección;Campo6;Nombre;Clave de Elector;Calidad representante;TELEFONO;Domicilio;Ubicación;Referencia;Tipo Domicilio
+       * */
+
 
       $html = '';
       $r=0;
@@ -822,4 +830,83 @@ class XmfController extends AppController
 
         exit;
     }
+
+
+    /*
+     * M O R E N A
+     * */
+
+    public function insertUsersCasillasMorena()
+    {
+        $path = ROOT.'/webroot/migrations/morena.csv';
+
+        /*
+         * Morena
+         *
+         * Casilla | Tipo Casilla
+         * */
+
+
+        $html = '';
+        $r=0;
+        $chunk = array(7,4,4,4);
+
+        if (($file = fopen($path, "r")) !== FALSE)
+        {
+            while (($xmf = fgetcsv($file, 1000,';')) !== FALSE)
+            {
+                $pool = array_merge(range(0,9), range('a', 'z'));
+                $key ='';
+                foreach ($chunk as $length)
+                {
+                    for($i=0; $i < $length; $i++)
+                    {
+                        $key .= $pool[mt_rand(0, count($pool) - 1)];
+                    }
+                    $key.='-';
+                }
+
+                $UsersTable = TableRegistry::get('Users');
+                $User = $UsersTable->newEntity();
+
+                $User->id = rtrim($key,"-");
+                $User->role_id = '80687266-6761-43a2-bd98-f42349a9bb63';
+                $User->password = '$2y$10$7Nr7lHpeouo.3Swq.mM.3uNu0zjJmyyEGxgTOA1F9UYq7dXSFfyHK';#123
+
+                $User->username = str_replace(" ","", $xmf[0]) . $xmf[1];
+
+                $User->first_name= 'USUARIO '.$User->username;
+
+                $User->is_superuser = 0;
+                $User->active = 1;
+
+                if($UsersTable->save($User))
+                {
+                    $user_id = $User->id;
+                    $CasillasTable = TableRegistry::get('XmfCasillas');
+                    $Casilla = $CasillasTable->newEntity();
+                    $name = $xmf[0].' '.$xmf[1];
+                    $Casilla->user_id = $user_id;
+                    $Casilla->name = $name;
+                    $Casilla->description = $name;
+                    $Casilla->rc_telefono = '9999999999';
+                    $Casilla->rg_casilla = '9999999999';
+                    $Casilla->rg_telefono = '9999999999';
+
+
+                    if($CasillasTable->save($Casilla))
+                    {
+                        $id = $Casilla->id;
+                        echo json_encode(compact('User'));
+                        echo json_encode(compact('Casilla'));
+                    }else{
+                        debug($CasillasTable);
+                    }
+                }else{
+                    debug($UsersTable);
+                }
+            }
+        }exit;
+    }
+
 }
