@@ -317,7 +317,7 @@ class XmfController extends AppController
         /*$ReportsCierre->hr_cierre = $_POST['hr_cierre'];
         $ReportsCierre->habia_gente_fila =  ($_POST['habia_gente_fila']==="false")?0:1;;*/
         $ReportsCierre->votantes = $_POST['votantes'];
-        /*$ReportsCierre->promovidos = $_POST['promovidos'];*/
+        $ReportsCierre->promovidos = $_POST['promovidos'];
         $ReportsCierre->created = $createdDate;
 
         if ($ReportsCierreTable->save($ReportsCierre))
@@ -664,8 +664,10 @@ class XmfController extends AppController
       $casilla_data =$casilla_data->toArray();
 
       $group_casillas = array_chunk($casilla_data, 34);
-      $group_casillas[9] = array_merge($group_casillas[9],$group_casillas[10]);
-      unset($group_casillas[10]);
+      pr($group_casillas);exit;
+      //$group_casillas[9] = array_merge($group_casillas[9],$group_casillas[10]);
+
+      //unset($group_casillas[10]);
 
       $x=1;
       $chunk = array(7,4,4,4);
@@ -739,6 +741,7 @@ class XmfController extends AppController
     */
 
     #GeneratePassword W/Hash
+
     public function chekHash()
     {
       $Password='camp18';
