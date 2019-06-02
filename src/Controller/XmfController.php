@@ -744,7 +744,7 @@ class XmfController extends AppController
 
     public function chekHash()
     {
-      $Password='camp18';
+      $Password='camp19';
       $HashPass = new DefaultPasswordHasher();
       $newPassw = $HashPass->hash($Password);
 
